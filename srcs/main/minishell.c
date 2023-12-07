@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 10:37:38 by rmohamma          #+#    #+#             */
-/*   Updated: 2023/12/07 17:41:27 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/07 17:49:44 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int	sh_pipe(t_astn *tree, t_env *sh_env, t_cleanup *cl)
 		return (err_msg("sh_pipe fork error"), 0);
 	if (!p.l_pid)
 	{
-		if (!fd_redirection(&p, RED_PIP, cl))
+		if (!fd_redirection(&p, RED_PIP))
 			exit(EXIT_FAILURE);
 		//if (!(tree->left->token[0]->type % 11) && tree->left->token[0]->type)
 		//	exe_builtin(tree->left, sh_env, cl);

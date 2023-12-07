@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 11:44:55 by rmohamma          #+#    #+#             */
-/*   Updated: 2023/12/07 15:38:16 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/07 17:48:49 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ int			exe_herd(t_astn *node, int pos, t_env *sh_env, t_cleanup *cl);
 
 
 //fds.c
-int			fd_redirection(void *type, int redpipe, t_cleanup *cl);
+int			fd_redirection(void *type, int redpipe);
 void		restore_fd(int fd, int res, t_cleanup *cl);
 void		rem_fd(t_fds *fd_lst, int fd);
 int			add_fd(t_fds *fd_lst, int fd);

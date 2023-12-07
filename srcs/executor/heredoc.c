@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:03:33 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/07 15:44:30 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/07 17:51:37 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_token	*get_herd(t_token **tokens, int *pos)
 {
 	while (tokens[*pos] != NULL && tokens[*pos]->type != HERD)
-		*pos++;
+		*pos += 1;
 	if (tokens[*pos] == NULL)
 		return (NULL);
 	return (tokens[*pos + 1]);
@@ -77,7 +77,7 @@ int	exe_herd(t_astn *node, int pos, t_env *sh_env, t_cleanup *cl)
 	if (pipe(p.pipe) == -1)
 		return (err_msg("exe_herd pipe fail"), 0);
 	here_doc(get_herd(node->token, &(int){0})->content, p.pipe[1], &err, cl);
-	if (node->token[0]->type == HERD && node->token[pos + 1] == NULL || err)
+	if ((node->token[0]->type == HERD && node->token[pos + 1] == NULL) || err)
 		return (close_pipe(p.pipe), restore_fd(STDOUT_FILENO, STDO, cl), 1);
 
 
@@ -87,7 +87,7 @@ int	exe_herd(t_astn *node, int pos, t_env *sh_env, t_cleanup *cl)
 		return (err_msg("exe_herd fork fail"), 0);
 	if (!p.l_pid)
 	{
-		if (!fd_redirection(&p, RED_PIP, cl))
+		if (!fd_redirection(&p, RED_PIP))
 			return (clean_up(cl, CL_ALL), exit(EXIT_FAILURE), 0);
 		//if (!(node->token[0]->type % 11))
 		//	return (exec_builtin(node, cl), dup2(STDOUT_FILENO, cl->fds->fd),

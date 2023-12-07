@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 17:31:16 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/07 15:36:32 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/07 17:49:21 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,11 @@ void	restore_fd(int fd, int res, t_cleanup *cl)
 }
 
 //fd redirection of pipe or red type
-int	fd_redirection(void *type, int redpipe, t_cleanup *cl)
+int	fd_redirection(void *type, int redpipe)
 {
 	t_pipe	*_pip;
 	t_red	*_red;
-	int		error;
 
-	if (!error)
-		return (0);
 	if (redpipe & RED_RED)
 	{
 		_red = (t_red *)type;
