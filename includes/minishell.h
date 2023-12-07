@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 11:44:55 by rmohamma          #+#    #+#             */
-/*   Updated: 2023/12/07 18:37:42 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/07 19:38:45 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ char		*rem_quotes(char *content, int *err, int i, int y);
 
 //parser_C.c
 int			gnl(char **line);
-int			rem_herd(t_astn *node, int pos);
 size_t		ft_strcat(char *dest, const char *src);
 
 //expander.c
@@ -133,7 +132,8 @@ char		*path_cmd(const char *cmd);
 //heredoc.c
 t_token		*get_herd(t_token **tokens, int *pos);
 int			here_doc(char *delimiter, int out, int *err, t_cleanup *cl);
-int			exe_herd(t_astn *node, int pos, t_env *sh_env, t_cleanup *cl);
+int			exe_herd(t_astn *node, t_env *sh_env, t_cleanup *cl);
+int			rem_herd(t_astn *node, int pos);
 
 
 //fds.c

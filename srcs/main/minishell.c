@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 10:37:38 by rmohamma          #+#    #+#             */
-/*   Updated: 2023/12/07 19:27:36 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/07 20:41:02 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,7 @@ int	sh_pipe(t_astn *tree, t_env *sh_env, t_cleanup *cl)
 		//	exe_builtin(tree->left, sh_env, cl);
 		//else
 		execute(tree->left, sh_env, cl);
-		clean_up(cl, CL_FDS);
-		exit(EXIT_SUCCESS);
+		return (clean_up(cl, CL_FDS), exit(EXIT_SUCCESS), 0);
 	}
 	wait(&cl->status);
 	dup2(p.pipe[0], STDIN_FILENO);
@@ -122,17 +121,14 @@ int	sh_pipe(t_astn *tree, t_env *sh_env, t_cleanup *cl)
 */
 int	shell_loop(t_astn *tree, t_env *sh_env, t_cleanup *cl)
 {
-	int	pos;
-
-	pos = 0;
 	if (tree == NULL)
 		return (input_enter(), clean_up(cl, CL_FDS | CL_INP), 0);
 	if (tree->type == PIPE)
 		sh_pipe(tree, sh_env, cl);
 	else if (!(tree->type % 4))
 		sh_red(tree, sh_env, cl);
-	else if (get_herd(tree->token, &pos))
-		exe_herd(tree, pos, sh_env, cl);
+	else if (get_herd(tree->token, &(int){0}))
+		exe_herd(tree, sh_env, cl);
 	else
 		execute(tree, sh_env, cl);
 	if (tree == cl->tree)

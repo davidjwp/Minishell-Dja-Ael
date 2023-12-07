@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:03:33 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/07 19:04:55 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/07 20:12:26 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,20 +68,59 @@ int	here_doc(char *delimiter, int out, int *err, t_cleanup *cl)
 	return (free(line), free(new), 0);
 }
 
-int	exe_herd(t_astn *node, int pos, t_env *sh_env, t_cleanup *cl)
+void	free_herd(t_astn *node, int pos)
 {
-	t_pipe	p;
-	int		err;
+	free(node->token[pos]->content);
+	free((t_token *)node->token[pos]);
+	free(node->token[pos + 1]->content);
+	free((t_token *)node->token[pos + 1]);
+}
 
-	err = 0; 
+//no idea if this works 
+int	rem_herd(t_astn *node, int pos)
+{
+	t_token	**new;
+	int		len;
+	int		i;
+	int		y;
+
+	i = 0;
+	y = 0;
+	len = 0;
+	while (node->token[len] != NULL)
+		len++;
+	len -= 2;
+	new = (t_token **)malloc(sizeof(t_token) * (len + 1));
+	if (new == NULL)
+		return (err_msg("rem_herd malloc fail"), 0);
+	new[len] = NULL;
+	free_herd(node, pos);
+	while (node->token[i] != NULL)
+	{
+		if (i == pos)
+			y += 2;
+		new[i] = node->token[y];
+		i++;
+		y++;
+	}
+	return (free(node->token), node->token = new, 1);
+}
+
+int	exe_herd(t_astn *node, t_env *sh_env, t_cleanup *cl)
+{
+	int		pos;
+	int		err;
+	t_pipe	p;
+
+	err = 0;
+	pos = 0;
 	if (pipe(p.pipe) == -1)
 		return (err_msg("exe_herd pipe fail"), 0);
-	here_doc(get_herd(node->token, &(int){0})->content, p.pipe[1], &err, cl);
-	if ((node->token[0]->type == HERD && node->token[pos + 1] == NULL) || err)
+	here_doc(get_herd(node->token, &pos)->content, p.pipe[1], &err, cl);
+	if ((node->token[0]->type == HERD && node->token[2] == NULL) || err)
 		return (close_pipe(p.pipe), restore_fd(STDOUT_FILENO, STDO, cl), 1);
-
-
-
+	if (!rem_herd(node, pos))
+		return (close_pipe(p.pipe), restore_fd(STDOUT_FILENO, STDO, cl), 1);
 	p.l_pid = fork();
 	if (p.l_pid == -1)
 		return (err_msg("exe_herd fork fail"), 0);

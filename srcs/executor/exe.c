@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/07 19:29:18 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/07 19:32:02 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,5 @@ int	execute(t_astn *tree, t_env *sh_env, t_cleanup *cl)
 	if (!exe.argv)
 		return (free_split(exe._envp), free(exe._path), clean_up(cl, CL_ALL), \
 		exit(EXIT_FAILURE), 0);
-	clean_up(cl, CL_FDS);
-	execve(exe._path, exe.argv, exe._envp);
-	return (exit(EXIT_FAILURE), 0);
+	return (clean_up(cl, CL_FDS), execve(exe._path, exe.argv, exe._envp), 0);
 }

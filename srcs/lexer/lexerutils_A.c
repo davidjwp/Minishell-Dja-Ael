@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexerutils_A.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davidjwp <davidjwp@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 17:31:16 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/04 22:04:36 by davidjwp         ###   ########.fr       */
+/*   Updated: 2023/12/07 20:43:58 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,9 +106,10 @@ bool	cmp(const char *content, const char *input)
 	size_t	i;
 
 	i = 0;
-	while (content[i] == input[i] && (content[i] && input[i]))
+	while (content[i] == input[i] && (content[i] && input[i]) && \
+	type(input, i) != SEPR)
 		i++;
-	if (!content[i] && !input[i])
+	if ((!content[i] && !input[i]) || (type(input, i) == SEPR && !content[i]))
 		return (true);
 	return (false);
 }

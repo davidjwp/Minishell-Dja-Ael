@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/07 18:53:00 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/07 19:37:56 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ bool	apr_rules(t_astn *node, int *error, t_cleanup *cl)
 		return (*error += 1, syntax_error("newline", cl), false);
 	if (node->right->type == APRD && node->right->left == NULL)
 		return (*error += 1, syntax_error(">>", cl), false);
-	//if (node->left != NULL)
-	//	return (comd_rules(node->left->token, error, cl));
 	return (true);
 }
 
@@ -43,8 +41,6 @@ bool	redr_rules(t_astn *node, int *error, t_cleanup *cl)
 		return (*error += 1, syntax_error("newline", cl), false);
 	if (node->right->type == REDR && node->right->left == NULL)
 		return (*error += 1, syntax_error(">", cl), false);
-	//if (node->left != NULL)
-	//	return (comd_rules(node->left->token, error, cl));
 	return (true);
 }
 
