@@ -44,7 +44,7 @@ int		builtin(t_astn *tree, t_cleanup *cl)
 
 // int	is_builtin(t_astn *tree)
 // {
-// 	if (!lst->command || !lst->split_command)
+// 	if (!lst->command || !lst->split_command)	
 // 		return (0);
 // 	if (!ft_strcmp(lst->split_command[0], "pwd"))
 // 		return (1);

@@ -6,7 +6,7 @@
 /*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 15:40:51 by ael-malt          #+#    #+#             */
-/*   Updated: 2023/12/07 18:33:16 by ael-malt         ###   ########.fr       */
+/*   Updated: 2023/12/07 19:02:09 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	mini_exit(char **split_command)
 
 	n = 0;
 	if (split_command[1] && split_command[2])
-		return (ft_putendl_fd("Minishell: exit: too many arguments", 2));
+		return (ft_putendl_fd("Minishell: exit: too many arguments", 2), 2);
 	if (split_command[1])
 	{
 		is_num = check_is_nb(split_command[1]);
