@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
+/*   By: davidjwp <davidjwp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 10:37:38 by rmohamma          #+#    #+#             */
-/*   Updated: 2023/12/07 20:41:02 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/08 00:32:39 by davidjwp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,7 @@ int	sh_pipe(t_astn *tree, t_env *sh_env, t_cleanup *cl)
 		return (err_msg("sh_pipe fork error"), 0);
 	if (!p.l_pid)
 	{
-		if (!fd_redirection(&p, RED_PIP))
-			exit(EXIT_FAILURE);
+		fd_redirection(&p, RED_PIP);
 		//if (!(tree->left->token[0]->type % 11) && tree->left->token[0]->type)
 		//	exe_builtin(tree->left, sh_env, cl);
 		//else

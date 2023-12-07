@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   SH_structs.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
+/*   By: davidjwp <davidjwp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 21:12:56 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/07 16:44:34 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/08 00:25:41 by davidjwp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ enum e_clflags{
 enum e_ResFDflags{
 	RED_PIP = 1,
 	RED_RED = 2,
+	RED_HERD = 4,
 };
 
 enum e_stdIO{

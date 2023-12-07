@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
+/*   By: davidjwp <davidjwp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 11:44:55 by rmohamma          #+#    #+#             */
-/*   Updated: 2023/12/07 19:38:45 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/08 00:31:05 by davidjwp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,6 @@ t_token		*get_herd(t_token **tokens, int *pos);
 int			here_doc(char *delimiter, int out, int *err, t_cleanup *cl);
 int			exe_herd(t_astn *node, t_env *sh_env, t_cleanup *cl);
 int			rem_herd(t_astn *node, int pos);
-
 
 //fds.c
 int			fd_redirection(void *type, int redpipe);

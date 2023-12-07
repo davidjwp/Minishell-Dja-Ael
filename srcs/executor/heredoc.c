@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
+/*   By: davidjwp <davidjwp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:03:33 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/07 20:12:26 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/08 00:26:36 by davidjwp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	here_doc(char *delimiter, int out, int *err, t_cleanup *cl)
 	while ("heredoc")
 	{
 		new = readline("> ");
-		if (*new && !ft_strncmp(delimiter, new, ft_strlen(new)))
+		if (new == NULL || !ft_strncmp(delimiter, new, ft_strlen(new)))
 			break ;
 		new = expand_cont(new, err, cl);
 		if (*err)
@@ -126,8 +126,7 @@ int	exe_herd(t_astn *node, t_env *sh_env, t_cleanup *cl)
 		return (err_msg("exe_herd fork fail"), 0);
 	if (!p.l_pid)
 	{
-		if (!fd_redirection(&p, RED_PIP))
-			return (clean_up(cl, CL_ALL), exit(EXIT_FAILURE), 0);
+		fd_redirection(&p, RED_HERD);
 		//if (!(node->token[0]->type % 11))
 		//	return (exec_builtin(node, cl), dup2(STDOUT_FILENO, cl->fds->fd),
 		//	clean_up(cl, CL_ALL), exit(EXIT_SUCCESS), 0);

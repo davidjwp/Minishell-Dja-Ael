@@ -6,7 +6,7 @@
 /*   By: davidjwp <davidjwp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/07 23:54:17 by davidjwp         ###   ########.fr       */
+/*   Updated: 2023/12/08 00:27:56 by davidjwp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,7 @@ int	sh_red(t_astn *tree, t_env *sh_env, t_cleanup *cl)
 	if (tree->type == APRD)
 		if (!open_file(tree, &_red, O_APPEND))
 			return (err_msg("open file fail"), 0);
-	if (!fd_redirection(&_red, RED_RED))
-		return (0);
+	fd_redirection(&_red, RED_RED);
 	shell_loop(tree->left, sh_env, cl);
 	return (restore_fd(STDOUT_FILENO, STDO, cl), 1);
 }
