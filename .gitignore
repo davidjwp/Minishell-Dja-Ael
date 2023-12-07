@@ -1,4 +1,5 @@
-./objs/
+objs/
+libft/ojs/
 *.o
 *.a
 minishell
