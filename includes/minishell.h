@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 11:44:55 by rmohamma          #+#    #+#             */
-/*   Updated: 2023/12/07 17:48:49 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/07 18:37:42 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ bool		pipe_rules(t_astn *node, int *error, t_cleanup *cl);
 bool		apr_rules(t_astn *node, int *error, t_cleanup *cl);
 bool		redl_rules(t_astn *node, int *error, t_cleanup *cl);
 bool		redr_rules(t_astn *node, int *error, t_cleanup *cl);
-bool		comd_rules(t_token **tok, int *err, t_cleanup *cl);
+//bool		comd_rules(t_token **tok, int *err, t_cleanup *cl);
 
 //parser_B.c
 char		*rem_quotes(char *content, int *err, int i, int y);
@@ -143,8 +143,6 @@ void		rem_fd(t_fds *fd_lst, int fd);
 int			add_fd(t_fds *fd_lst, int fd);
 t_fds		*init_fds(void);
 
-//BUILTINS+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
 //MAIN+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 //minishell.c
@@ -179,8 +177,6 @@ void		printenvp(char **envp);
 
 
 //MESSAGES+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-
 
 //signals
 void		ctrl_c(int sig);

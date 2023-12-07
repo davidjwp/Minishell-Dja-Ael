@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/07 14:19:18 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/07 18:51:44 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,9 @@ void	err_msg(char *msg)
 void	print_out(char *msg, t_cleanup *cl)
 {
 	write(get_fd(STDO, cl->fds), msg, ft_strlen(msg));
+}
+
+void	no_such_file(const char *file)
+{
+	printf("minishell: %s: No such file or directory\n", file);
 }

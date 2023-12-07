@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 10:37:38 by rmohamma          #+#    #+#             */
-/*   Updated: 2023/12/07 17:49:44 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/07 19:27:36 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,9 @@ int	sh_pipe(t_astn *tree, t_env *sh_env, t_cleanup *cl)
 		//if (!(tree->left->token[0]->type % 11) && tree->left->token[0]->type)
 		//	exe_builtin(tree->left, sh_env, cl);
 		//else
-			execute(tree->left, sh_env, cl);
-		//exit(EXIT_SUCCESS);
+		execute(tree->left, sh_env, cl);
+		clean_up(cl, CL_FDS);
+		exit(EXIT_SUCCESS);
 	}
 	wait(&cl->status);
 	dup2(p.pipe[0], STDIN_FILENO);
@@ -141,23 +142,6 @@ int	shell_loop(t_astn *tree, t_env *sh_env, t_cleanup *cl)
 
 	//if (tree->token[0]->type && !(tree->token[0]->type % 11))
 	//	exe_builtin(tree, sh_env, cl);
-//void	exe_builtin(t_astn *node, t_env *sh_env, t_cleanup *cl)
-//{
-//	if (node->type == ECHO)
-//		return (built_in_echo());
-//	if (node->type == CD)
-//		return (built_in_cd());
-//	if (node->type == ENV)
-//		return (built_in_env());
-//	if (node->type == EXIT)
-//		return (built_in_exit());
-//	if (node->type == EXPORT)
-//		return (built_in_export());
-//	if (node->type == PWD)
-//		return (built_in_pwd());
-//	if (node->type == UNSET)
-//		return (built_in_unset());
-//}
 
 //pipes or redirections in quotes "|" '|' '>'
 //""""""'''dughwi ugwieg riweg ioggroi weg'"
