@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   headers.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davidjwp <davidjwp@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 21:28:48 by davidjwp          #+#    #+#             */
-/*   Updated: 2023/12/04 22:37:00 by davidjwp         ###   ########.fr       */
+/*   Updated: 2023/12/07 18:34:24 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,6 @@
 # include <limits.h>
 # include <linux/limits.h>
 # include <pwd.h>
+# include <dirent.h>
 
 #endif

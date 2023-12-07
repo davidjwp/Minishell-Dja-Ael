@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+         #
+#    By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/02 15:39:21 by djacobs           #+#    #+#              #
-#    Updated: 2023/12/07 15:11:39 by djacobs          ###   ########.fr        #
+#    Updated: 2023/12/07 18:38:16 by ael-malt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,14 @@ SRCS			= srcs/main/minishell.c \
 			srcs/parser/parser.c \
 			srcs/utils/utils_A.c \
 			srcs/utils/utils_B.c \
+			srcs/builtins/builtins_errors.c \
+			srcs/builtins/builtins.c \
+			srcs/builtins/mini_cd.c \
+			srcs/builtins/mini_echo.c \
+			srcs/builtins/mini_exit.c \
+			srcs/builtins/mini_export.c \
+			srcs/builtins/mini_pwd.c \
+			srcs/builtins/mini_unset.c \
 
 OBJS_DIR		= objs/
 OBJS			= $(SRCS:srcs/%.c=$(OBJS_DIR)%.o)

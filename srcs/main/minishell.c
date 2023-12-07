@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 10:37:38 by rmohamma          #+#    #+#             */
-/*   Updated: 2023/12/07 17:49:44 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/07 18:27:45 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,8 @@ int	shell_loop(t_astn *tree, t_env *sh_env, t_cleanup *cl)
 		sh_red(tree, sh_env, cl);
 	else if (get_herd(tree->token, &pos))
 		exe_herd(tree, pos, sh_env, cl);
+	else if (tree->token[0]->type && !(tree->token[0]->type % 11))
+		builtin(tree, cl);
 	else
 		execute(tree, sh_env, cl);
 	if (tree == cl->tree)
@@ -139,8 +141,6 @@ int	shell_loop(t_astn *tree, t_env *sh_env, t_cleanup *cl)
 	return (1);
 }
 
-	//if (tree->token[0]->type && !(tree->token[0]->type % 11))
-	//	exe_builtin(tree, sh_env, cl);
 //void	exe_builtin(t_astn *node, t_env *sh_env, t_cleanup *cl)
 //{
 //	if (node->type == ECHO)

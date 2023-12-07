@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 11:44:55 by rmohamma          #+#    #+#             */
-/*   Updated: 2023/12/07 17:48:49 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/07 18:47:40 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "SH_structs.h"
 # include "headers.h"
-# include "../libft/libft.h"
+# include "../libft/includes/libft.h"
 
 /*DAVID***********************************************************************/
 
@@ -185,6 +185,38 @@ void		printenvp(char **envp);
 //signals
 void		ctrl_c(int sig);
 void		signals(void);
+
+
+//-------------------------------BUILTINS------------------------------//
+
+int		builtin(t_astn *tree, t_cleanup *cl);
+int		is_builtin(t_astn *tree);
+
+		//--------------------BUILTINS_ERRORS.C---------------------//
+void	*mini_bt_errors(t_cleanup *cl, int err_type, char *param, int err);
+int		mini_export_error(char *arg);
+
+		//--------------------------CD.C----------------------------//
+int		mini_cd(t_cleanup *cl, char **split_command);
+
+		//-------------------------ECHO.C---------------------------//
+int		mini_echo(t_astn *tree);
+
+		//-------------------------EXIT.C--------------------------//
+int		mini_exit(char **split_command);
+
+		//------------------------EXPORT.C--------------------------//
+int		export_vintab(char *cmd, char **tab);
+int		mini_export(t_cleanup *cl, char **split_command);
+int		mini_export_error(char *cmd);
+
+		//--------------------------PWD.C---------------------------//
+int		mini_pwd(void);
+
+		//-------------------------UNSET.C--------------------------//
+int		unset_vintab(char *av, char **tab);
+int		mini_unset(t_cleanup *cl, char **av);
+char	**new_tab(t_cleanup *cl, int index);
 
 
 
