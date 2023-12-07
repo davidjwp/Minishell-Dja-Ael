@@ -6,13 +6,13 @@
 #    By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/02 15:39:21 by djacobs           #+#    #+#              #
-#    Updated: 2023/12/07 15:11:39 by djacobs          ###   ########.fr        #
+#    Updated: 2023/12/07 18:04:12 by djacobs          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC				= gcc
 
-NAME			= minitest
+NAME			= minishell
 
 INCLUDE			=   includes/minishell.h 
 

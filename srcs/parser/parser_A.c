@@ -6,16 +6,20 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/07 15:29:43 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/07 18:16:49 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-bool	pipe_rules(t_astn *node, int *error, t_cleanup *cl)
+bool	pipe_rules(t_astn *node, int *err, t_cleanup *cl)
 {
 	if (node->right == NULL || node->left == NULL)
-		return (*error += 1, syntax_error("|", cl), false);
+		return (*err += 1, syntax_error("|", cl), false);
+	if (!parser_rules(node->left, err, cl))
+		return (false);
+	if (!parser_rules(node->right, err, cl))
+		return (false);
 	return (true);
 }
 
