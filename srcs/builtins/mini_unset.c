@@ -6,45 +6,65 @@
 /*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 12:54:21 by lazanett          #+#    #+#             */
-/*   Updated: 2023/12/07 18:33:16 by ael-malt         ###   ########.fr       */
+/*   Updated: 2023/12/07 19:30:59 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	mini_unset(t_expand *ex, char **split_command)
-{
-	int		i;
-	int		j;
+// int	mini_unset(t_expand *ex, char **split_command)
+// {
+// 	int		i;
+// 	int		j;
 
-	i = 0;
-	if (ft_matrixlen(split_command) >= 2)
-	{
-		while (split_command[++i])
-		{
-			j = unset_vintab(split_command[i], ex->tab);
-			if (j != -1)
-				ft_matrix_replace_in(&ex->tab, NULL, j);
-		}
-	}
-	return (0);
-}
+// 	i = 0;
+// 	if (ft_matrixlen(split_command) >= 2)
+// 	{
+// 		while (split_command[++i])
+// 		{
+// 			j = unset_vintab(split_command[i], ex->tab);
+// 			if (j != -1)
+// 				ft_matrix_replace_in(&ex->tab, NULL, j);
+// 		}
+// 	}
+// 	return (0);
+// }
 
-int	unset_vintab(char *av, char **tab)
-{
-	int	i;
-	int	len;
+// int	unset_vintab(char *av, char **tab)
+// {
+// 	int	i;
+// 	int	len;
 
-	i = 0;
-	len = ft_strlen(av);
-	while (tab[i])
-	{
-		if (!ft_strncmp(tab[i], av, len) && (tab[i][ft_strlen(av)] == '='))
-			return (i);
-		i++;
-	}
-	return (-1);
-}
+// 	i = 0;
+// 	len = ft_strlen(av);
+// 	while (tab[i])
+// 	{
+// 		if (!ft_strncmp(tab[i], av, len) && (tab[i][ft_strlen(av)] == '='))
+// 			return (i);
+// 		i++;
+// 	}
+// 	return (-1);
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // int	mini_unset(t_expand *ex, char **split_command)
 // {

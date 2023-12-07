@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini_pwd.c                                         :+:      :+:    :+:   */
+/*   mini_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/24 15:39:25 by ael-malt          #+#    #+#             */
-/*   Updated: 2023/12/07 20:25:29 by ael-malt         ###   ########.fr       */
+/*   Created: 2023/12/07 19:25:49 by ael-malt          #+#    #+#             */
+/*   Updated: 2023/12/07 20:25:48 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	mini_pwd(void)
+int		mini_env(t_env	*env)
 {
-	char	*buf;
+	t_env *tmp;
 
-	buf = NULL;
-	buf = getcwd(buf, 0);
-	if (buf)
+	tmp = env;
+	while (env)
 	{
-		printf("%s\n", buf);
-		free(buf);
+		printf("%s=%s\n",env->name,env->value);
+		env = env->next;
+		if (env == tmp)
+			break ;
 	}
-	else
-		ft_putendl_fd("chdir: error retrieving current directory: getcwd: \
-cannot access parent directories: No such file or directory", 2);
-
 	return (0);
 }

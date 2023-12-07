@@ -1,26 +1,14 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/12/02 15:39:21 by djacobs           #+#    #+#              #
-#    Updated: 2023/12/07 18:38:16 by ael-malt         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 CC				= gcc
 
-NAME			= minitest
+NAME			= minishell
 
 INCLUDE			=   includes/minishell.h 
 
-CFLAGS			= -g3 -Wall -Wextra -Werror
+CFLAGS			= -g3 -Wall -Wextra -Werror -no-pie
 
 LIB				= libft/libft.a
 
-LINKER			=  -L/usr/include -lreadline 
+LINKER			= -L/usr/include -lreadline 
 
 SRCS			= srcs/main/minishell.c \
 			srcs/prompt/prompt_edited.c \
@@ -51,6 +39,7 @@ SRCS			= srcs/main/minishell.c \
 			srcs/builtins/builtins.c \
 			srcs/builtins/mini_cd.c \
 			srcs/builtins/mini_echo.c \
+			srcs/builtins/mini_env.c \
 			srcs/builtins/mini_exit.c \
 			srcs/builtins/mini_export.c \
 			srcs/builtins/mini_pwd.c \
@@ -62,24 +51,22 @@ OBJS			= $(SRCS:srcs/%.c=$(OBJS_DIR)%.o)
 all:$(NAME)
 
 $(NAME): $(LIB) $(OBJS)
-	$(CC) $(CFLAGS) $(INCLUDE) $(OBJS) $(LINKER) $(LIB) -o $(NAME)
+	@$(CC) $(CFLAGS) $(INCLUDE) $(OBJS) $(LINKER) $(LIB) -o $(NAME)
 
 $(OBJS_DIR)%.o: srcs/%.c
 	@mkdir -p $(@D)
-	$(CC) -c $(CFLAGS) $< -o $@
-	@echo "Compiling: $<"
-
+	@$(CC) -c $(CFLAGS) $< -o $@
 
 $(LIB):
-	make -s -C libft/
+	@make -s -C libft/
 
 clean:
-	rm -f $(OBJS)
-	make clean -C libft/
+	@rm -f $(OBJS)
+	@make clean -C libft/
 	
 fclean: clean
-	rm -f $(NAME)
-	make -s fclean -C libft/ 
+	@rm -f $(NAME)
+	@make -s fclean -C libft/ 
 
 re: fclean all
 
