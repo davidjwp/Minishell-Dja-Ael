@@ -6,7 +6,7 @@
 /*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 10:37:38 by rmohamma          #+#    #+#             */
-/*   Updated: 2023/12/07 20:47:11 by ael-malt         ###   ########.fr       */
+/*   Updated: 2023/12/08 17:35:20 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ int	shell_loop(t_astn *tree, t_env *sh_env, t_cleanup *cl)
 	else if (get_herd(tree->token, &pos))
 		exe_herd(tree, pos, sh_env, cl);
 	else if (tree->token[0]->type && !(tree->token[0]->type % 11))
-		builtin(tree, cl);
+		builtin(tree, cl, tree->token[0]->type);
 	else
 		execute(tree, sh_env, cl);
 	if (tree == cl->tree)

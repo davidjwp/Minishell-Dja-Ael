@@ -6,7 +6,7 @@
 /*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 15:40:51 by ael-malt          #+#    #+#             */
-/*   Updated: 2023/12/08 16:52:29 by ael-malt         ###   ########.fr       */
+/*   Updated: 2023/12/08 17:31:27 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,5 @@ int	mini_exit(t_cleanup *cl, t_token **token)
 			cl->status = 2;
 		}
 	}
-	return (exit(cl->status), 1);
+	return (clean_up(cl, CL_ALL), exit(cl->status), 1);
 }

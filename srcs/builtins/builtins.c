@@ -6,7 +6,7 @@
 /*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 14:24:48 by ael-malt          #+#    #+#             */
-/*   Updated: 2023/12/08 16:55:03 by ael-malt         ###   ########.fr       */
+/*   Updated: 2023/12/08 17:36:20 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 extern int	g_exit_status;
 
-void		builtin(t_astn *tree, t_cleanup *cl)
+void		builtin(t_astn *tree, t_cleanup *cl, int type)
 {
 	// cl->status;
-	if (!ft_strcmp(tree->token[0]->content, "pwd"))
+	if (type == PWD)
 		cl->status = mini_pwd();
-	else if (!ft_strcmp(tree->token[0]->content, "env"))
+	else if (type == ENV)
 		cl->status = mini_env(cl->env);
-	else if (!ft_strcmp(tree->token[0]->content, "echo"))
+	else if (type == ECHO)
 		cl->status = mini_echo(tree);
-	else if (!ft_strcmp(tree->token[0]->content, "exit"))
+	else if (type == EXIT)
 		cl->status = mini_exit(cl, tree->token);
 	// else if (!ft_strcmp(tree->token[0]->content, "export"))
 	// 	cl->status = mini_export(cl, tree->token);
