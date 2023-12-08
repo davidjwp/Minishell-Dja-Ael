@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/07 19:06:53 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/08 20:05:23 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,9 @@ bool	parser_rules(t_astn *node, int *error, t_cleanup *cl)
 	get_herd(node->token, &pos);
 	if (node->token[pos] && node->token[pos + 1] == NULL)
 		return (*error += 1, syntax_error("newline", cl), false);
+	if (node->token[pos] && !ft_strcmp(node->token[pos + 1]->content, "<<"))
+		return (*error += 1, syntax_error("<<", cl), false);
+	if (node->type == COMD && node->token[])
 	return (true);
 }
 

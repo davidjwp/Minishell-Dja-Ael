@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 11:44:55 by rmohamma          #+#    #+#             */
-/*   Updated: 2023/12/08 18:16:39 by ael-malt         ###   ########.fr       */
+/*   Updated: 2023/12/08 18:33:20 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int			shell_loop(t_astn *tree, t_env *sh_env, t_cleanup *cl);
 int			sh_pipe(t_astn *tree, t_env *sh_env, t_cleanup *cl);
 
 //prompt.c
-char		*cr_prompt(t_env *sh_env);
+char		*cr_prompt(t_cleanup *cl, t_env *sh_env);
 
 //LEXER++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 

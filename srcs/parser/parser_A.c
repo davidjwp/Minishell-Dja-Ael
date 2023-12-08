@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/08 13:09:00 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/08 19:48:43 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 //checks for syntax error near a pipe
 bool	pipe_rules(t_astn *node, int *err, t_cleanup *cl)
 {
-	if (node->right == NULL || node->left == NULL || node->right->type == PIPE)
+	if (node->right == NULL || node->left == NULL)
 		return (*err += 1, syntax_error("|", cl), false);
 	if (!parser_rules(node->left, err, cl))
 		return (false);
@@ -47,7 +47,11 @@ bool	redr_rules(t_astn *node, int *error, t_cleanup *cl)
 //checks for syntax error near a left redirection
 bool	redl_rules(t_astn *node, int *error, t_cleanup *cl)
 {
-	if (node->right == NULL)
+	//if (!(node->right->type % 4) && node->right->type == REDL && 
+	//node->right->left == NULL)
+	//	return (*error += 1, syntax_error("<<", cl), false);
+	if (node->right == NULL || (!(node->right->type % 4) && \
+	node->right->left == NULL))
 		return (*error += 1, syntax_error("newline", cl), false);
 	if (access(node->right->token[0]->content, F_OK))
 		return (*error += 1, \

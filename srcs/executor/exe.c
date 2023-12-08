@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/08 17:40:08 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/08 19:06:51 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,11 @@ int	sh_red(t_astn *tree, t_env *sh_env, t_cleanup *cl)
 //cleans up file descriptors the abstract synthax tree and the shell envs
 void	clean_up(t_cleanup *cl, int flag)
 {
-	if (cl->fds != NULL && (flag & CL_FDS))
+	if ((flag & CL_FDS) && cl->fds != NULL)
 		close_fds(cl->fds);
-	if (cl->tree != NULL && (flag & CL_TRE))
+	if ((flag & CL_TRE) && cl->tree != NULL)
 		free_tree(cl->tree);
-	if (cl->env != NULL && (flag & CL_ENV))
+	if ((flag & CL_ENV) && cl->env != NULL)
 		free_env(cl->env);
 	if ((flag & CL_INP))
 	{
@@ -97,7 +97,7 @@ void	clean_up(t_cleanup *cl, int flag)
 	}
 	if ((flag & CL_HIS))
 		rl_clear_history();
-	if ((flag & CL_PRO))
+	if ((flag & CL_PRO) && cl->prompt != NULL)
 		free(cl->prompt);
 	if ((flag & CL_CL))
 		free(cl);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   SH_structs.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 21:12:56 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/08 17:46:59 by ael-malt         ###   ########.fr       */
+/*   Updated: 2023/12/08 19:30:26 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@
 # define RESET_BLUE_COLOR "\033[0m"
 # define PURPLE_COLOR "\x1b[35m"
 # define RESET_PURPLE_COLOR "\x1b[0m"
-# define GREEN "\033[1m\033[32m"
-# define BLUE "\033[1m\033[34m"
-# define WHITE "\033[1m\033[97m"
-# define RESET "\033[0m"
+# define GREEN "\1\033[1m\033[32m\2"
+# define BLUE "\1\033[1m\033[34m\2"
+# define WHITE "\1\033[1m\033[97m\2"
+# define RESET "\1\033[0m\2"
 
 extern volatile int	g_signal;
 

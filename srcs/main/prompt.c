@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 15:33:26 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/08 17:41:14 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/08 18:31:45 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,8 @@ static char	*_procd(char *procd, t_env *env)
 	return (procd);
 }
 
-
-char	*cr_prompt(t_env *sh_env)
+char	*cr_prompt(t_cleanup *cl, t_env *sh_env)
 {
-	//char		probuff[BUFSIZ];
 	char		procd[BUFSIZ];
 	char		*prompt;
 
@@ -55,12 +53,11 @@ char	*cr_prompt(t_env *sh_env)
 	ft_strlen(procd) + ((ft_strlen(BLUE) + ft_strlen(RESET)) * 3)) + 4, \
 	sizeof(char));
 	if (prompt == NULL)
-		return (err_msg("crt_prompt malloc fail"), NULL);
+		return (err_msg("crt_prompt malloc fail"), cl->prompt = NULL, NULL);
 	cat_colour(prompt, find_env("USER", sh_env)->value, GREEN);
 	cat_colour(prompt, ":~", WHITE);
 	cat_colour(prompt, procd, BLUE);
 	prompt[ft_strlen(prompt)] = ' ';
-	//ft_strcpy(probuff, prompt);
-	//free(prompt);
+	cl->prompt = prompt;
 	return (prompt);
 }

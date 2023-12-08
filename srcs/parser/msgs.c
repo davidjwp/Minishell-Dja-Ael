@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/08 15:27:12 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/08 20:11:40 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,22 @@ void	err_msg(char *msg)
 	write(2, "\n", 1);
 }
 
-void	print_out(char *msg, t_cleanup *cl)
+//void	print_out(char *msg, t_cleanup *cl)
+//{
+//	write(get_fd(STDO, cl->fds), msg, ft_strlen(msg));
+//}
+
+void	no_such_file(const char *file, clean_up *cl)
 {
-	write(get_fd(STDO, cl->fds), msg, ft_strlen(msg));
+	write(2, "minishell: ", 12);
+	write(2, file, ft_strlen(file));
+	write(2, ": No such file or directory\n", 29);
+	cl->st
 }
 
-void	no_such_file(const char *file)
+void	is_a_dir(char *dir)
 {
-	printf("minishell: %s: No such file or directory\n", file);
+	write(2, "minishell: ", 12);
+	write(2, dir, ft_strlen(dir));
+	write(2,": Is a directory\n", 18);
 }

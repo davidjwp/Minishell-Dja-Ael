@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 10:37:38 by rmohamma          #+#    #+#             */
-/*   Updated: 2023/12/08 18:17:00 by ael-malt         ###   ########.fr       */
+/*   Updated: 2023/12/08 19:32:01 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ bool	sh_init(t_env *sh_env, t_cleanup *cl)
 		return (clean_up(cl, CL_FDS | CL_INP | CL_FDS | CL_PRO), false);
 	return (true);
 }
-
 /*
 * the main function which checks for the availability of the stdio fds
 * then the shell env consisting of the env being passed to the main function
@@ -60,12 +59,9 @@ int	main(int ac, char **av, char **env)
 	signals();
 	while (42)
 	{
-		cl->prompt = cr_prompt(sh_env);
-		if (cl->prompt == NULL)
-			return (0);
-		cl->input = readline(cr_prompt(sh_env));
-		if (cl->input == NULL)
-			return (free(cl->prompt), free(cl), free_env(sh_env), 1);
+		cl->input = readline(cr_prompt(cl, sh_env));
+		if (cl->input == NULL || cl->prompt == NULL)
+			return (clean_up(cl, CL_CL | CL_PRO), free_env(sh_env), 1);
 		if (sh_init(sh_env, cl))
 			shell_loop(cl->tree, sh_env, cl);
 		//printf("exit:%d\n", cl->status > 255 ? WEXITSTATUS(cl->status) : cl->status);
