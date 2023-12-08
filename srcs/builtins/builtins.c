@@ -6,7 +6,7 @@
 /*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 14:24:48 by ael-malt          #+#    #+#             */
-/*   Updated: 2023/12/08 18:17:41 by ael-malt         ###   ########.fr       */
+/*   Updated: 2023/12/08 19:51:03 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,28 +16,38 @@ extern int	g_exit_status;
 
 static void	parent_builtin(t_astn *tree, t_cleanup *cl, int type)
 {
-	if (type == PWD)
-		cl->status = mini_pwd();
+	// if (type == CD)
+	// 	cl->status = mini_cd(cl, tree->token);
+	/* else */ if (type == ECHO)
+		cl->status = mini_echo(tree);
 	else if (type == ENV)
 		cl->status = mini_env(cl->env);
-	else if (type == ECHO)
-		cl->status = mini_echo(tree);
 	else if (type == EXIT)
 		cl->status = mini_exit(cl, tree->token);
-	
+	else if (type == EXPORT)
+		cl->status = mini_export(cl, tree->token);
+	else if (type == PWD)
+		cl->status = mini_pwd();
+	// else if (type == UNSET)
+	// 	cl->status = mini_unset(cl, tree->token);
 }
 
 void	child_builtin(t_astn *tree, t_cleanup *cl, int type)
 {
-	if (type == PWD)
-		cl->status = mini_pwd();
+	// if (type == CD)
+	// 	cl->status = mini_cd(cl, tree->token);
+	/* else */ if (type == ECHO)
+		cl->status = mini_echo(tree);
 	else if (type == ENV)
 		cl->status = mini_env(cl->env);
-	else if (type == ECHO)
-		cl->status = mini_echo(tree);
 	else if (type == EXIT)
 		cl->status = mini_exit(cl, tree->token);
-	
+	else if (type == EXPORT)
+		cl->status = mini_export(cl, tree->token);
+	else if (type == PWD)
+		cl->status = mini_pwd();
+	// else if (type == UNSET)
+	// 	cl->status = mini_unset(cl, tree->token);
 	if (type != EXIT)
 		exit(EXIT_SUCCESS);
 }
@@ -58,8 +68,6 @@ void		builtin(t_astn *tree, t_cleanup *cl, int type)
 	}
 	else
 		parent_builtin(tree, cl, tree->token[0]->type);
-	// else if (!ft_strcmp(tree->token[0]->content, "export"))
-	// 	cl->status = mini_export(cl, tree->token);
 	// else if (!ft_strcmp(tree->token[0]->content, "unset"))
 	// 	cl->status = mini_unset(cl, tree->token);
 	// else if (!ft_strcmp(tree->token[0]->content, "cd"))

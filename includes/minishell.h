@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 11:44:55 by rmohamma          #+#    #+#             */
-/*   Updated: 2023/12/08 18:33:20 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/08 20:25:57 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,6 +171,7 @@ size_t		ft_strlcat(char *dst, const char *src, size_t size);
 int			gnl(char **line);
 
 t_env		*cr_env(char **env);
+t_env		*env_node(char *env);
 t_astn		*parser(const char *input, t_cleanup *cl);
 t_astn		*ast_cmd(const char *input, size_t *index, t_cms c, int *error);
 t_env		*find_env(char *name, t_env *sh_env);
@@ -203,6 +204,7 @@ int		mini_cd(t_cleanup *cl, char **split_command);
 int		mini_echo(t_astn *tree);
 
 		//--------------------------ENV.C---------------------------//
+int		get_env_len(t_env *env);
 int		mini_env(t_env	*env);
 
 		//-------------------------EXIT.C--------------------------//
@@ -210,8 +212,8 @@ int		mini_exit(t_cleanup *cl, t_token **token);
 
 		//------------------------EXPORT.C--------------------------//
 int		export_vintab(char *cmd, char **tab);
-int		mini_export(t_cleanup *cl, char **split_command);
 int		mini_export_error(char *cmd);
+int		mini_export(t_cleanup *cl, t_token **token);
 
 		//--------------------------PWD.C---------------------------//
 int		mini_pwd(void);
