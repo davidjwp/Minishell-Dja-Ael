@@ -3,31 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 10:37:38 by rmohamma          #+#    #+#             */
-/*   Updated: 2023/12/07 17:49:44 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/08 18:17:00 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-volatile int	g_signal = 0;// i have to init here;
+volatile int	g_signal = 0;
 
 //valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --trace-children=yes ./minitest
-
-//this is just to exit the program easier
-int	exit_emul(char *input)
-{
-	char	exit[] = "exit";
-
-	if (!*input)
-		return (0);
-	for (int i = 0; exit[i] != 0; i++)
-		if (input[i] != exit[i])
-			return (0);
-	return (1);
-}
 
 /*
 * sh_init will initialize the global data structure for the shell
@@ -35,22 +22,21 @@ int	exit_emul(char *input)
 * the tree is created and parsed here and the status set to 0 on the first pass
 * the data structure contains the input, envs, tree, status and fds 
 */
-bool	sh_init(char *input, t_env *sh_env, t_cleanup *cl)
+bool	sh_init(t_env *sh_env, t_cleanup *cl)
 {
 	static int	passes;
 
 	signals();
 	cl->fds = init_fds();
 	cl->env = sh_env;
-	cl->input = input;
 	if (!passes)
 		cl->status = 0;
-	cl->tree = parser(input, cl);
+	cl->tree = parser(cl->input, cl);
 	passes += 1;
 	if (cl->input && *cl->input)
 		add_history(cl->input);
 	if (cl->tree == NULL)
-		return (clean_up(cl, CL_FDS | CL_INP | CL_FDS), false);
+		return (clean_up(cl, CL_FDS | CL_INP | CL_FDS | CL_PRO), false);
 	return (true);
 }
 
@@ -62,7 +48,6 @@ bool	sh_init(char *input, t_env *sh_env, t_cleanup *cl)
 */
 int	main(int ac, char **av, char **env)
 {
-	char		*input;
 	t_env		*sh_env;
 	t_cleanup	*cl;
 
@@ -75,15 +60,14 @@ int	main(int ac, char **av, char **env)
 	signals();
 	while (42)
 	{
-		input = readline(PROMPT);
-		if (input == NULL)
-			return (free(cl), free_env(sh_env), 1);
-		if (sh_init(input, sh_env, cl))
-		{
-			//if (!input || exit_emul(input))
-				//return (clean_up(cl, CL_ALL), exit(EXIT_SUCCESS), 1);
+		cl->prompt = cr_prompt(sh_env);
+		if (cl->prompt == NULL)
+			return (0);
+		cl->input = readline(cr_prompt(sh_env));
+		if (cl->input == NULL)
+			return (free(cl->prompt), free(cl), free_env(sh_env), 1);
+		if (sh_init(sh_env, cl))
 			shell_loop(cl->tree, sh_env, cl);
-		}
 		//printf("exit:%d\n", cl->status > 255 ? WEXITSTATUS(cl->status) : cl->status);
 	}
 	return ((void)ac, (void)av, 1);
@@ -100,13 +84,12 @@ int	sh_pipe(t_astn *tree, t_env *sh_env, t_cleanup *cl)
 		return (err_msg("sh_pipe fork error"), 0);
 	if (!p.l_pid)
 	{
-		if (!fd_redirection(&p, RED_PIP))
-			exit(EXIT_FAILURE);
-		//if (!(tree->left->token[0]->type % 11) && tree->left->token[0]->type)
-		//	exe_builtin(tree->left, sh_env, cl);
-		//else
+		fd_redirection(&p, RED_PIP);
+		if (!(tree->left->token[0]->type % 11) && tree->left->token[0]->type)
+			child_builtin(tree->left, cl, tree->left->token[0]->type);
+		else
 			execute(tree->left, sh_env, cl);
-		//exit(EXIT_SUCCESS);
+		return (clean_up(cl, CL_FDS), exit(EXIT_SUCCESS), 0);
 	}
 	wait(&cl->status);
 	dup2(p.pipe[0], STDIN_FILENO);
@@ -121,21 +104,20 @@ int	sh_pipe(t_astn *tree, t_env *sh_env, t_cleanup *cl)
 */
 int	shell_loop(t_astn *tree, t_env *sh_env, t_cleanup *cl)
 {
-	int	pos;
-
-	pos = 0;
 	if (tree == NULL)
 		return (input_enter(), clean_up(cl, CL_FDS | CL_INP), 0);
 	if (tree->type == PIPE)
 		sh_pipe(tree, sh_env, cl);
 	else if (!(tree->type % 4))
 		sh_red(tree, sh_env, cl);
-	else if (get_herd(tree->token, &pos))
-		exe_herd(tree, pos, sh_env, cl);
+	else if (get_herd(tree->token, &(int){0}))
+		exe_herd(tree, sh_env, cl);
+	else if (tree->token[0]->type && !(tree->token[0]->type % 11))
+		builtin(tree, cl, tree->token[0]->type);
 	else
 		execute(tree, sh_env, cl);
 	if (tree == cl->tree)
-		clean_up(cl, CL_FDS | CL_TRE | CL_INP);
+		clean_up(cl, CL_FDS | CL_TRE | CL_INP | CL_PRO);
 	return (1);
 }
 

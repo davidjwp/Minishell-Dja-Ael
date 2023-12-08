@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/05 20:21:41 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/07 19:38:32 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,26 +34,6 @@ int	gnl(char **line)
 	buf[++i] = 0;
 	*line = buf;
 	return (n);
-}
-
-int	rem_herd(t_astn *node,  int pos)
-{
-	int	i;
-
-	free(node->token[pos]->content);
-	free((t_token *)node->token[pos]);
-	free(node->token[pos + 1]->content);
-	free((t_token *)node->token[pos + 1]);
-	if (node->token[pos + 2] != NULL)
-		return (node->token[pos] = NULL, 0);
-	i = 0;
-	while (node->token[pos + i + 2] != NULL)
-	{
-		node->token[pos + i] = node->token[pos + i + 2];
-		i++;
-	}
-	node->token[pos + i] = NULL;
-	return (1);
 }
 
 //this is not a safe strcat but i only use it in a specific occasion

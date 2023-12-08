@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 11:44:55 by rmohamma          #+#    #+#             */
-/*   Updated: 2023/12/07 17:48:49 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/08 18:16:39 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,19 @@
 
 # include "SH_structs.h"
 # include "headers.h"
-# include "../libft/libft.h"
+# include "../libft/includes/libft.h"
 
 /*DAVID***********************************************************************/
 
 //MAIN+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-int			check_input(char *input);//allows me to cleanly exit
-bool		sh_init(char *input, t_env *sh_env, t_cleanup *cl);
+
+//minishell.c
+bool		sh_init(t_env *sh_env, t_cleanup *cl);
 int			shell_loop(t_astn *tree, t_env *sh_env, t_cleanup *cl);
 int			sh_pipe(t_astn *tree, t_env *sh_env, t_cleanup *cl);
+
+//prompt.c
+char		*cr_prompt(t_env *sh_env);
 
 //LEXER++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -81,14 +85,13 @@ bool		pipe_rules(t_astn *node, int *error, t_cleanup *cl);
 bool		apr_rules(t_astn *node, int *error, t_cleanup *cl);
 bool		redl_rules(t_astn *node, int *error, t_cleanup *cl);
 bool		redr_rules(t_astn *node, int *error, t_cleanup *cl);
-bool		comd_rules(t_token **tok, int *err, t_cleanup *cl);
+//bool		comd_rules(t_token **tok, int *err, t_cleanup *cl);
 
 //parser_B.c
 char		*rem_quotes(char *content, int *err, int i, int y);
 
 //parser_C.c
 int			gnl(char **line);
-int			rem_herd(t_astn *node, int pos);
 size_t		ft_strcat(char *dest, const char *src);
 
 //expander.c
@@ -133,8 +136,8 @@ char		*path_cmd(const char *cmd);
 //heredoc.c
 t_token		*get_herd(t_token **tokens, int *pos);
 int			here_doc(char *delimiter, int out, int *err, t_cleanup *cl);
-int			exe_herd(t_astn *node, int pos, t_env *sh_env, t_cleanup *cl);
-
+int			exe_herd(t_astn *node, t_env *sh_env, t_cleanup *cl);
+int			rem_herd(t_astn *node, int pos);
 
 //fds.c
 int			fd_redirection(void *type, int redpipe);
@@ -142,8 +145,6 @@ void		restore_fd(int fd, int res, t_cleanup *cl);
 void		rem_fd(t_fds *fd_lst, int fd);
 int			add_fd(t_fds *fd_lst, int fd);
 t_fds		*init_fds(void);
-
-//BUILTINS+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 //MAIN+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -180,11 +181,45 @@ void		printenvp(char **envp);
 
 //MESSAGES+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-
-
 //signals
 void		ctrl_c(int sig);
 void		signals(void);
+
+
+//-------------------------------BUILTINS------------------------------//
+
+void	child_builtin(t_astn *tree, t_cleanup *cl, int type);
+void		builtin(t_astn *tree, t_cleanup *cl, int type);
+int		is_builtin(t_astn *tree);
+
+		//--------------------BUILTINS_ERRORS.C---------------------//
+void	*mini_bt_errors(t_cleanup *cl, int err_type, char *param, int err);
+int		mini_export_error(char *arg);
+
+		//--------------------------CD.C----------------------------//
+int		mini_cd(t_cleanup *cl, char **split_command);
+
+		//-------------------------ECHO.C---------------------------//
+int		mini_echo(t_astn *tree);
+
+		//--------------------------ENV.C---------------------------//
+int		mini_env(t_env	*env);
+
+		//-------------------------EXIT.C--------------------------//
+int		mini_exit(t_cleanup *cl, t_token **token);
+
+		//------------------------EXPORT.C--------------------------//
+int		export_vintab(char *cmd, char **tab);
+int		mini_export(t_cleanup *cl, char **split_command);
+int		mini_export_error(char *cmd);
+
+		//--------------------------PWD.C---------------------------//
+int		mini_pwd(void);
+
+		//-------------------------UNSET.C--------------------------//
+int		unset_vintab(char *av, char **tab);
+int		mini_unset(t_cleanup *cl, char **av);
+char	**new_tab(t_cleanup *cl, int index);
 
 
 

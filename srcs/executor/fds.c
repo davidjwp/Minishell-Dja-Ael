@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fds.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
+/*   By: davidjwp <davidjwp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 17:31:16 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/07 17:49:21 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/08 00:25:25 by davidjwp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,12 @@ int	fd_redirection(void *type, int redpipe)
 	{
 		_pip = (t_pipe *)type;
 		dup2(_pip->pipe[1], STDOUT_FILENO);
+		close_pipe(_pip->pipe);
+	}
+	else if (redpipe & RED_HERD)
+	{
+		_pip = (t_pipe *)type;
+		dup2(_pip->pipe[0], STDIN_FILENO);
 		close_pipe(_pip->pipe);
 	}
 	return (1);

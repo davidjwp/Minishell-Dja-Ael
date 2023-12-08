@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   headers.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davidjwp <davidjwp@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 21:28:48 by davidjwp          #+#    #+#             */
-/*   Updated: 2023/12/04 22:37:00 by davidjwp         ###   ########.fr       */
+/*   Updated: 2023/12/08 17:46:23 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define HEADERS_H
 
 # include <stdio.h>
-# include <stdlib.h>
 # include <fcntl.h>
 # include <signal.h>
 # include <unistd.h>
@@ -29,5 +28,6 @@
 # include <limits.h>
 # include <linux/limits.h>
 # include <pwd.h>
+# include <dirent.h>
 
 #endif

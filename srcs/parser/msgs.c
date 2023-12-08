@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/07 14:19:18 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/08 15:27:12 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,39 +16,34 @@
 
 void	not_found(char *cmd, int *status)
 {
-	char	*err;
-
-	err = ft_calloc((ft_strlen(": command not found\n") + ft_strlen(cmd) + \
-	ft_strlen("minishell: ") + 1), sizeof(char));
-	ft_strcat(err, "minishell: ");
-	ft_strcat(err, cmd);
-	ft_strcat(err, ": command not found\n");
-	write (2, err, ft_strlen(err));
-	free(err);
+	write (2, "minishell: ", ft_strlen("minishell: "));
+	write (2, cmd, ft_strlen(cmd));
+	write (2, ": command not found\n", ft_strlen (": command not found\n"));
 	*status = 127;
 }
 
-void	syntax_error(const char *str, t_cleanup *cl)//check that 
+void	syntax_error(const char *str, t_cleanup *cl)
 {
-	char	*err;
-
-	err = ft_calloc((ft_strlen \
-	("minishell: syntax error near unexpected token \'") + ft_strlen \
-	(str) + ft_strlen("\'\n") + 1), sizeof(char));
-	ft_strcat(err, "minishell: syntax error near unexpected token \'");
-	ft_strcat(err, str);
-	ft_strcat(err, "\'\n");
-	perror(err);//don't know that i should put it on stderror, probably doesn't matter
-	free(err);
+	write (2, "minishell: syntax error near unexpected token \'", \
+	ft_strlen("minishell: syntax error near unexpected token \'"));
+	write (2, str, ft_strlen(str));
+	write (2, "\'\n", ft_strlen("\'\n"));
 	cl->status = 2;
 }
 
 void	err_msg(char *msg)
 {
-	printf ("minishell: %s\n", msg);
+	write(2, "minishell: ", 12);
+	write(2, msg, ft_strlen(msg));
+	write(2, "\n", 1);
 }
 
 void	print_out(char *msg, t_cleanup *cl)
 {
 	write(get_fd(STDO, cl->fds), msg, ft_strlen(msg));
+}
+
+void	no_such_file(const char *file)
+{
+	printf("minishell: %s: No such file or directory\n", file);
 }

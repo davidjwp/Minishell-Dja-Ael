@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   SH_structs.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 21:12:56 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/07 16:44:34 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/08 17:46:59 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,10 @@
 # define RESET_BLUE_COLOR "\033[0m"
 # define PURPLE_COLOR "\x1b[35m"
 # define RESET_PURPLE_COLOR "\x1b[0m"
+# define GREEN "\033[1m\033[32m"
+# define BLUE "\033[1m\033[34m"
+# define WHITE "\033[1m\033[97m"
+# define RESET "\033[0m"
 
 extern volatile int	g_signal;
 
@@ -78,7 +82,27 @@ enum e_type{
 	REDR,
 	COMD,
 	PIPE,
-};	
+};
+
+enum	e_mini_error
+{
+	QUOTE = 1,
+	NDIR = 2,
+	NPERM = 3,
+	NCMD = 4,
+	DUPERR = 5,
+	FORKERR = 6,
+	PIPERR = 7,
+	PIPENDERR = 8,
+	MEM = 9,
+	IS_DIR = 10,
+	NOT_DIR = 11,
+	OPERROR = 12,
+	NOTCMD = 13,
+	NONAME = 14,
+	SYNTAX = 15,
+	NOQUOTE = 16
+};
 
 enum e_clflags{
 	CL_FDS = 1,
@@ -87,12 +111,14 @@ enum e_clflags{
 	CL_INP = 8,
 	CL_HIS = 16,
 	CL_CL = 32,
-	CL_ALL = 63,
+	CL_PRO = 64,
+	CL_ALL = 127,
 };
 
 enum e_ResFDflags{
 	RED_PIP = 1,
 	RED_RED = 2,
+	RED_HERD = 4,
 };
 
 enum e_stdIO{
@@ -164,6 +190,7 @@ typedef struct CleanUp{
 	t_astn	*tree;
 	char	*input;
 	int		status;
+	char	*prompt;
 }	t_cleanup;
 
 #endif

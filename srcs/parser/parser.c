@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/07 16:41:01 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/07 19:06:53 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,22 @@
 
 bool	parser_rules(t_astn *node, int *error, t_cleanup *cl)
 {
-	if (node->type == PIPE && !*error)
-		pipe_rules(node, error, cl);
-	else if (node->type == APRD && !*error)
-		apr_rules(node, error, cl);
-	else if (node->type == REDR && !*error)
-		redr_rules(node, error, cl);
-	else if (node->type == REDL && !*error)
-		redl_rules(node, error, cl);
-	if (get_herd(node->token, &(int){0}))
-		return (*error += 1, syntax_error("newline", cl), false);
-	else if (node->type == COMD && !*error)
-		comd_rules(node->token, error, cl);
-	if (node->left != NULL && !*error)
-		parser_rules(node->left, error, cl);
-	if (node->right != NULL && !*error)
-		parser_rules(node->right, error, cl);
+	int	pos;
+
+	pos = 0;
 	if (*error)
 		return (false);
+	if (node->type == PIPE && !*error)
+		return (pipe_rules(node, error, cl));
+	else if (node->type == APRD && !*error)
+		return (apr_rules(node, error, cl));
+	else if (node->type == REDR && !*error)
+		return (redr_rules(node, error, cl));
+	else if (node->type == REDL && !*error)
+		return (redl_rules(node, error, cl));
+	get_herd(node->token, &pos);
+	if (node->token[pos] && node->token[pos + 1] == NULL)
+		return (*error += 1, syntax_error("newline", cl), false);
 	return (true);
 }
 
