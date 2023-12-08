@@ -6,7 +6,7 @@
 /*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 11:44:55 by rmohamma          #+#    #+#             */
-/*   Updated: 2023/12/08 17:46:42 by ael-malt         ###   ########.fr       */
+/*   Updated: 2023/12/08 18:16:39 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,6 +188,7 @@ void		signals(void);
 
 //-------------------------------BUILTINS------------------------------//
 
+void	child_builtin(t_astn *tree, t_cleanup *cl, int type);
 void		builtin(t_astn *tree, t_cleanup *cl, int type);
 int		is_builtin(t_astn *tree);
 

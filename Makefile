@@ -6,7 +6,7 @@
 #    By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/02 15:39:21 by djacobs           #+#    #+#              #
-#    Updated: 2023/12/08 17:46:01 by ael-malt         ###   ########.fr        #
+#    Updated: 2023/12/08 17:52:51 by ael-malt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,11 +64,11 @@ all:$(NAME)
 
 $(NAME): $(LIB) $(OBJS)
 	@$(CC) $(CFLAGS) $(INCLUDE) $(OBJS) $(LINKER) $(LIB) -o $(NAME)
-	@echo "\n Compilation \n"
+	@echo "Compilation Done"
 
 $(OBJS_DIR)%.o: srcs/%.c
 	@mkdir -p $(@D)
-	$(CC) -c $(CFLAGS) $< -o $@
+	@$(CC) -c $(CFLAGS) $< -o $@
 
 
 $(LIB):
