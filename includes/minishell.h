@@ -6,7 +6,7 @@
 /*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 11:44:55 by rmohamma          #+#    #+#             */
-/*   Updated: 2023/12/07 19:28:06 by ael-malt         ###   ########.fr       */
+/*   Updated: 2023/12/08 16:48:10 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,7 +206,7 @@ int		mini_echo(t_astn *tree);
 int		mini_env(t_env	*env);
 
 		//-------------------------EXIT.C--------------------------//
-int		mini_exit(t_token **token);
+int		mini_exit(t_cleanup *cl, t_token **token);
 
 		//------------------------EXPORT.C--------------------------//
 int		export_vintab(char *cmd, char **tab);

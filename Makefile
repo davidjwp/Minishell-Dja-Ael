@@ -52,6 +52,7 @@ all:$(NAME)
 
 $(NAME): $(LIB) $(OBJS)
 	@$(CC) $(CFLAGS) $(INCLUDE) $(OBJS) $(LINKER) $(LIB) -o $(NAME)
+	@echo "\n Compilation \n"
 
 $(OBJS_DIR)%.o: srcs/%.c
 	@mkdir -p $(@D)

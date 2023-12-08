@@ -6,7 +6,7 @@
 /*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 14:24:48 by ael-malt          #+#    #+#             */
-/*   Updated: 2023/12/07 20:29:26 by ael-malt         ###   ########.fr       */
+/*   Updated: 2023/12/08 16:55:03 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ void		builtin(t_astn *tree, t_cleanup *cl)
 		cl->status = mini_env(cl->env);
 	else if (!ft_strcmp(tree->token[0]->content, "echo"))
 		cl->status = mini_echo(tree);
+	else if (!ft_strcmp(tree->token[0]->content, "exit"))
+		cl->status = mini_exit(cl, tree->token);
 	// else if (!ft_strcmp(tree->token[0]->content, "export"))
 	// 	cl->status = mini_export(cl, tree->token);
 	// else if (!ft_strcmp(tree->token[0]->content, "unset"))
 	// 	cl->status = mini_unset(cl, tree->token);
-	// else if (!ft_strcmp(tree->token[0]->content, "exit"))
-	// 	cl->status = mini_exit(tree->token);
 	// else if (!ft_strcmp(tree->token[0]->content, "cd"))
 	// 	cl->status = mini_cd(cl, tree->token);
 	else

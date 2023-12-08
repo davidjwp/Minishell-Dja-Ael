@@ -50,17 +50,17 @@ AR = ar rcs
 all: 		$(NAME)
 
 $(NAME):	$(OBJS)
-			$(AR) $(NAME) $(OBJS)
+	@$(AR) $(NAME) $(OBJS)
 
 $(OBJS):	$(PATH_OBJS)/%.o: %.c
-			mkdir -p $(PATH_OBJS)
-			$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDES)
+	@mkdir -p $(PATH_OBJS)
+	@$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDES)
 
 clean:
-			$(RM) -r $(PATH_OBJS)
+	@$(RM) -r $(PATH_OBJS)
 
-fclean:			clean
-			$(RM) $(NAME)
+fclean:	clean
+	@$(RM) $(NAME)
 
 re:			fclean all
 
