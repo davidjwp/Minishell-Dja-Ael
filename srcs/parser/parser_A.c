@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_A.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
+/*   By: davidjwp <davidjwp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/08 19:48:43 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/08 23:33:31 by davidjwp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 bool	pipe_rules(t_astn *node, int *err, t_cleanup *cl)
 {
 	if (node->right == NULL || node->left == NULL)
-		return (*err += 1, syntax_error("|", cl), false);
+		return (*err += 1, syntax_error(PIPE, cl), false);
 	if (!parser_rules(node->left, err, cl))
 		return (false);
 	if (!parser_rules(node->right, err, cl))
@@ -28,9 +28,9 @@ bool	pipe_rules(t_astn *node, int *err, t_cleanup *cl)
 bool	apr_rules(t_astn *node, int *error, t_cleanup *cl)
 {
 	if (node->right == NULL)
-		return (*error += 1, syntax_error("newline", cl), false);
-	if (node->right->type == APRD && node->right->left == NULL)
-		return (*error += 1, syntax_error(">>", cl), false);
+		return (*error += 1, syntax_error(0, cl), false);
+	if (!(node->right->type % 4) && node->right->left == NULL)
+		return (*error += 1, syntax_error(node->right->type, cl), false);
 	return (true);
 }
 
@@ -38,38 +38,29 @@ bool	apr_rules(t_astn *node, int *error, t_cleanup *cl)
 bool	redr_rules(t_astn *node, int *error, t_cleanup *cl)
 {
 	if (node->left == NULL)
-		return (*error += 1, syntax_error("newline", cl), false);
-	if (node->right->type == REDR && node->right->left == NULL)
-		return (*error += 1, syntax_error(">", cl), false);
+		return (*error += 1, syntax_error(0, cl), false);
+	if (node->right && !(node->right->type % 4) \
+	&& node->right->left == NULL)
+		return (*error += 1, syntax_error(node->right->type, cl), false);
 	return (true);
 }
 
 //checks for syntax error near a left redirection
 bool	redl_rules(t_astn *node, int *error, t_cleanup *cl)
 {
-	//if (!(node->right->type % 4) && node->right->type == REDL && 
-	//node->right->left == NULL)
-	//	return (*error += 1, syntax_error("<<", cl), false);
-	if (node->right == NULL || (!(node->right->type % 4) && \
-	node->right->left == NULL))
-		return (*error += 1, syntax_error("newline", cl), false);
+	if (node->right == NULL)
+		return (*error += 1, syntax_error(0, cl), false);
+	if (node->right && !(node->right->type % 4) && \
+	node->right->left == NULL)
+		return (*error += 1, syntax_error(node->right->type, cl), false);
+	if (!(node->right->type % 4) && node->right->left->type == COMD && \
+	node->right->left->token[0]->type == HERD)
+		return (*error += 1, syntax_error(HERD, cl), false);
+	if (node->right->type == COMD && node->right->token[0]->type == HERD)
+		return (*error += 1, syntax_error(HERD, cl), false);
 	if (access(node->right->token[0]->content, F_OK))
 		return (*error += 1, \
-		printf("minishell: %s: No such file or directory\n", \
+	printf("minishell: %s: No such file or directory\n", \
 		node->right->token[0]->content), false);
 	return (true);
 }
-
-//bool	comd_rules(t_token **tokens, int *error, t_cleanup *cl)
-//{
-//	char	*pathname;
-
-//	if (get_herd(tokens, &(int){0}))
-//		return (true);
-//	pathname = cr_pathname(tokens[0]->content, cl->env, &cl->status, 0);
-//	if (pathname == NULL)
-//		return (*error += 1, false);
-//	else if (ft_strncmp(pathname, "ok", ft_strlen("ok")))
-//		free(pathname);
-//	return (true);
-//}

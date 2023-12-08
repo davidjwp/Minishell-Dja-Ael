@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: davidjwp <davidjwp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 11:44:55 by rmohamma          #+#    #+#             */
-/*   Updated: 2023/12/08 20:25:57 by ael-malt         ###   ########.fr       */
+/*   Updated: 2023/12/08 22:26:50 by davidjwp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ char		*expand_cont(char *content, int *err, t_cleanup *cl);
 t_env		*exp_findenv(char *name, int *err, t_env *sh_env);
 
 //msgs.c
-void		syntax_error(const char *str, t_cleanup *cl);
+void		syntax_error(int type, t_cleanup *cl);
 void		not_found(char *cmd, int *status);
 void		err_msg(char *msg);
 void		print_out(char *msg, t_cleanup *cl);

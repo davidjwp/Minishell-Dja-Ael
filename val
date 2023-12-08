@@ -1,0 +1,1067 @@
+Script started on 2023-12-08 23:40:12+01:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="186" LINES="59"]
+[?2004h]0;davidjwp@DESKTOP-PGAG9KC: ~/Minishell-Dja-Ael[01;32mdavidjwp@DESKTOP-PGAG9KC[00m:[01;34m~/Minishell-Dja-Ael[00m$ git branch[1Ppush commit -m "fixed redirection in heredoc Dec_8_12:34"[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cpush [Kbranch[Kmkae [K[K[K[Kake re && vlagrind[K[K[K[K[K[K[Kalgrind ./minishell
+[?2004lmake[1]: Entering directory '/home/davidjwp/Minishell-Dja-Ael/libft'
+make[1]: Leaving directory '/home/davidjwp/Minishell-Dja-Ael/libft'
+Compilation Done
+==23617== Memcheck, a memory error detector
+==23617== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==23617== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==23617== Command: ./minishell
+==23617== 
+==23617== Invalid write of size 1
+==23617==    at 0x406807: ft_strcat (parser_C.c:51)
+==23617==    by 0x401880: cat_colour (prompt.c:19)
+==23617==    by 0x401BC5: cr_prompt (prompt.c:60)
+==23617==    by 0x40145F: main (minishell.c:62)
+==23617==  Address 0x4b176da is 0 bytes after a block of size 90 alloc'd
+==23617==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==23617==    by 0x408726: ft_calloc (in /home/davidjwp/Minishell-Dja-Ael/minishell)
+==23617==    by 0x401AF6: cr_prompt (prompt.c:52)
+==23617==    by 0x40145F: main (minishell.c:62)
+==23617== 
+==23617== Invalid write of size 1
+==23617==    at 0x40682F: ft_strcat (parser_C.c:54)
+==23617==    by 0x401880: cat_colour (prompt.c:19)
+==23617==    by 0x401BC5: cr_prompt (prompt.c:60)
+==23617==    by 0x40145F: main (minishell.c:62)
+==23617==  Address 0x4b176df is 5 bytes after a block of size 90 alloc'd
+==23617==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==23617==    by 0x408726: ft_calloc (in /home/davidjwp/Minishell-Dja-Ael/minishell)
+==23617==    by 0x401AF6: cr_prompt (prompt.c:52)
+==23617==    by 0x40145F: main (minishell.c:62)
+==23617== 
+==23617== Invalid read of size 1
+==23617==    at 0x407163: ft_strlen (utils_A.c:73)
+==23617==    by 0x4067E2: ft_strcat (parser_C.c:48)
+==23617==    by 0x401896: cat_colour (prompt.c:20)
+==23617==    by 0x401BC5: cr_prompt (prompt.c:60)
+==23617==    by 0x40145F: main (minishell.c:62)
+==23617==  Address 0x4b176da is 0 bytes after a block of size 90 alloc'd
+==23617==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==23617==    by 0x408726: ft_calloc (in /home/davidjwp/Minishell-Dja-Ael/minishell)
+==23617==    by 0x401AF6: cr_prompt (prompt.c:52)
+==23617==    by 0x40145F: main (minishell.c:62)
+==23617== 
+==23617== Invalid write of size 1
+==23617==    at 0x406807: ft_strcat (parser_C.c:51)
+==23617==    by 0x401896: cat_colour (prompt.c:20)
+==23617==    by 0x401BC5: cr_prompt (prompt.c:60)
+==23617==    by 0x40145F: main (minishell.c:62)
+==23617==  Address 0x4b176df is 5 bytes after a block of size 90 alloc'd
+==23617==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==23617==    by 0x408726: ft_calloc (in /home/davidjwp/Minishell-Dja-Ael/minishell)
+==23617==    by 0x401AF6: cr_prompt (prompt.c:52)
+==23617==    by 0x40145F: main (minishell.c:62)
+==23617== 
+==23617== Invalid write of size 1
+==23617==    at 0x40682F: ft_strcat (parser_C.c:54)
+==23617==    by 0x401896: cat_colour (prompt.c:20)
+==23617==    by 0x401BC5: cr_prompt (prompt.c:60)
+==23617==    by 0x40145F: main (minishell.c:62)
+==23617==  Address 0x4b176e5 is 11 bytes after a block of size 90 alloc'd
+==23617==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==23617==    by 0x408726: ft_calloc (in /home/davidjwp/Minishell-Dja-Ael/minishell)
+==23617==    by 0x401AF6: cr_prompt (prompt.c:52)
+==23617==    by 0x40145F: main (minishell.c:62)
+==23617== 
+==23617== Invalid read of size 1
+==23617==    at 0x407163: ft_strlen (utils_A.c:73)
+==23617==    by 0x401BD4: cr_prompt (prompt.c:61)
+==23617==    by 0x40145F: main (minishell.c:62)
+==23617==  Address 0x4b176da is 0 bytes after a block of size 90 alloc'd
+==23617==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==23617==    by 0x408726: ft_calloc (in /home/davidjwp/Minishell-Dja-Ael/minishell)
+==23617==    by 0x401AF6: cr_prompt (prompt.c:52)
+==23617==    by 0x40145F: main (minishell.c:62)
+==23617== 
+==23617== Invalid write of size 1
+==23617==    at 0x401BDF: cr_prompt (prompt.c:61)
+==23617==    by 0x40145F: main (minishell.c:62)
+==23617==  Address 0x4b176e5 is 11 bytes after a block of size 90 alloc'd
+==23617==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==23617==    by 0x408726: ft_calloc (in /home/davidjwp/Minishell-Dja-Ael/minishell)
+==23617==    by 0x401AF6: cr_prompt (prompt.c:52)
+==23617==    by 0x40145F: main (minishell.c:62)
+==23617== 
+==23617== Invalid read of size 1
+==23617==    at 0x407163: ft_strlen (utils_A.c:73)
+==23617==    by 0x401BF0: cr_prompt (prompt.c:62)
+==23617==    by 0x40145F: main (minishell.c:62)
+==23617==  Address 0x4b176da is 0 bytes after a block of size 90 alloc'd
+==23617==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==23617==    by 0x408726: ft_calloc (in /home/davidjwp/Minishell-Dja-Ael/minishell)
+==23617==    by 0x401AF6: cr_prompt (prompt.c:52)
+==23617==    by 0x40145F: main (minishell.c:62)
+==23617== 
+==23617== Invalid write of size 1
+==23617==    at 0x401BFB: cr_prompt (prompt.c:62)
+==23617==    by 0x40145F: main (minishell.c:62)
+==23617==  Address 0x4b176e6 is 12 bytes after a block of size 90 alloc'd
+==23617==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==23617==    by 0x408726: ft_calloc (in /home/davidjwp/Minishell-Dja-Ael/minishell)
+==23617==    by 0x401AF6: cr_prompt (prompt.c:52)
+==23617==    by 0x40145F: main (minishell.c:62)
+==23617== 
+==23617== Invalid read of size 1
+==23617==    at 0x484ED24: strlen (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==23617==    by 0x487A1D7: rl_set_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885CCF: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617==  Address 0x4b176da is 0 bytes after a block of size 90 alloc'd
+==23617==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==23617==    by 0x408726: ft_calloc (in /home/davidjwp/Minishell-Dja-Ael/minishell)
+==23617==    by 0x401AF6: cr_prompt (prompt.c:52)
+==23617==    by 0x40145F: main (minishell.c:62)
+==23617== 
+==23617== Invalid read of size 8
+==23617==    at 0x485298D: memmove (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==23617==    by 0x487A1F1: rl_set_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885CCF: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617==  Address 0x4b176e0 is 6 bytes after a block of size 90 alloc'd
+==23617==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==23617==    by 0x408726: ft_calloc (in /home/davidjwp/Minishell-Dja-Ael/minishell)
+==23617==    by 0x401AF6: cr_prompt (prompt.c:52)
+==23617==    by 0x40145F: main (minishell.c:62)
+==23617== 
+==23617== Conditional jump or move depends on uninitialised value(s)
+==23617==    at 0x484E830: rindex (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==23617==    by 0x488AD56: rl_expand_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487A1BF: rl_set_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885CCF: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+==23617== Conditional jump or move depends on uninitialised value(s)
+==23617==    at 0x488AD5D: rl_expand_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487A1BF: rl_set_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885CCF: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+==23617== Conditional jump or move depends on uninitialised value(s)
+==23617==    at 0x484ED28: strlen (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==23617==    by 0x488A5C7: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488AE0D: rl_expand_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487A1BF: rl_set_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885CCF: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+==23617== Conditional jump or move depends on uninitialised value(s)
+==23617==    at 0x488A719: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488AE0D: rl_expand_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487A1BF: rl_set_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885CCF: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+==23617== Conditional jump or move depends on uninitialised value(s)
+==23617==    at 0x488A72A: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488AE0D: rl_expand_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487A1BF: rl_set_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885CCF: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+==23617== Conditional jump or move depends on uninitialised value(s)
+==23617==    at 0x484ED28: strlen (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==23617==    by 0x488AE2E: rl_expand_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487A1BF: rl_set_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885CCF: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+[?2004h==23617== Conditional jump or move depends on uninitialised value(s)
+==23617==    at 0x488D0EE: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488FCE1: rl_redisplay (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487B458: readline_internal_setup (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885CF8: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+==23617== Conditional jump or move depends on uninitialised value(s)
+==23617==    at 0x485207E: bcmp (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==23617==    by 0x4891F23: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488E2DF: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488FCE1: rl_redisplay (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487B458: readline_internal_setup (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885CF8: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+==23617== Conditional jump or move depends on uninitialised value(s)
+==23617==    at 0x4852055: bcmp (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==23617==    by 0x4891F23: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488E2DF: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488FCE1: rl_redisplay (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487B458: readline_internal_setup (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885CF8: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+==23617== Conditional jump or move depends on uninitialised value(s)
+==23617==    at 0x4944E1D: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:782)
+==23617==    by 0x488C5B2: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488E853: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488FCE1: rl_redisplay (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487B458: readline_internal_setup (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885CF8: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+==23617== Conditional jump or move depends on uninitialised value(s)
+==23617==    at 0x485207E: bcmp (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==23617==    by 0x488C9BB: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x48914BB: rl_redisplay (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487B458: readline_internal_setup (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885CF8: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+==23617== Conditional jump or move depends on uninitialised value(s)
+==23617==    at 0x4852055: bcmp (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==23617==    by 0x488C9BB: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x48914BB: rl_redisplay (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487B458: readline_internal_setup (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885CF8: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+==23617== Syscall param write(buf) points to uninitialised byte(s)
+==23617==    at 0x49CCA77: write (write.c:26)
+==23617==    by 0x4942EEC: _IO_file_write@@GLIBC_2.2.5 (fileops.c:1180)
+==23617==    by 0x49449E0: new_do_write (fileops.c:448)
+==23617==    by 0x49449E0: _IO_new_do_write (fileops.c:425)
+==23617==    by 0x49449E0: _IO_do_write@@GLIBC_2.2.5 (fileops.c:422)
+==23617==    by 0x49424D7: _IO_file_sync@@GLIBC_2.2.5 (fileops.c:798)
+==23617==    by 0x49371A9: fflush (iofflush.c:40)
+==23617==    by 0x48904E6: rl_redisplay (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487B458: readline_internal_setup (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885CF8: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617==  Address 0x4b5469c is 76 bytes inside a block of size 1,024 alloc'd
+==23617==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==23617==    by 0x4936BA3: _IO_file_doallocate (filedoalloc.c:101)
+==23617==    by 0x4945CDF: _IO_doallocbuf (genops.c:347)
+==23617==    by 0x4944F5F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:744)
+==23617==    by 0x49436D4: _IO_new_file_xsputn (fileops.c:1243)
+==23617==    by 0x49436D4: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+==23617==    by 0x4937FD6: fwrite (iofwrite.c:39)
+==23617==    by 0x488277C: rl_prep_terminal (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885CEE: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+[1m[32mdavidjwp[0m[1m[32m@Mini[0m[1m[97m:~[0m[1m[34m/Minishell-Dja-Ael[0m$ ==23617== Conditional jump or move depends on uninitialised value(s)
+==23617==    at 0x485207E: bcmp (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==23617==    by 0x488DB86: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488FCE1: rl_redisplay (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487CB56: _rl_internal_char_cleanup (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487CD8F: readline_internal_char (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885D14: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+==23617== Conditional jump or move depends on uninitialised value(s)
+==23617==    at 0x4852055: bcmp (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==23617==    by 0x488DB86: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488FCE1: rl_redisplay (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487CB56: _rl_internal_char_cleanup (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487CD8F: readline_internal_char (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885D14: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+==23617== Conditional jump or move depends on uninitialised value(s)
+==23617==    at 0x485207E: bcmp (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==23617==    by 0x488C9BB: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488D4DD: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488FCE1: rl_redisplay (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487CB56: _rl_internal_char_cleanup (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487CD8F: readline_internal_char (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885D14: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+==23617== Conditional jump or move depends on uninitialised value(s)
+==23617==    at 0x4852055: bcmp (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==23617==    by 0x488C9BB: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488D4DD: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488FCE1: rl_redisplay (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487CB56: _rl_internal_char_cleanup (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487CD8F: readline_internal_char (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885D14: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+==23617== Conditional jump or move depends on uninitialised value(s)
+==23617==    at 0x4891E9A: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488DE29: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488FCE1: rl_redisplay (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487CB56: _rl_internal_char_cleanup (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487CD8F: readline_internal_char (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885D14: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+==23617== Conditional jump or move depends on uninitialised value(s)
+==23617==    at 0x4891E9A: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488E2DF: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488FCE1: rl_redisplay (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487CB56: _rl_internal_char_cleanup (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487CD8F: readline_internal_char (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885D14: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+==23617== Conditional jump or move depends on uninitialised value(s)
+==23617==    at 0x485207E: bcmp (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==23617==    by 0x488C6D6: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x48914BB: rl_redisplay (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487CB56: _rl_internal_char_cleanup (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487CD8F: readline_internal_char (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885D14: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+==23617== Conditional jump or move depends on uninitialised value(s)
+==23617==    at 0x4852055: bcmp (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==23617==    by 0x488C6D6: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x48914BB: rl_redisplay (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487CB56: _rl_internal_char_cleanup (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487CD8F: readline_internal_char (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885D14: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+==23617== Conditional jump or move depends on uninitialised value(s)
+==23617==    at 0x4891E9A: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488CA8E: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x48914BB: rl_redisplay (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487CB56: _rl_internal_char_cleanup (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487CD8F: readline_internal_char (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885D14: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+g==23617== Conditional jump or move depends on uninitialised value(s)
+==23617==    at 0x4891E9A: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488E36E: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488FCE1: rl_redisplay (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487CB56: _rl_internal_char_cleanup (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487CD8F: readline_internal_char (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885D14: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+==23617== Conditional jump or move depends on uninitialised value(s)
+==23617==    at 0x485207E: bcmp (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==23617==    by 0x4891D3F: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488E3B0: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488FCE1: rl_redisplay (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487CB56: _rl_internal_char_cleanup (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487CD8F: readline_internal_char (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885D14: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+==23617== Conditional jump or move depends on uninitialised value(s)
+==23617==    at 0x4852055: bcmp (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==23617==    by 0x4891D3F: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488E3B0: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488FCE1: rl_redisplay (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487CB56: _rl_internal_char_cleanup (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487CD8F: readline_internal_char (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885D14: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+==23617== Conditional jump or move depends on uninitialised value(s)
+==23617==    at 0x4891E9A: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4891F75: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488E3B0: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488FCE1: rl_redisplay (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487CB56: _rl_internal_char_cleanup (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487CD8F: readline_internal_char (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885D14: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+==23617== Conditional jump or move depends on uninitialised value(s)
+==23617==    at 0x485207E: bcmp (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==23617==    by 0x4891F23: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488E929: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488FCE1: rl_redisplay (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487CB56: _rl_internal_char_cleanup (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487CD8F: readline_internal_char (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885D14: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+==23617== Conditional jump or move depends on uninitialised value(s)
+==23617==    at 0x4852055: bcmp (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==23617==    by 0x4891F23: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488E929: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488FCE1: rl_redisplay (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487CB56: _rl_internal_char_cleanup (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487CD8F: readline_internal_char (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885D14: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+==23617== Conditional jump or move depends on uninitialised value(s)
+==23617==    at 0x485207E: bcmp (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==23617==    by 0x488C9BB: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x48914BB: rl_redisplay (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487CB56: _rl_internal_char_cleanup (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487CD8F: readline_internal_char (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885D14: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+==23617== Conditional jump or move depends on uninitialised value(s)
+==23617==    at 0x4852055: bcmp (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==23617==    by 0x488C9BB: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x48914BB: rl_redisplay (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487CB56: _rl_internal_char_cleanup (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487CD8F: readline_internal_char (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885D14: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+[Kq==23617== Conditional jump or move depends on uninitialised value(s)
+==23617==    at 0x485207E: bcmp (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==23617==    by 0x488C6D6: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488D4DD: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488FCE1: rl_redisplay (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487CB56: _rl_internal_char_cleanup (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487CD8F: readline_internal_char (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885D14: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+==23617== Conditional jump or move depends on uninitialised value(s)
+==23617==    at 0x4852055: bcmp (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==23617==    by 0x488C6D6: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488D4DD: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488FCE1: rl_redisplay (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487CB56: _rl_internal_char_cleanup (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487CD8F: readline_internal_char (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885D14: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+==23617== Conditional jump or move depends on uninitialised value(s)
+==23617==    at 0x4891E9A: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488CA8E: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488D4DD: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488FCE1: rl_redisplay (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487CB56: _rl_internal_char_cleanup (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487CD8F: readline_internal_char (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885D14: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+uit==23617== Conditional jump or move depends on uninitialised value(s)
+==23617==    at 0x485207E: bcmp (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==23617==    by 0x4891D3F: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488E929: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488FCE1: rl_redisplay (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487CB56: _rl_internal_char_cleanup (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487CD8F: readline_internal_char (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885D14: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+==23617== Conditional jump or move depends on uninitialised value(s)
+==23617==    at 0x4852055: bcmp (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==23617==    by 0x4891D3F: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488E929: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488FCE1: rl_redisplay (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487CB56: _rl_internal_char_cleanup (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487CD8F: readline_internal_char (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885D14: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+==23617== Conditional jump or move depends on uninitialised value(s)
+==23617==    at 0x4891E9A: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4891F75: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488E929: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488FCE1: rl_redisplay (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487CB56: _rl_internal_char_cleanup (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487CD8F: readline_internal_char (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885D14: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+[K
+[?2004lminishell: qui: command not found
+==24335== 
+==24335== HEAP SUMMARY:
+==24335==     in use at exit: 208,365 bytes in 222 blocks
+==24335==   total heap usage: 640 allocs, 418 frees, 242,879 bytes allocated
+==24335== 
+==24335== LEAK SUMMARY:
+==24335==    definitely lost: 0 bytes in 0 blocks
+==24335==    indirectly lost: 0 bytes in 0 blocks
+==24335==      possibly lost: 0 bytes in 0 blocks
+==24335==    still reachable: 208,365 bytes in 222 blocks
+==24335==         suppressed: 0 bytes in 0 blocks
+==24335== Rerun with --leak-check=full to see details of leaked memory
+==24335== 
+==24335== Use --track-origins=yes to see where uninitialised values come from
+==24335== For lists of detected and suppressed errors, rerun with: -s
+==24335== ERROR SUMMARY: 333 errors from 47 contexts (suppressed: 0 from 0)
+==23617== Conditional jump or move depends on uninitialised value(s)
+==23617==    at 0x484ED28: strlen (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==23617==    by 0x489D5AE: _rl_adjust_point (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x489D7D2: _rl_find_next_mbchar (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488AA12: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488AE0D: rl_expand_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487A1BF: rl_set_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885CCF: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+==23617== Conditional jump or move depends on uninitialised value(s)
+==23617==    at 0x484ED28: strlen (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==23617==    by 0x489D80F: _rl_find_next_mbchar (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488AA12: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488AE0D: rl_expand_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487A1BF: rl_set_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885CCF: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+==23617== Conditional jump or move depends on uninitialised value(s)
+==23617==    at 0x484ED28: strlen (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==23617==    by 0x489D96A: _rl_find_next_mbchar (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488AA12: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488AE0D: rl_expand_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487A1BF: rl_set_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885CCF: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+==23617== Conditional jump or move depends on uninitialised value(s)
+==23617==    at 0x484ED19: strlen (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==23617==    by 0x489D96A: _rl_find_next_mbchar (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488AA12: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488AE0D: rl_expand_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487A1BF: rl_set_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885CCF: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+==23617== Conditional jump or move depends on uninitialised value(s)
+==23617==    at 0x48E9051: utf8_internal_loop (loop.c:335)
+==23617==    by 0x48E9051: __gconv_transform_utf8_internal (skeleton.c:619)
+==23617==    by 0x497E09E: mbrtowc (mbrtowc.c:85)
+==23617==    by 0x489D97B: _rl_find_next_mbchar (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488AA12: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488AE0D: rl_expand_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487A1BF: rl_set_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885CCF: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+==23617== Conditional jump or move depends on uninitialised value(s)
+==23617==    at 0x497E0E3: mbrtowc (mbrtowc.c:101)
+==23617==    by 0x489D97B: _rl_find_next_mbchar (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488AA12: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488AE0D: rl_expand_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487A1BF: rl_set_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885CCF: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+==23617== Conditional jump or move depends on uninitialised value(s)
+==23617==    at 0x489D9FD: _rl_find_next_mbchar (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488AA12: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488AE0D: rl_expand_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487A1BF: rl_set_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885CCF: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+==23617== Conditional jump or move depends on uninitialised value(s)
+==23617==    at 0x489DA02: _rl_find_next_mbchar (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488AA12: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488AE0D: rl_expand_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487A1BF: rl_set_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885CCF: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+==23617== Conditional jump or move depends on uninitialised value(s)
+==23617==    at 0x489DA36: _rl_find_next_mbchar (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488AA12: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488AE0D: rl_expand_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487A1BF: rl_set_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885CCF: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+==23617== Conditional jump or move depends on uninitialised value(s)
+==23617==    at 0x484ED19: strlen (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==23617==    by 0x489D80F: _rl_find_next_mbchar (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488AA12: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488AE0D: rl_expand_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487A1BF: rl_set_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885CCF: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+==23617== Conditional jump or move depends on uninitialised value(s)
+==23617==    at 0x489D832: _rl_find_next_mbchar (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488AA12: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488AE0D: rl_expand_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487A1BF: rl_set_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885CCF: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+==23617== Conditional jump or move depends on uninitialised value(s)
+==23617==    at 0x489D874: _rl_find_next_mbchar (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488AA12: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488AE0D: rl_expand_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487A1BF: rl_set_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885CCF: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+==23617== Conditional jump or move depends on uninitialised value(s)
+==23617==    at 0x489D8F6: _rl_find_next_mbchar (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488AA12: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488AE0D: rl_expand_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487A1BF: rl_set_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885CCF: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+==23617== Conditional jump or move depends on uninitialised value(s)
+==23617==    at 0x489DA07: _rl_find_next_mbchar (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488AA12: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488AE0D: rl_expand_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487A1BF: rl_set_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885CCF: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+==23617== Conditional jump or move depends on uninitialised value(s)
+==23617==    at 0x489DA10: _rl_find_next_mbchar (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488AA12: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488AE0D: rl_expand_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487A1BF: rl_set_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885CCF: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+==23617== Conditional jump or move depends on uninitialised value(s)
+==23617==    at 0x489DA18: _rl_find_next_mbchar (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488AA12: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488AE0D: rl_expand_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487A1BF: rl_set_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885CCF: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+==23617== Conditional jump or move depends on uninitialised value(s)
+==23617==    at 0x4891D76: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488AC17: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488AE0D: rl_expand_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487A1BF: rl_set_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885CCF: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+==23617== Conditional jump or move depends on uninitialised value(s)
+==23617==    at 0x4891D86: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488AC17: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488AE0D: rl_expand_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487A1BF: rl_set_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885CCF: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+==23617== Conditional jump or move depends on uninitialised value(s)
+==23617==    at 0x4891EDE: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488AC17: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488AE0D: rl_expand_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487A1BF: rl_set_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885CCF: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+==23617== Conditional jump or move depends on uninitialised value(s)
+==23617==    at 0x489D5EF: _rl_adjust_point (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x489D7D2: _rl_find_next_mbchar (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488AA12: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488AE0D: rl_expand_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487A1BF: rl_set_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885CCF: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+==23617== Conditional jump or move depends on uninitialised value(s)
+==23617==    at 0x489D879: _rl_find_next_mbchar (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488AA12: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488AE0D: rl_expand_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487A1BF: rl_set_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885CCF: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+==23617== Conditional jump or move depends on uninitialised value(s)
+==23617==    at 0x489D87E: _rl_find_next_mbchar (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488AA12: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488AE0D: rl_expand_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487A1BF: rl_set_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885CCF: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+==23617== Conditional jump or move depends on uninitialised value(s)
+==23617==    at 0x489D8E6: _rl_find_next_mbchar (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488AA12: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488AE0D: rl_expand_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487A1BF: rl_set_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885CCF: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+==23617== Conditional jump or move depends on uninitialised value(s)
+==23617==    at 0x4891E9A: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488AC17: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488AE0D: rl_expand_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487A1BF: rl_set_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885CCF: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+==23617== Conditional jump or move depends on uninitialised value(s)
+==23617==    at 0x4891D8F: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488AC17: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488AE0D: rl_expand_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487A1BF: rl_set_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885CCF: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+==23617== Conditional jump or move depends on uninitialised value(s)
+==23617==    at 0x4891D98: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488AC17: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488AE0D: rl_expand_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487A1BF: rl_set_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885CCF: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+==23617== Conditional jump or move depends on uninitialised value(s)
+==23617==    at 0x4891EC6: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488AC17: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488AE0D: rl_expand_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487A1BF: rl_set_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885CCF: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+==23617== Conditional jump or move depends on uninitialised value(s)
+==23617==    at 0x489D9A3: _rl_find_next_mbchar (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488AA12: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488AE0D: rl_expand_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487A1BF: rl_set_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885CCF: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+==23617== Use of uninitialised value of size 8
+==23617==    at 0x4987784: wcwidth_table_lookup (wchar-lookup.h:96)
+==23617==    by 0x4987784: internal_wcwidth (wcwidth.h:35)
+==23617==    by 0x4987784: wcwidth (wcwidth.c:24)
+==23617==    by 0x489D9AD: _rl_find_next_mbchar (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488AA12: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488AE0D: rl_expand_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487A1BF: rl_set_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885CCF: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+==23617== Use of uninitialised value of size 8
+==23617==    at 0x4987791: wcwidth_table_lookup (wchar-lookup.h:103)
+==23617==    by 0x4987791: internal_wcwidth (wcwidth.h:35)
+==23617==    by 0x4987791: wcwidth (wcwidth.c:24)
+==23617==    by 0x489D9AD: _rl_find_next_mbchar (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488AA12: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x488AE0D: rl_expand_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x487A1BF: rl_set_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x4885CCF: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==23617==    by 0x401467: main (minishell.c:62)
+==23617== 
+[?2004h[1m[32mdavidjwp[0m[1m[32m@Mini[0m[1m[97m:~[0m[1m[34m/Minishell-Dja-Ael[0m$ [?2004l
+==23617== 
+==23617== HEAP SUMMARY:
+==23617==     in use at exit: 208,405 bytes in 225 blocks
+==23617==   total heap usage: 581 allocs, 356 frees, 240,787 bytes allocated
+==23617== 
+==23617== LEAK SUMMARY:
+==23617==    definitely lost: 0 bytes in 0 blocks
+==23617==    indirectly lost: 0 bytes in 0 blocks
+==23617==      possibly lost: 0 bytes in 0 blocks
+==23617==    still reachable: 208,405 bytes in 225 blocks
+==23617==         suppressed: 0 bytes in 0 blocks
+==23617== Rerun with --leak-check=full to see details of leaked memory
+==23617== 
+==23617== Use --track-origins=yes to see where uninitialised values come from
+==23617== For lists of detected and suppressed errors, rerun with: -s
+==23617== ERROR SUMMARY: 2046 errors from 77 contexts (suppressed: 0 from 0)
+[?2004h]0;davidjwp@DESKTOP-PGAG9KC: ~/Minishell-Dja-Ael[01;32mdavidjwp@DESKTOP-PGAG9KC[00m:[01;34m~/Minishell-Dja-Ael[00m$ l
+[?2004lMakefile  README.md  flags.sh  [0m[01;34mincludes[0m/  [01;34mlibft[0m/  [01;32mminishell[0m*  minishell.supp  [01;34mobjs[0m/  [01;34msrcs[0m/  val
+[?2004h]0;davidjwp@DESKTOP-PGAG9KC: ~/Minishell-Dja-Ael[01;32mdavidjwp@DESKTOP-PGAG9KC[00m:[01;34m~/Minishell-Dja-Ael[00m$ gdb ./minishell
+[?2004l[35;1mGNU gdb (Ubuntu 12.1-0ubuntu1~22.04) 12.1[m
+Copyright (C) 2022 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+Type "show copying" and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<https://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+    <http://www.gnu.org/software/gdb/documentation/>.
+
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from [32m./minishell[m...
+[?2004h(gdb) targetr [K[K remote | ///u//s//r//[Cb/i/n/[Cvgdb --pid=24184
+[?2004lRemote debugging using | /usr/bin/vgdb --pid=24184
+relaying data between gdb and process 24184
+warning: remote target does not support file transfer, attempting to access files from local filesystem.
+Reading symbols from [32m/lib64/ld-linux-x86-64.so.2[m...
+Reading symbols from [32m/usr/lib/debug/.build-id/97/18d3757f00d2366056830aae09698dbd35e32c.debug[m...
+[34m0x0000000004020290[m in [33m_start[m () from [32m/lib64/ld-linux-x86-64.so.2[m
+[?2004h(gdb) b cr_pa[Krompt
+[?2004lBreakpoint 1 at [34m0x401a52[m: file [32msrcs/main/prompt.c[m, line 47.
+[?2004h(gdb) r
+[?2004lThe "remote" target does not support "run".  Try "help target" or "continue".
+[?2004h(gdb) continue
+[?2004lContinuing.
+
+Breakpoint 1, [33mcr_prompt[m ([36mcl[m=0x4b17610, [36msh_env[m=0x4b14150) at [32msrcs/main/prompt.c[m:47
+warning: Source file is more recent than executable.
+47	[31m{[m
+[?2004h[?2004l[?2004h(gdb) n
+[?2004l51		[01m_procd[m[31m([mprocd[31m,[m sh_env[31m);[m
+[?2004h[?2004l[?2004h(gdb) b _procd
+[?2004lBreakpoint 2 at [34m0x4018cc[m: file [32msrcs/main/prompt.c[m, line 25.
+[?2004h(gdb) n
+[?2004l
+Breakpoint 2, [33m_procd[m ([36mprocd[m=0x1ffeffdec0 "", [36menv[m=0x4b14150) at [32msrcs/main/prompt.c[m:25
+25	[31m{[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l29		i [31m=[m [35m0[m[31m;[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l30		[01mft_bzero[m[31m([mprocd[31m,[m BUFSIZ[31m);[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l31		[01;34mif[m [31m([m[01mgetcwd[m[31m([mbuf[31m,[m BUFSIZ[31m)[m [31m==[m NULL [31m&&[m [01mfind_env[m[31m([m[31m"PWD"[m[31m,[m env[31m)[m [31m==[m NULL[31m)[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l33		[01;34melse[m [01;34mif[m [31m([m[01mgetcwd[m[31m([mbuf[31m,[m BUFSIZ[31m)[m [31m==[m NULL[31m)[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l38		[01;34mwhile[m [31m([mbuf[31m[[mi[31m])[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l39			i[31m++;[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l38		[01;34mwhile[m [31m([mbuf[31m[[mi[31m])[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l39			i[31m++;[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l38		[01;34mwhile[m [31m([mbuf[31m[[mi[31m])[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l39			i[31m++;[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l38		[01;34mwhile[m [31m([mbuf[31m[[mi[31m])[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l39			i[31m++;[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l38		[01;34mwhile[m [31m([mbuf[31m[[mi[31m])[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l39			i[31m++;[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l38		[01;34mwhile[m [31m([mbuf[31m[[mi[31m])[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l39			i[31m++;[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l38		[01;34mwhile[m [31m([mbuf[31m[[mi[31m])[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l39			i[31m++;[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l38		[01;34mwhile[m [31m([mbuf[31m[[mi[31m])[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l39			i[31m++;[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l38		[01;34mwhile[m [31m([mbuf[31m[[mi[31m])[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l39			i[31m++;[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l38		[01;34mwhile[m [31m([mbuf[31m[[mi[31m])[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l39			i[31m++;[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l38		[01;34mwhile[m [31m([mbuf[31m[[mi[31m])[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l39			i[31m++;[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l38		[01;34mwhile[m [31m([mbuf[31m[[mi[31m])[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l39			i[31m++;[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l38		[01;34mwhile[m [31m([mbuf[31m[[mi[31m])[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l39			i[31m++;[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l38		[01;34mwhile[m [31m([mbuf[31m[[mi[31m])[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l39			i[31m++;[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l38		[01;34mwhile[m [31m([mbuf[31m[[mi[31m])[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l39			i[31m++;[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l38		[01;34mwhile[m [31m([mbuf[31m[[mi[31m])[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l39			i[31m++;[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l38		[01;34mwhile[m [31m([mbuf[31m[[mi[31m])[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l39			i[31m++;[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l38		[01;34mwhile[m [31m([mbuf[31m[[mi[31m])[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l39			i[31m++;[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l38		[01;34mwhile[m [31m([mbuf[31m[[mi[31m])[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l39			i[31m++;[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l38		[01;34mwhile[m [31m([mbuf[31m[[mi[31m])[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l39			i[31m++;[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l38		[01;34mwhile[m [31m([mbuf[31m[[mi[31m])[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l39			i[31m++;[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l38		[01;34mwhile[m [31m([mbuf[31m[[mi[31m])[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l39			i[31m++;[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l38		[01;34mwhile[m [31m([mbuf[31m[[mi[31m])[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l39			i[31m++;[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l38		[01;34mwhile[m [31m([mbuf[31m[[mi[31m])[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l39			i[31m++;[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l38		[01;34mwhile[m [31m([mbuf[31m[[mi[31m])[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l39			i[31m++;[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l38		[01;34mwhile[m [31m([mbuf[31m[[mi[31m])[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l39			i[31m++;[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l38		[01;34mwhile[m [31m([mbuf[31m[[mi[31m])[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l39			i[31m++;[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l38		[01;34mwhile[m [31m([mbuf[31m[[mi[31m])[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l39			i[31m++;[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l38		[01;34mwhile[m [31m([mbuf[31m[[mi[31m])[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l39			i[31m++;[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l38		[01;34mwhile[m [31m([mbuf[31m[[mi[31m])[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l39			i[31m++;[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l38		[01;34mwhile[m [31m([mbuf[31m[[mi[31m])[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l39			i[31m++;[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l38		[01;34mwhile[m [31m([mbuf[31m[[mi[31m])[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l39			i[31m++;[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l38		[01;34mwhile[m [31m([mbuf[31m[[mi[31m])[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l40		[01;34mwhile[m [31m([mbuf[31m[[mi[31m][m [31m!=[m [31m'/'[m[31m)[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l41			i[31m--;[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l40		[01;34mwhile[m [31m([mbuf[31m[[mi[31m][m [31m!=[m [31m'/'[m[31m)[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l41			i[31m--;[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l40		[01;34mwhile[m [31m([mbuf[31m[[mi[31m][m [31m!=[m [31m'/'[m[31m)[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l41			i[31m--;[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l40		[01;34mwhile[m [31m([mbuf[31m[[mi[31m][m [31m!=[m [31m'/'[m[31m)[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l41			i[31m--;[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l40		[01;34mwhile[m [31m([mbuf[31m[[mi[31m][m [31m!=[m [31m'/'[m[31m)[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l41			i[31m--;[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l40		[01;34mwhile[m [31m([mbuf[31m[[mi[31m][m [31m!=[m [31m'/'[m[31m)[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l41			i[31m--;[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l40		[01;34mwhile[m [31m([mbuf[31m[[mi[31m][m [31m!=[m [31m'/'[m[31m)[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l41			i[31m--;[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l40		[01;34mwhile[m [31m([mbuf[31m[[mi[31m][m [31m!=[m [31m'/'[m[31m)[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l41			i[31m--;[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l40		[01;34mwhile[m [31m([mbuf[31m[[mi[31m][m [31m!=[m [31m'/'[m[31m)[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l41			i[31m--;[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l40		[01;34mwhile[m [31m([mbuf[31m[[mi[31m][m [31m!=[m [31m'/'[m[31m)[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l41			i[31m--;[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l40		[01;34mwhile[m [31m([mbuf[31m[[mi[31m][m [31m!=[m [31m'/'[m[31m)[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l41			i[31m--;[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l40		[01;34mwhile[m [31m([mbuf[31m[[mi[31m][m [31m!=[m [31m'/'[m[31m)[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l41			i[31m--;[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l40		[01;34mwhile[m [31m([mbuf[31m[[mi[31m][m [31m!=[m [31m'/'[m[31m)[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l41			i[31m--;[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l40		[01;34mwhile[m [31m([mbuf[31m[[mi[31m][m [31m!=[m [31m'/'[m[31m)[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l41			i[31m--;[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l40		[01;34mwhile[m [31m([mbuf[31m[[mi[31m][m [31m!=[m [31m'/'[m[31m)[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l41			i[31m--;[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l40		[01;34mwhile[m [31m([mbuf[31m[[mi[31m][m [31m!=[m [31m'/'[m[31m)[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l41			i[31m--;[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l40		[01;34mwhile[m [31m([mbuf[31m[[mi[31m][m [31m!=[m [31m'/'[m[31m)[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l41			i[31m--;[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l40		[01;34mwhile[m [31m([mbuf[31m[[mi[31m][m [31m!=[m [31m'/'[m[31m)[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l41			i[31m--;[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l40		[01;34mwhile[m [31m([mbuf[31m[[mi[31m][m [31m!=[m [31m'/'[m[31m)[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l42		[01mft_strcat[m[31m([mprocd[31m,[m [31m&[mbuf[31m[[mi[31m]);[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l43		[01;34mreturn[m [31m([mprocd[31m);[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l44	[31m}[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l[33mcr_prompt[m ([36mcl[m=0x4b17610, [36msh_env[m=0x4b14150) at [32msrcs/main/prompt.c[m:52
+52		prompt [31m=[m [01mft_calloc[m[31m(([m[01mft_strlen[m[31m([m[01mfind_env[m[31m([m[31m"USER"[m[31m,[msh_env[31m)->[mvalue[31m)[m [31m+[m [31m\[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l53		[01mft_strlen[m[31m([mprocd[31m)[m [31m+[m [31m(([m[01mft_strlen[m[31m([mBLUE[31m)[m [31m+[m [01mft_strlen[m[31m([mRESET[31m))[m [31m*[m [35m3[m[31m))[m [31m+[m [35m10[m[31m,[m [31m\[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l52		prompt [31m=[m [01mft_calloc[m[31m(([m[01mft_strlen[m[31m([m[01mfind_env[m[31m([m[31m"USER"[m[31m,[msh_env[31m)->[mvalue[31m)[m [31m+[m [31m\[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l53		[01mft_strlen[m[31m([mprocd[31m)[m [31m+[m [31m(([m[01mft_strlen[m[31m([mBLUE[31m)[m [31m+[m [01mft_strlen[m[31m([mRESET[31m))[m [31m*[m [35m3[m[31m))[m [31m+[m [35m10[m[31m,[m [31m\[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l52		prompt [31m=[m [01mft_calloc[m[31m(([m[01mft_strlen[m[31m([m[01mfind_env[m[31m([m[31m"USER"[m[31m,[msh_env[31m)->[mvalue[31m)[m [31m+[m [31m\[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l55		[01;34mif[m [31m([mprompt [31m==[m NULL[31m)[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l57		[01mcat_colour[m[31m([mprompt[31m,[m [01mfind_env[m[31m([m[31m"USER"[m[31m,[m sh_env[31m)->[mvalue[31m,[m GREEN[31m);[m
+[?2004h[?2004l[?2004h(gdb) b cat_[K[K[K[K[K[Kn
+[?2004l58		[01mcat_colour[m[31m([mprompt[31m,[m [31m"@Mini"[m[31m,[m GREEN[31m);[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l59		[01mcat_colour[m[31m([mprompt[31m,[m [31m":~"[m[31m,[m WHITE[31m);[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l60		[01mcat_colour[m[31m([mprompt[31m,[m procd[31m,[m BLUE[31m);[m
+[?2004h[?2004l[?2004h(gdb) b cat_colour
+[?2004lBreakpoint 3 at [34m0x40185b[m: file [32msrcs/main/prompt.c[m, line 18.
+[?2004h(gdb) n
+[?2004l
+Breakpoint 3, [33mcat_colour[m ([36mdest[m=0x4b17680 "\001\033[1m\033[32m\002davidjwp\001\033[0m\002\001\033[1m\033[32m\002@Mini\001\033[0m\002\001\033[1m\033[97m\002:~\001\033[0m\002", [36msrc[m=0x1ffeffdec0 "/Minishell-Dja-Ael", [36mcol[m=0x40a049 "\001\033[1m\033[34m\002") at [32msrcs/main/prompt.c[m:18
+18		[01mft_strcat[m[31m([mdest[31m,[m col[31m);[m
+[?2004h[?2004l[?2004h(gdb) 
+[?2004l
+Program received signal SIGTRAP, Trace/breakpoint trap.
+[33mft_strcat[m ([36mdest[m=0x4b17680 "\001\033[1m\033[32m\002davidjwp\001\033[0m\002\001\033[1m\033[32m\002@Mini\001\033[0m\002\001\033[1m\033[97m\002:~\001\033[0m\002\001\033[1m\033[34m\002/Minishell-Dja-Ael", [36msrc[m=0x1ffeffdec0 "/Minishell-Dja-Ael") at [32msrcs/parser/parser_C.c[m:54
+54		dest[31m[[md_len [31m+[m index[31m][m [31m=[m [35m0[m[31m;[m
+[?2004h[?2004l[?2004h(gdb) quit
+[?2004l[?2004hA debugging session is active.
+
+	Inferior 1 [Remote target] will be detached.
+
+Quit anyway? (y or n) y[Kcontinue
+[?2004lPlease answer y or n.
+[?2004hA debugging session is active.
+
+	Inferior 1 [Remote target] will be detached.
+
+Quit anyway? (y or n) y
+[?2004lDetaching from program: /home/davidjwp/Minishell-Dja-Ael/minishell, Remote target
+Ending remote debugging.
+[Inferior 1 (Remote target) detached]
+[?2004h]0;davidjwp@DESKTOP-PGAG9KC: ~/Minishell-Dja-Ael[01;32mdavidjwp@DESKTOP-PGAG9KC[00m:[01;34m~/Minishell-Dja-Ael[00m$ q[Kexit
+[?2004lexit
+
+Script done on 2023-12-08 23:46:19+01:00 [COMMAND_EXIT_CODE="0"]

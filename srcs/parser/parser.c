@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: davidjwp <davidjwp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/08 20:27:35 by ael-malt         ###   ########.fr       */
+/*   Updated: 2023/12/08 23:22:02 by davidjwp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ bool	parser_rules(t_astn *node, int *error, t_cleanup *cl)
 		return (redl_rules(node, error, cl));
 	get_herd(node->token, &pos);
 	if (node->token[pos] && node->token[pos + 1] == NULL)
-		return (*error += 1, syntax_error("newline", cl), false);
+		return (*error += 1, syntax_error(0, cl), false);
 	if (node->token[pos] && !ft_strcmp(node->token[pos + 1]->content, "<<"))
-		return (*error += 1, syntax_error("<<", cl), false);
+		return (*error += 1, syntax_error(HERD, cl), false);
 	// if (node->type == COMD && node->token[])for directories
 	return (true);
 }

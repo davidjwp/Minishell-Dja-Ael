@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msgs.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: davidjwp <davidjwp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/08 20:26:39 by ael-malt         ###   ########.fr       */
+/*   Updated: 2023/12/08 23:20:37 by davidjwp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,31 @@ void	not_found(char *cmd, int *status)
 	*status = 127;
 }
 
-void	syntax_error(const char *str, t_cleanup *cl)
+void	syntax_error(int type, t_cleanup *cl)
 {
 	write (2, "minishell: syntax error near unexpected token \'", \
 	ft_strlen("minishell: syntax error near unexpected token \'"));
-	write (2, str, ft_strlen(str));
+	if (type == REDL)
+		write (2, "<", 1);
+	else if (type == REDR)
+		write (2, ">", 1);
+	else if (type == HERD)
+		write (2, "<<", 2);
+	else if (type == APRD)
+		write (2, ">>", 2);
+	else if (type == PIPE)
+		write (2, "|", 1);
+	else
+		write (2, "newline", 8);
 	write (2, "\'\n", ft_strlen("\'\n"));
 	cl->status = 2;
 }
 
 void	err_msg(char *msg)
 {
-	write(2, "minishell: ", 12);
-	write(2, msg, ft_strlen(msg));
-	write(2, "\n", 1);
+	write (2, "minishell: ", 12);
+	write (2, msg, ft_strlen(msg));
+	write (2, "\n", 1);
 }
 
 //void	print_out(char *msg, t_cleanup *cl)

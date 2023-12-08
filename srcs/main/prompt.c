@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
+/*   By: davidjwp <davidjwp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 15:33:26 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/08 18:31:45 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/09 00:01:53 by davidjwp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,15 @@ char	*cr_prompt(t_cleanup *cl, t_env *sh_env)
 
 	_procd(procd, sh_env);
 	prompt = ft_calloc((ft_strlen(find_env("USER",sh_env)->value) + \
-	ft_strlen(procd) + ((ft_strlen(BLUE) + ft_strlen(RESET)) * 3)) + 4, \
+	ft_strlen(procd) + (((ft_strlen(BLUE) + ft_strlen(RESET))) * 4)) + 10, \
 	sizeof(char));
 	if (prompt == NULL)
 		return (err_msg("crt_prompt malloc fail"), cl->prompt = NULL, NULL);
 	cat_colour(prompt, find_env("USER", sh_env)->value, GREEN);
+	cat_colour(prompt, "@Mini", RED);
 	cat_colour(prompt, ":~", WHITE);
 	cat_colour(prompt, procd, BLUE);
+	prompt[ft_strlen(prompt)] = '$';
 	prompt[ft_strlen(prompt)] = ' ';
 	cl->prompt = prompt;
 	return (prompt);
