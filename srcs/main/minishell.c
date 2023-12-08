@@ -3,31 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davidjwp <davidjwp@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 10:37:38 by rmohamma          #+#    #+#             */
-/*   Updated: 2023/12/08 00:32:39 by davidjwp         ###   ########.fr       */
+/*   Updated: 2023/12/08 15:09:30 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-volatile int	g_signal = 0;// i have to init here;
+volatile int	g_signal = 0;
+
+#define	LENCOL 15
+#define GREEN "\033[1m\033[32m"
+#define BLUE "\033[1m\033[34m"
+#define WHITE "\033[1m\033[97m"
+#define RESET "\033[0m"
 
 //valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --trace-children=yes ./minitest
-
-//this is just to exit the program easier
-int	exit_emul(char *input)
-{
-	char	exit[] = "exit";
-
-	if (!*input)
-		return (0);
-	for (int i = 0; exit[i] != 0; i++)
-		if (input[i] != exit[i])
-			return (0);
-	return (1);
-}
 
 /*
 * sh_init will initialize the global data structure for the shell
@@ -35,23 +28,69 @@ int	exit_emul(char *input)
 * the tree is created and parsed here and the status set to 0 on the first pass
 * the data structure contains the input, envs, tree, status and fds 
 */
-bool	sh_init(char *input, t_env *sh_env, t_cleanup *cl)
+bool	sh_init(t_env *sh_env, t_cleanup *cl)
 {
 	static int	passes;
 
 	signals();
 	cl->fds = init_fds();
 	cl->env = sh_env;
-	cl->input = input;
 	if (!passes)
 		cl->status = 0;
-	cl->tree = parser(input, cl);
+	cl->tree = parser(cl->input, cl);
 	passes += 1;
 	if (cl->input && *cl->input)
 		add_history(cl->input);
 	if (cl->tree == NULL)
-		return (clean_up(cl, CL_FDS | CL_INP | CL_FDS), false);
+		return (clean_up(cl, CL_FDS | CL_INP | CL_FDS | CL_PRO), false);
 	return (true);
+}
+
+void	cat_colour(char *dest, char *src, char *col)
+{
+	ft_strcat(dest, col);
+	ft_strcat(dest, src);
+	ft_strcat(dest, RESET);
+}
+
+//this won't work if you go into home
+char	*_procd(void)
+{
+	char	buf[BUFSIZ];
+	char	*procd;
+	int		len;
+
+	len = 0;
+	getcwd(buf, BUFSIZ);
+	while (buf[len])
+		len++;
+	while (buf[len] != '/')
+		len--;
+	procd = ft_calloc(ft_strlen(&buf[len]) + 1, sizeof(char));
+	if (procd == NULL)
+		return (err_msg("_procd malloc fail"), NULL);
+	ft_strcat(procd, &buf[len]);
+	return (procd);
+}
+
+char	*cr_prompt(t_env *sh_env)
+{
+	char		*prompt;
+	char		*procd;
+
+	procd = _procd();
+	if (sh_env == NULL || procd == NULL)
+		return ("~> ");
+	prompt = ft_calloc(ft_strlen(find_env("USER",sh_env)->value) + \
+	ft_strlen(procd) + (LENCOL * 3) + 4, sizeof(char));
+	if (prompt == NULL)
+		return (err_msg("crt_prompt malloc fail"), NULL);
+	cat_colour(prompt, find_env("USER", sh_env)->value, GREEN);
+	cat_colour(prompt, ":~", WHITE);
+	cat_colour(prompt, procd, BLUE);
+	prompt[ft_strlen(prompt)] = ' ';
+	free(procd);
+	return (prompt);
 }
 
 /*
@@ -62,7 +101,6 @@ bool	sh_init(char *input, t_env *sh_env, t_cleanup *cl)
 */
 int	main(int ac, char **av, char **env)
 {
-	char		*input;
 	t_env		*sh_env;
 	t_cleanup	*cl;
 
@@ -75,15 +113,14 @@ int	main(int ac, char **av, char **env)
 	signals();
 	while (42)
 	{
-		input = readline(PROMPT);
-		if (input == NULL)
-			return (free(cl), free_env(sh_env), 1);
-		if (sh_init(input, sh_env, cl))
-		{
-			//if (!input || exit_emul(input))
-				//return (clean_up(cl, CL_ALL), exit(EXIT_SUCCESS), 1);
+		cl->prompt = cr_prompt(sh_env);
+		if (cl->prompt == NULL)
+			return (0);
+		cl->input = readline(cl->prompt);
+		if (cl->input == NULL)
+			return (free(cl->prompt), free(cl), free_env(sh_env), 1);
+		if (sh_init(sh_env, cl))
 			shell_loop(cl->tree, sh_env, cl);
-		}
 		//printf("exit:%d\n", cl->status > 255 ? WEXITSTATUS(cl->status) : cl->status);
 	}
 	return ((void)ac, (void)av, 1);
@@ -131,7 +168,7 @@ int	shell_loop(t_astn *tree, t_env *sh_env, t_cleanup *cl)
 	else
 		execute(tree, sh_env, cl);
 	if (tree == cl->tree)
-		clean_up(cl, CL_FDS | CL_TRE | CL_INP);
+		clean_up(cl, CL_FDS | CL_TRE | CL_INP | CL_PRO);
 	return (1);
 }
 

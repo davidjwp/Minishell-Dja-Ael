@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/07 20:39:07 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/08 13:27:25 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_astn	*ast_cmd(const char *input, size_t *g_ind, t_cms c, int *err)
 	l_ind = 0;
 	nbr = nbr_token(input, 0, 0);
 	if (!init_node(c.node, nbr, c.parent, err) || !nbr)
-		return (free(c.node), *err = 1, NULL);
+		return (free(c.node), NULL);
 	while (nbr != 0)
 	{
 		c.node->token[i] = (t_token *)malloc(sizeof(t_token));

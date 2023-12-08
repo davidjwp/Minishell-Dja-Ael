@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davidjwp <davidjwp@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 11:44:55 by rmohamma          #+#    #+#             */
-/*   Updated: 2023/12/08 00:31:05 by davidjwp         ###   ########.fr       */
+/*   Updated: 2023/12/08 14:43:57 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 //MAIN+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 int			check_input(char *input);//allows me to cleanly exit
-bool		sh_init(char *input, t_env *sh_env, t_cleanup *cl);
+bool		sh_init(t_env *sh_env, t_cleanup *cl);
 int			shell_loop(t_astn *tree, t_env *sh_env, t_cleanup *cl);
 int			sh_pipe(t_astn *tree, t_env *sh_env, t_cleanup *cl);
 

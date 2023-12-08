@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/07 20:26:48 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/08 13:37:31 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,12 @@ void	not_found(char *cmd, int *status)
 	*status = 127;
 }
 
-void	syntax_error(const char *str, t_cleanup *cl)//check that 
+void	syntax_error(const char *str, t_cleanup *cl)
 {
-	char	*err;
-
-	err = ft_calloc((ft_strlen \
-	("minishell: syntax error near unexpected token \'") + ft_strlen \
-	(str) + ft_strlen("\'\n") + 1), sizeof(char));
-	ft_strcat(err, "minishell: syntax error near unexpected token \'");
-	ft_strcat(err, str);
-	ft_strcat(err, "\'\n");
-	perror(err);//don't know that i should put it on stderror, probably doesn't matter
-	free(err);
+	write (2, "minishell: syntax error near unexpected token \'", \
+	ft_strlen("minishell: syntax error near unexpected token \'"));
+	write (2, str, ft_strlen(str));
+	write (2, "\'\n", ft_strlen("\'\n"));
 	cl->status = 2;
 }
 

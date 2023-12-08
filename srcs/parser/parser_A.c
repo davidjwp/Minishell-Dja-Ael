@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/07 19:37:56 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/08 13:09:00 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 //checks for syntax error near a pipe
 bool	pipe_rules(t_astn *node, int *err, t_cleanup *cl)
 {
-	if (node->right == NULL || node->left == NULL)
+	if (node->right == NULL || node->left == NULL || node->right->type == PIPE)
 		return (*err += 1, syntax_error("|", cl), false);
 	if (!parser_rules(node->left, err, cl))
 		return (false);

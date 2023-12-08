@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/06 14:13:20 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/08 13:04:24 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ char	*cr_pathname(const char *cmd, t_env *sh_env, int *status, int i)
 	char	**paths;
 	char	*pathname;
 
-	if (built_in(cmd))
-		return ("ok");
+	//if (built_in(cmd))
+	//	return ("ok");
 	if (!access(cmd, X_OK))
 		return (path_cmd(cmd));
 	if (!find_env("PATH", sh_env))

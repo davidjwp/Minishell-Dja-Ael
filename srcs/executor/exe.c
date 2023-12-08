@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exe.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davidjwp <davidjwp@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/08 00:27:56 by davidjwp         ###   ########.fr       */
+/*   Updated: 2023/12/08 14:46:05 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,8 @@ void	clean_up(t_cleanup *cl, int flag)
 	}
 	if ((flag & CL_HIS))
 		rl_clear_history();
+	if ((flag & CL_PRO))
+		free(cl->prompt);
 	if ((flag & CL_CL))
 		free(cl);
 }

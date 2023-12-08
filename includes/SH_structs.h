@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   SH_structs.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davidjwp <davidjwp@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 21:12:56 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/08 00:25:41 by davidjwp         ###   ########.fr       */
+/*   Updated: 2023/12/08 14:41:47 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,8 @@ enum e_clflags{
 	CL_INP = 8,
 	CL_HIS = 16,
 	CL_CL = 32,
-	CL_ALL = 63,
+	CL_PRO = 64,
+	CL_ALL = 127,
 };
 
 enum e_ResFDflags{
@@ -165,6 +166,7 @@ typedef struct CleanUp{
 	t_astn	*tree;
 	char	*input;
 	int		status;
+	char	*prompt;
 }	t_cleanup;
 
 #endif
