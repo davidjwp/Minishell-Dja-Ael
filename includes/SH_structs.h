@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   SH_structs.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 21:12:56 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/08 17:39:55 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/08 17:46:59 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,27 @@ enum e_type{
 	REDR,
 	COMD,
 	PIPE,
-};	
+};
+
+enum	e_mini_error
+{
+	QUOTE = 1,
+	NDIR = 2,
+	NPERM = 3,
+	NCMD = 4,
+	DUPERR = 5,
+	FORKERR = 6,
+	PIPERR = 7,
+	PIPENDERR = 8,
+	MEM = 9,
+	IS_DIR = 10,
+	NOT_DIR = 11,
+	OPERROR = 12,
+	NOTCMD = 13,
+	NONAME = 14,
+	SYNTAX = 15,
+	NOQUOTE = 16
+};
 
 enum e_clflags{
 	CL_FDS = 1,

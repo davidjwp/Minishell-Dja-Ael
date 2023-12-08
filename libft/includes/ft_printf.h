@@ -1,33 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   headers.h                                          :+:      :+:    :+:   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/03 21:28:48 by davidjwp          #+#    #+#             */
-/*   Updated: 2023/12/08 17:46:23 by ael-malt         ###   ########.fr       */
+/*   Created: 2022/11/29 18:48:05 by ael-malt          #+#    #+#             */
+/*   Updated: 2023/04/22 16:28:50 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HEADERS_H
-# define HEADERS_H
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 
-# include <stdio.h>
-# include <fcntl.h>
-# include <signal.h>
-# include <unistd.h>
-# include <stdbool.h>
-# include <sys/wait.h>
-# include <sys/stat.h>
-# include <sys/types.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <string.h>
-# include <sys/wait.h>
-# include <limits.h>
-# include <linux/limits.h>
-# include <pwd.h>
-# include <dirent.h>
+# include "libft.h"
+# include <stdarg.h>
+
+// Printf
+int		ft_printf(const char *text, ...);
+
+// Utils
+void	ft_putchar_len(char c, int *len);
+void	ft_putstr_len(char *s, int *len);
+void	ft_putptr_len(void *p, int *len);
+void	ft_putnbr_len(int n, int *len);
+void	ft_putunbr_len(unsigned int n, int *len);
+void	ft_puthex_len(unsigned long n, int lc_uc, int *len);
 
 #endif

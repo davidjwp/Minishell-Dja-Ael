@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 10:37:38 by rmohamma          #+#    #+#             */
-/*   Updated: 2023/12/08 17:40:58 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/08 17:48:33 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,8 +110,10 @@ int	shell_loop(t_astn *tree, t_env *sh_env, t_cleanup *cl)
 		sh_pipe(tree, sh_env, cl);
 	else if (!(tree->type % 4))
 		sh_red(tree, sh_env, cl);
-	else if (get_herd(tree->token, &(int){0}))
-		exe_herd(tree, sh_env, cl);
+	else if (get_herd(tree->token, &pos))
+		exe_herd(tree, pos, sh_env, cl);
+	else if (tree->token[0]->type && !(tree->token[0]->type % 11))
+		builtin(tree, cl, tree->token[0]->type);
 	else
 		execute(tree, sh_env, cl);
 	if (tree == cl->tree)
@@ -121,5 +123,25 @@ int	shell_loop(t_astn *tree, t_env *sh_env, t_cleanup *cl)
 
 	//if (tree->token[0]->type && !(tree->token[0]->type % 11))
 	//	exe_builtin(tree, sh_env, cl);
+//void	exe_builtin(t_astn *node, t_env *sh_env, t_cleanup *cl)
+//{
+//	if (node->type == ECHO)
+//		return (built_in_echo());
+//	if (node->type == CD)
+//		return (built_in_cd());
+//	if (node->type == ENV)
+//		return (built_in_env());
+//	if (node->type == EXIT)
+//		return (built_in_exit());
+//	if (node->type == EXPORT)
+//		return (built_in_export());
+//	if (node->type == PWD)
+//		return (built_in_pwd());
+//	if (node->type == UNSET)
+//		return (built_in_unset());
+//}
 
 //pipes or redirections in quotes "|" '|' '>'
+//""""""'''dughwi ugwieg riweg ioggroi weg'"
+//"'''''''''''''' ' ' ' '" "dsaidghasioudhasd ads asadas dgher htr \\\\ das$$"
+//""""'dasho"asdhasho  sahodo h'

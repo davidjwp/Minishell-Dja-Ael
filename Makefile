@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+         #
+#    By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/02 15:39:21 by djacobs           #+#    #+#              #
-#    Updated: 2023/12/08 15:36:25 by djacobs          ###   ########.fr        #
+#    Updated: 2023/12/08 17:46:01 by ael-malt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,11 +16,11 @@ NAME			= minishell
 
 INCLUDE			=   includes/minishell.h 
 
-CFLAGS			= -g3 -Wall -Wextra -Werror
+CFLAGS			= -g3 -Wall -Wextra -Werror -no-pie
 
 LIB				= libft/libft.a
 
-LINKER			=  -L/usr/include -lreadline 
+LINKER			= -L/usr/include -lreadline 
 
 SRCS			= srcs/main/minishell.c \
 			srcs/main/prompt.c \
@@ -47,6 +47,15 @@ SRCS			= srcs/main/minishell.c \
 			srcs/parser/parser.c \
 			srcs/utils/utils_A.c \
 			srcs/utils/utils_B.c \
+			srcs/builtins/builtins_errors.c \
+			srcs/builtins/builtins.c \
+			srcs/builtins/mini_cd.c \
+			srcs/builtins/mini_echo.c \
+			srcs/builtins/mini_env.c \
+			srcs/builtins/mini_exit.c \
+			srcs/builtins/mini_export.c \
+			srcs/builtins/mini_pwd.c \
+			srcs/builtins/mini_unset.c \
 
 OBJS_DIR		= objs/
 OBJS			= $(SRCS:srcs/%.c=$(OBJS_DIR)%.o)
@@ -54,23 +63,24 @@ OBJS			= $(SRCS:srcs/%.c=$(OBJS_DIR)%.o)
 all:$(NAME)
 
 $(NAME): $(LIB) $(OBJS)
-	$(CC) $(CFLAGS) $(INCLUDE) $(OBJS) $(LINKER) $(LIB) -o $(NAME)
+	@$(CC) $(CFLAGS) $(INCLUDE) $(OBJS) $(LINKER) $(LIB) -o $(NAME)
+	@echo "\n Compilation \n"
 
 $(OBJS_DIR)%.o: srcs/%.c
 	@mkdir -p $(@D)
 	$(CC) -c $(CFLAGS) $< -o $@
-	@echo "Compiling: $<"
+
 
 $(LIB):
-	make -s -C libft/
+	@make -s -C libft/
 
 clean:
-	rm -f $(OBJS)
-	make clean -C libft/
+	@rm -f $(OBJS)
+	@make clean -C libft/
 	
 fclean: clean
-	rm -f $(NAME)
-	make -s fclean -C libft/ 
+	@rm -f $(NAME)
+	@make -s fclean -C libft/ 
 
 re: fclean all
 
