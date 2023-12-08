@@ -6,19 +6,13 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 10:37:38 by rmohamma          #+#    #+#             */
-/*   Updated: 2023/12/08 15:09:30 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/08 17:40:58 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 volatile int	g_signal = 0;
-
-#define	LENCOL 15
-#define GREEN "\033[1m\033[32m"
-#define BLUE "\033[1m\033[34m"
-#define WHITE "\033[1m\033[97m"
-#define RESET "\033[0m"
 
 //valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --trace-children=yes ./minitest
 
@@ -46,53 +40,6 @@ bool	sh_init(t_env *sh_env, t_cleanup *cl)
 	return (true);
 }
 
-void	cat_colour(char *dest, char *src, char *col)
-{
-	ft_strcat(dest, col);
-	ft_strcat(dest, src);
-	ft_strcat(dest, RESET);
-}
-
-//this won't work if you go into home
-char	*_procd(void)
-{
-	char	buf[BUFSIZ];
-	char	*procd;
-	int		len;
-
-	len = 0;
-	getcwd(buf, BUFSIZ);
-	while (buf[len])
-		len++;
-	while (buf[len] != '/')
-		len--;
-	procd = ft_calloc(ft_strlen(&buf[len]) + 1, sizeof(char));
-	if (procd == NULL)
-		return (err_msg("_procd malloc fail"), NULL);
-	ft_strcat(procd, &buf[len]);
-	return (procd);
-}
-
-char	*cr_prompt(t_env *sh_env)
-{
-	char		*prompt;
-	char		*procd;
-
-	procd = _procd();
-	if (sh_env == NULL || procd == NULL)
-		return ("~> ");
-	prompt = ft_calloc(ft_strlen(find_env("USER",sh_env)->value) + \
-	ft_strlen(procd) + (LENCOL * 3) + 4, sizeof(char));
-	if (prompt == NULL)
-		return (err_msg("crt_prompt malloc fail"), NULL);
-	cat_colour(prompt, find_env("USER", sh_env)->value, GREEN);
-	cat_colour(prompt, ":~", WHITE);
-	cat_colour(prompt, procd, BLUE);
-	prompt[ft_strlen(prompt)] = ' ';
-	free(procd);
-	return (prompt);
-}
-
 /*
 * the main function which checks for the availability of the stdio fds
 * then the shell env consisting of the env being passed to the main function
@@ -116,7 +63,7 @@ int	main(int ac, char **av, char **env)
 		cl->prompt = cr_prompt(sh_env);
 		if (cl->prompt == NULL)
 			return (0);
-		cl->input = readline(cl->prompt);
+		cl->input = readline(cr_prompt(sh_env));
 		if (cl->input == NULL)
 			return (free(cl->prompt), free(cl), free_env(sh_env), 1);
 		if (sh_init(sh_env, cl))
@@ -176,6 +123,3 @@ int	shell_loop(t_astn *tree, t_env *sh_env, t_cleanup *cl)
 	//	exe_builtin(tree, sh_env, cl);
 
 //pipes or redirections in quotes "|" '|' '>'
-//""""""'''dughwi ugwieg riweg ioggroi weg'"
-//"'''''''''''''' ' ' ' '" "dsaidghasioudhasd ads asadas dgher htr \\\\ das$$"
-//""""'dasho"asdhasho  sahodo h'

@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/08 13:37:31 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/08 15:27:12 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,9 @@
 
 void	not_found(char *cmd, int *status)
 {
-	char	*err;
-
-	err = ft_calloc((ft_strlen(": command not found\n") + ft_strlen(cmd) + \
-	ft_strlen("minishell: ") + 1), sizeof(char));
-	ft_strcat(err, "minishell: ");
-	ft_strcat(err, cmd);
-	ft_strcat(err, ": command not found\n");
-	write (2, err, ft_strlen(err));
-	free(err);
+	write (2, "minishell: ", ft_strlen("minishell: "));
+	write (2, cmd, ft_strlen(cmd));
+	write (2, ": command not found\n", ft_strlen (": command not found\n"));
 	*status = 127;
 }
 

@@ -6,7 +6,7 @@
 #    By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/02 15:39:21 by djacobs           #+#    #+#              #
-#    Updated: 2023/12/08 14:32:22 by djacobs          ###   ########.fr        #
+#    Updated: 2023/12/08 15:36:25 by djacobs          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ LIB				= libft/libft.a
 LINKER			=  -L/usr/include -lreadline 
 
 SRCS			= srcs/main/minishell.c \
+			srcs/main/prompt.c \
 			srcs/signals/ctrl_signal.c \
 			srcs/lexer/create_ast.c \
 			srcs/lexer/lexerutils_A.c \

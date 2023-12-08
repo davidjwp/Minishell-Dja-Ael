@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 21:12:56 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/08 14:41:47 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/08 17:39:55 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,10 @@
 # define RESET_BLUE_COLOR "\033[0m"
 # define PURPLE_COLOR "\x1b[35m"
 # define RESET_PURPLE_COLOR "\x1b[0m"
+# define GREEN "\033[1m\033[32m"
+# define BLUE "\033[1m\033[34m"
+# define WHITE "\033[1m\033[97m"
+# define RESET "\033[0m"
 
 extern volatile int	g_signal;
 
