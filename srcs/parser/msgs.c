@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msgs.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/08 20:11:40 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/08 20:26:39 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@ void	err_msg(char *msg)
 //	write(get_fd(STDO, cl->fds), msg, ft_strlen(msg));
 //}
 
-void	no_such_file(const char *file, clean_up *cl)
+void	no_such_file(const char *file, t_cleanup *cl)
 {
 	write(2, "minishell: ", 12);
 	write(2, file, ft_strlen(file));
 	write(2, ": No such file or directory\n", 29);
-	cl->st
+	cl->status = 1;
 }
 
 void	is_a_dir(char *dir)

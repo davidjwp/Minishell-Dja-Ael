@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/08 20:05:23 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/08 20:27:35 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ bool	parser_rules(t_astn *node, int *error, t_cleanup *cl)
 		return (*error += 1, syntax_error("newline", cl), false);
 	if (node->token[pos] && !ft_strcmp(node->token[pos + 1]->content, "<<"))
 		return (*error += 1, syntax_error("<<", cl), false);
-	if (node->type == COMD && node->token[])
+	// if (node->type == COMD && node->token[])for directories
 	return (true);
 }
 
