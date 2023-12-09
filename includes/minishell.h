@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davidjwp <davidjwp@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 11:44:55 by rmohamma          #+#    #+#             */
-/*   Updated: 2023/12/08 22:26:50 by davidjwp         ###   ########.fr       */
+/*   Updated: 2023/12/09 16:25:12 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 //minishell.c
 bool		sh_init(t_env *sh_env, t_cleanup *cl);
 int			shell_loop(t_astn *tree, t_env *sh_env, t_cleanup *cl);
-int			sh_pipe(t_astn *tree, t_env *sh_env, t_cleanup *cl);
 
 //prompt.c
 char		*cr_prompt(t_cleanup *cl, t_env *sh_env);
@@ -113,6 +112,8 @@ void		print_out(char *msg, t_cleanup *cl);
 //exe.c
 int			open_file(t_astn *tree, t_red *_red, int flag);
 int			sh_red(t_astn *tree, t_env *sh_env, t_cleanup *cl);
+int			sh_pipe(t_astn *tree, t_env *sh_env, t_cleanup *cl);
+void		clean_up(t_cleanup *cl, int flag);
 int			execute(t_astn *tree, t_env *sh_env, t_cleanup *cl);
 
 //exe_utils_A
@@ -151,7 +152,6 @@ t_fds		*init_fds(void);
 //minishell.c
 int			shell_loop(t_astn *tree, t_env *sh_env, t_cleanup *cl);
 int			sh_envlen(t_env *sh_env);
-void		clean_up(t_cleanup *cl, int flag);
 
 //UTILS++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -185,6 +185,8 @@ void		printenvp(char **envp);
 //signals
 void		ctrl_c(int sig);
 void		signals(void);
+void		is_a_dir(char *dir);
+
 
 
 //-------------------------------BUILTINS------------------------------//

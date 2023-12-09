@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/09 14:23:51 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/09 15:52:14 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ int	open_file(t_astn *tree, t_red *_red, int flag)
 		return (0);
 	return (1);
 }
-
-//there could be case where it is a folder or something else be careful
 
 /*
 *	this is the shell redirection, it's a little scary looking because i
@@ -81,6 +79,44 @@ int	sh_red(t_astn *tree, t_env *sh_env, t_cleanup *cl)
 	return (restore_fd(STDOUT_FILENO, STDO, cl), 1);
 }
 
+/*
+*	this is the shell pipes, they open a pipe and fork, in the child process
+*	the output is redirected to the pipe and the command is executed.
+*
+*	Then the stdin is replaced with the read end of the pipe and shell_loop
+*	is reinitialized thus executing whatever is right of the pipe. 
+*/
+int	sh_pipe(t_astn *tree, t_env *sh_env, t_cleanup *cl)
+{
+	t_pipe	p;
+
+	if (pipe(p.pipe) == -1)
+		return (err_msg("sh_pipe pipe error"), 0);
+	p.l_pid = fork();
+	if (p.l_pid == -1)
+		return (err_msg("sh_pipe fork error"), 0);
+	if (!p.l_pid)
+	{
+		fd_redirection(&p, RED_PIP);
+		if (!(tree->left->token[0]->type % 11) && tree->left->token[0]->type)
+			child_builtin(tree->left, cl, tree->left->token[0]->type);
+		else
+			execute(tree->left, sh_env, cl);
+		return (clean_up(cl, CL_ALL), exit(EXIT_SUCCESS), 0);
+	}
+	wait(&cl->status);
+	dup2(p.pipe[0], STDIN_FILENO);
+	close_pipe(p.pipe);
+	shell_loop(tree->right, sh_env, cl);
+	return (restore_fd(STDIN_FILENO, STDO, cl), 0);
+}
+
+/*
+*	cleans up file descriptors, the abstract syntax tree, the shell envs
+*	the input, the prompt and the cl
+*	you can choose which one you want to free by using the flags and bitwise
+*	ops like | or ^
+*/
 //cleans up file descriptors the abstract synthax tree and the shell envs
 void	clean_up(t_cleanup *cl, int flag)
 {

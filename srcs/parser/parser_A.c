@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_A.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davidjwp <davidjwp@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/09 00:14:56 by davidjwp         ###   ########.fr       */
+/*   Updated: 2023/12/09 16:31:07 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,26 @@ bool	apr_rules(t_astn *node, int *error, t_cleanup *cl)
 	return (true);
 }
 
+//> ......
 //checks for syntax error near a right redirection
 bool	redr_rules(t_astn *node, int *error, t_cleanup *cl)
 {
-	if (node->left == NULL)
+	struct stat	folder;
+
+	if (node->right == NULL)
 		return (*error += 1, syntax_error(0, cl), false);
-	if (node->right && !(node->right->type % 4) \
-	&& node->right->left == NULL)
+	if (!(node->right->type % 4) && node->right->left == NULL)
 		return (*error += 1, syntax_error(node->right->type, cl), false);
+	if (!(node->right->type % 4))
+		if (!stat(node->right->left->token[0]->content, &folder))
+			if (S_ISDIR(folder.st_mode))
+				return (*error += 1, \
+					is_a_dir(node->right->left->token[0]->content), false);
+	if (node->right->type == COMD)
+		if (!stat(node->right->token[0]->content, &folder))
+			if (S_ISDIR(folder.st_mode))
+				return (*error += 1, \
+				is_a_dir(node->right->token[0]->content), false);
 	return (true);
 }
 

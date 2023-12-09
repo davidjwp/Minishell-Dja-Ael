@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 10:37:38 by rmohamma          #+#    #+#             */
-/*   Updated: 2023/12/09 14:54:50 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/09 15:58:05 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ bool	sh_init(t_env *sh_env, t_cleanup *cl)
 		return (clean_up(cl, CL_FDS | CL_INP | CL_FDS | CL_PRO), false);
 	return (true);
 }
+
 /*
 * the main function which checks for the availability of the stdio fds
 * then the shell env consisting of the env being passed to the main function
@@ -69,31 +70,6 @@ int	main(int ac, char **av, char **env)
 	return ((void)ac, (void)av, 1);
 }
 
-int	sh_pipe(t_astn *tree, t_env *sh_env, t_cleanup *cl)
-{
-	t_pipe	p;
-
-	if (pipe(p.pipe) == -1)
-		return (err_msg("sh_pipe pipe error"), 0);
-	p.l_pid = fork();
-	if (p.l_pid == -1)
-		return (err_msg("sh_pipe fork error"), 0);
-	if (!p.l_pid)
-	{
-		fd_redirection(&p, RED_PIP);
-		if (!(tree->left->token[0]->type % 11) && tree->left->token[0]->type)
-			child_builtin(tree->left, cl, tree->left->token[0]->type);
-		else
-			execute(tree->left, sh_env, cl);
-		return (clean_up(cl, CL_ALL), exit(EXIT_SUCCESS), 0);
-	}
-	wait(&cl->status);
-	dup2(p.pipe[0], STDIN_FILENO);
-	close_pipe(p.pipe);
-	shell_loop(tree->right, sh_env, cl);
-	return (restore_fd(STDIN_FILENO, STDO, cl), 0);
-}
-
 /*
 * the main shell loop which redirects or pipes the output in order of the tree
 * being recursively called
@@ -116,28 +92,3 @@ int	shell_loop(t_astn *tree, t_env *sh_env, t_cleanup *cl)
 		clean_up(cl, CL_FDS | CL_TRE | CL_INP | CL_PRO);
 	return (1);
 }
-
-	//if (tree->token[0]->type && !(tree->token[0]->type % 11))
-	//	exe_builtin(tree, sh_env, cl);
-//void	exe_builtin(t_astn *node, t_env *sh_env, t_cleanup *cl)
-//{
-//	if (node->type == ECHO)
-//		return (built_in_echo());
-//	if (node->type == CD)
-//		return (built_in_cd());
-//	if (node->type == ENV)
-//		return (built_in_env());
-//	if (node->type == EXIT)
-//		return (built_in_exit());
-//	if (node->type == EXPORT)
-//		return (built_in_export());
-//	if (node->type == PWD)
-//		return (built_in_pwd());
-//	if (node->type == UNSET)
-//		return (built_in_unset());
-//}
-
-//pipes or redirections in quotes "|" '|' '>'
-//""""""'''dughwi ugwieg riweg ioggroi weg'"
-//"'''''''''''''' ' ' ' '" "dsaidghasioudhasd ads asadas dgher htr \\\\ das$$"
-//""""'dasho"asdhasho  sahodo h'
