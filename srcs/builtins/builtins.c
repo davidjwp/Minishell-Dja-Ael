@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 14:24:48 by ael-malt          #+#    #+#             */
-/*   Updated: 2023/12/09 14:59:55 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/09 17:05:19 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ extern int	g_exit_status;
 
 static void	parent_builtin(t_astn *tree, t_cleanup *cl, int type)
 {
-	// if (type == CD)
-	// 	cl->status = mini_cd(cl, tree->token);
-	/* else */ if (type == ECHO)
+	if (type == CD)
+		cl->status = mini_cd(cl, tree->token);
+	else if (type == ECHO)
 		cl->status = mini_echo(tree);
 	else if (type == ENV)
 		cl->status = mini_env(cl->env);
@@ -28,15 +28,15 @@ static void	parent_builtin(t_astn *tree, t_cleanup *cl, int type)
 		cl->status = mini_export(cl, tree->token);
 	else if (type == PWD)
 		cl->status = mini_pwd();
-	// else if (type == UNSET)
-	// 	cl->status = mini_unset(cl, tree->token);
+	else if (type == UNSET)
+		cl->status = mini_unset(cl, tree->token);
 }
 
 void	child_builtin(t_astn *tree, t_cleanup *cl, int type)
 {
-	// if (type == CD)
-	// 	cl->status = mini_cd(cl, tree->token);
-	/* else */ if (type == ECHO)
+	if (type == CD)
+		cl->status = mini_cd(cl, tree->token);
+	else if (type == ECHO)
 		cl->status = mini_echo(tree);
 	else if (type == ENV)
 		cl->status = mini_env(cl->env);
@@ -46,11 +46,11 @@ void	child_builtin(t_astn *tree, t_cleanup *cl, int type)
 		cl->status = mini_export(cl, tree->token);
 	else if (type == PWD)
 		cl->status = mini_pwd();
-	// else if (type == UNSET)
-	// 	cl->status = mini_unset(cl, tree->token);
+	else if (type == UNSET)
+		cl->status = mini_unset(cl, tree->token);
 	if (type != EXIT)
 	{
-		clean_up(cl, CL_ALL);//added that
+		clean_up(cl, CL_ALL);
 		exit(EXIT_SUCCESS);
 	}
 }
