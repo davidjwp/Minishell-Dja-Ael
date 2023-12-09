@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+         #
+#    By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/02 15:39:21 by djacobs           #+#    #+#              #
-#    Updated: 2023/12/08 20:10:45 by ael-malt         ###   ########.fr        #
+#    Updated: 2023/12/09 14:45:35 by djacobs          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ CC				= gcc
 NAME			= minishell
 
 INCLUDE			=   includes/minishell.h 
-# valgrind --suppressions=./minishell.supp
+#valgrind --suppressions=./minishell.supp
 CFLAGS			= -g3 -Wall -Wextra -Werror -no-pie
 
 LIB				= libft/libft.a

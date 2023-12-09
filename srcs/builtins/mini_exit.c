@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 15:40:51 by ael-malt          #+#    #+#             */
-/*   Updated: 2023/12/08 18:47:35 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/09 15:05:02 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,3 +55,4 @@ int	mini_exit(t_cleanup *cl, t_token **token)
 	}
 	return (clean_up(cl, CL_ALL ^ CL_CL), exit(EXIT_SUCCESS), 1);
 }
+//have to free CL_CL else cl is "leak" so might have to CL_ALL everytime

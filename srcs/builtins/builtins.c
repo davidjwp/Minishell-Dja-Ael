@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 14:24:48 by ael-malt          #+#    #+#             */
-/*   Updated: 2023/12/08 19:51:03 by ael-malt         ###   ########.fr       */
+/*   Updated: 2023/12/09 14:59:55 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,10 @@ void	child_builtin(t_astn *tree, t_cleanup *cl, int type)
 	// else if (type == UNSET)
 	// 	cl->status = mini_unset(cl, tree->token);
 	if (type != EXIT)
+	{
+		clean_up(cl, CL_ALL);//added that
 		exit(EXIT_SUCCESS);
+	}
 }
 
 void		builtin(t_astn *tree, t_cleanup *cl, int type)

@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 10:37:38 by rmohamma          #+#    #+#             */
-/*   Updated: 2023/12/08 19:32:01 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/09 14:54:50 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	sh_pipe(t_astn *tree, t_env *sh_env, t_cleanup *cl)
 			child_builtin(tree->left, cl, tree->left->token[0]->type);
 		else
 			execute(tree->left, sh_env, cl);
-		return (clean_up(cl, CL_FDS), exit(EXIT_SUCCESS), 0);
+		return (clean_up(cl, CL_ALL), exit(EXIT_SUCCESS), 0);
 	}
 	wait(&cl->status);
 	dup2(p.pipe[0], STDIN_FILENO);

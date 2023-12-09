@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davidjwp <davidjwp@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:03:33 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/08 00:26:36 by davidjwp         ###   ########.fr       */
+/*   Updated: 2023/12/09 15:32:59 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,22 @@ char	*str_realloc(char *ptr, int nmember, int size)
 	return (ft_strcat(new, ptr), free(ptr), new);
 }
 
+bool	cmp_del(char *del, char *new)
+{
+	int	i;
+
+	i = 0;
+	if (!new[i])
+		return (false);
+	while (new[i])
+	{
+		if ((!del[i] && new[i]) || (new[i] != del[i]))
+			return (false);
+		i++;
+	}
+	return (true);
+}
+
 //this is the part that reads input 
 int	here_doc(char *delimiter, int out, int *err, t_cleanup *cl)
 {
@@ -50,10 +66,11 @@ int	here_doc(char *delimiter, int out, int *err, t_cleanup *cl)
 	signals();
 	line = NULL;
 	restore_fd(STDOUT_FILENO, STDO, cl);
+	restore_fd(STDIN_FILENO, STDI, cl);
 	while ("heredoc")
 	{
 		new = readline("> ");
-		if (new == NULL || !ft_strncmp(delimiter, new, ft_strlen(new)))
+		if (new == NULL || cmp_del(delimiter, new))
 			break ;
 		new = expand_cont(new, err, cl);
 		if (*err)
@@ -76,7 +93,6 @@ void	free_herd(t_astn *node, int pos)
 	free((t_token *)node->token[pos + 1]);
 }
 
-//no idea if this works 
 int	rem_herd(t_astn *node, int pos)
 {
 	t_token	**new;
@@ -121,17 +137,9 @@ int	exe_herd(t_astn *node, t_env *sh_env, t_cleanup *cl)
 		return (close_pipe(p.pipe), restore_fd(STDOUT_FILENO, STDO, cl), 1);
 	if (!rem_herd(node, pos))
 		return (close_pipe(p.pipe), restore_fd(STDOUT_FILENO, STDO, cl), 1);
-	p.l_pid = fork();
-	if (p.l_pid == -1)
-		return (err_msg("exe_herd fork fail"), 0);
-	if (!p.l_pid)
-	{
-		fd_redirection(&p, RED_HERD);
-		//if (!(node->token[0]->type % 11))
-		//	return (exec_builtin(node, cl), dup2(STDOUT_FILENO, cl->fds->fd),
-		//	clean_up(cl, CL_ALL), exit(EXIT_SUCCESS), 0);
-		execute(node, sh_env, cl);
-		exit(EXIT_SUCCESS);
-	}
-	return (wait(&cl->status), restore_fd(STDOUT_FILENO, STDO, cl), 1);
+	fd_redirection(&p, RED_HERD);
+	execute(node, sh_env, cl);
+	restore_fd(STDOUT_FILENO, STDO, cl);
+	restore_fd(STDIN_FILENO, STDI, cl);
+	return (1);
 }
