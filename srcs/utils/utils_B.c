@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_B.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davidjwp <davidjwp@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/04 01:09:14 by davidjwp         ###   ########.fr       */
+/*   Updated: 2023/12/09 17:50:30 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,34 @@ void	input_enter(void)
 	rl_redisplay();
 }
 
+//int	get_fd(int stdio, t_fds *fds)
+//{
+//	t_fds	*tmp;
+
+//	tmp = fds;
+//	while (tmp->next != NULL)
+//	{
+//		if (tmp->std == stdio)
+//			break ;
+//		tmp = tmp->next;
+//	}
+//	return (tmp->fd);
+//}
+
 int	get_fd(int stdio, t_fds *fds)
 {
 	t_fds	*tmp;
 
 	tmp = fds;
-	while (tmp->next != NULL)
+	while (tmp->std != stdio)
 	{
-		if (tmp->std == stdio)
-			break ;
 		tmp = tmp->next;
+		if (tmp == fds)
+			break ;
 	}
 	return (tmp->fd);
 }
+
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {

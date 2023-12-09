@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/09 15:52:14 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/09 17:57:32 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,13 @@ int	sh_red(t_astn *tree, t_env *sh_env, t_cleanup *cl)
 	if (tree->type == APRD)
 		if (!open_file(tree, &_red, O_APPEND))
 			return (err_msg("open file fail"), 0);
+	restore_fd(STDOUT_FILENO, STDO, cl);
 	fd_redirection(&_red, RED_RED);
 	shell_loop(tree->left, sh_env, cl);
 	return (restore_fd(STDOUT_FILENO, STDO, cl), 1);
 }
+//>> asjdas
+
 
 /*
 *	this is the shell pipes, they open a pipe and fork, in the child process

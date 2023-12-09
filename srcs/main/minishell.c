@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 10:37:38 by rmohamma          #+#    #+#             */
-/*   Updated: 2023/12/09 15:58:05 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/09 18:04:48 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	main(int ac, char **av, char **env)
 int	shell_loop(t_astn *tree, t_env *sh_env, t_cleanup *cl)
 {
 	if (tree == NULL)
-		return (input_enter(), clean_up(cl, CL_FDS | CL_INP), 0);
+		return (/*input_enter(), clean_up(cl, CL_FDS | CL_INP), */0);
 	if (tree->type == PIPE)
 		sh_pipe(tree, sh_env, cl);
 	else if (!(tree->type % 4))
