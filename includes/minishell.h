@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: davidjwp <davidjwp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 11:44:55 by rmohamma          #+#    #+#             */
-/*   Updated: 2023/12/09 17:04:50 by ael-malt         ###   ########.fr       */
+/*   Updated: 2023/12/10 00:28:31 by davidjwp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,13 +104,14 @@ t_env		*exp_findenv(char *name, int *err, t_env *sh_env);
 void		syntax_error(int type, t_cleanup *cl);
 void		not_found(char *cmd, int *status);
 void		err_msg(char *msg);
-void		print_out(char *msg, t_cleanup *cl);
+void		no_such_file(const char *file, t_cleanup *cl);
+void		is_a_dir(char *dir, t_cleanup *cl);
 
 
 //EXEC+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 //exe.c
-int			open_file(t_astn *tree, t_red *_red, int flag);
+bool		open_file(t_astn *node, int *fd, int fl, t_cleanup *cl);
 int			sh_red(t_astn *tree, t_env *sh_env, t_cleanup *cl);
 int			sh_pipe(t_astn *tree, t_env *sh_env, t_cleanup *cl);
 void		clean_up(t_cleanup *cl, int flag);
@@ -185,9 +186,6 @@ void		printenvp(char **envp);
 //signals
 void		ctrl_c(int sig);
 void		signals(void);
-void		is_a_dir(char *dir, t_cleanup *cl);
-
-
 
 //-------------------------------BUILTINS------------------------------//
 

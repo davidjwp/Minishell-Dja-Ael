@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msgs.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
+/*   By: davidjwp <davidjwp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/09 16:56:26 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/09 23:20:04 by davidjwp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,6 @@ void	err_msg(char *msg)
 	write (2, msg, ft_strlen(msg));
 	write (2, "\n", 1);
 }
-
-//void	print_out(char *msg, t_cleanup *cl)
-//{
-//	write(get_fd(STDO, cl->fds), msg, ft_strlen(msg));
-//}
 
 void	no_such_file(const char *file, t_cleanup *cl)
 {

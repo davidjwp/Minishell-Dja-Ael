@@ -6,7 +6,7 @@
 /*   By: davidjwp <davidjwp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 21:12:56 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/09 00:01:42 by davidjwp         ###   ########.fr       */
+/*   Updated: 2023/12/10 00:03:51 by davidjwp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ enum e_ResFDflags{
 	RED_PIP = 1,
 	RED_RED = 2,
 	RED_HERD = 4,
+	RED_IN = 8,
 };
 
 enum e_stdIO{
