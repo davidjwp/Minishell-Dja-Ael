@@ -6,7 +6,7 @@
 #    By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/02 15:39:21 by djacobs           #+#    #+#              #
-#    Updated: 2023/12/08 20:10:45 by ael-malt         ###   ########.fr        #
+#    Updated: 2023/12/09 16:03:26 by ael-malt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,6 +49,7 @@ SRCS			= srcs/main/minishell.c \
 			srcs/utils/utils_B.c \
 			srcs/builtins/builtins_errors.c \
 			srcs/builtins/builtins.c \
+			srcs/builtins/mini_cd_util.c \
 			srcs/builtins/mini_cd.c \
 			srcs/builtins/mini_echo.c \
 			srcs/builtins/mini_env.c \
@@ -64,7 +65,7 @@ all:$(NAME)
 
 $(NAME): $(LIB) $(OBJS)
 	@$(CC) $(CFLAGS) $(INCLUDE) $(OBJS) $(LINKER) $(LIB) -o $(NAME)
-	@echo "Compilation Done"
+	@echo "\1\033[1m\033[32m\2\n Compilation Done\n\1\033[0m\2"
 
 $(OBJS_DIR)%.o: srcs/%.c
 	@mkdir -p $(@D)

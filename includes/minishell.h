@@ -6,7 +6,7 @@
 /*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 11:44:55 by rmohamma          #+#    #+#             */
-/*   Updated: 2023/12/08 20:25:57 by ael-malt         ###   ########.fr       */
+/*   Updated: 2023/12/09 16:04:30 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,14 +196,19 @@ int		is_builtin(t_astn *tree);
 		//--------------------BUILTINS_ERRORS.C---------------------//
 void	*mini_bt_errors(t_cleanup *cl, int err_type, char *param, int err);
 int		mini_export_error(char *arg);
+void	mini_cd_error(char *join_cd, int *exit_status);
+
+		//-----------------------CD_UTIL.C--------------------------//
+t_env	*srch_env(t_env *env, char *str);
 
 		//--------------------------CD.C----------------------------//
-int		mini_cd(t_cleanup *cl, char **split_command);
+int		mini_cd(t_cleanup *cl, t_token **token);
 
 		//-------------------------ECHO.C---------------------------//
 int		mini_echo(t_astn *tree);
 
 		//--------------------------ENV.C---------------------------//
+int		get_token_len(t_token **token);
 int		get_env_len(t_env *env);
 int		mini_env(t_env	*env);
 
@@ -220,7 +225,7 @@ int		mini_pwd(void);
 
 		//-------------------------UNSET.C--------------------------//
 int		unset_vintab(char *av, char **tab);
-int		mini_unset(t_cleanup *cl, char **av);
+int		mini_unset(t_cleanup *cl, t_token **token);
 char	**new_tab(t_cleanup *cl, int index);
 
 

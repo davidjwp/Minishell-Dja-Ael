@@ -6,7 +6,7 @@
 /*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 00:28:31 by ael-malt          #+#    #+#             */
-/*   Updated: 2023/12/08 20:18:37 by ael-malt         ###   ########.fr       */
+/*   Updated: 2023/12/09 16:21:23 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	insert_new_env_entry(t_cleanup *cl, char *content, t_env *tmp_env)
 	cl->env->next = new_env_entry;
 	new_env_entry->next = tmp_env;
 }
-static int	cmp_token_to_env(t_env *env, char *content)
+static int	export_cmp_token_to_env(t_env *env, char *content)
 {
 	int	pos;
 
@@ -50,7 +50,7 @@ static int	cmp_token_to_env(t_env *env, char *content)
 	{
 		free(env->value);
 		if (content[pos + 1])
-		env->value = ft_strdup(&content[pos + 1]);
+			env->value = ft_strdup(&content[pos + 1]);
 		env->cl[1] = env->value;
 		return (1);
 	}
@@ -60,21 +60,18 @@ static int	cmp_token_to_env(t_env *env, char *content)
 static int	mini_export_verif(char *str)
 {
 	int	i;
-	int	equal_present;
 
 	i = 1;
-	if ((str[0] == '=' || ft_isdigit(str[0])) && !(str[i] == '_' || ft_isalpha(str[0])))
+	if (!(str[0] == '_' || ft_isalpha(str[0])))
 		return (0);
-	equal_present = 0;
-	while (str && str[i])
+	// printf("token[2]->content: %d\n", str[i] == '_');
+	while (str && str[i] && str[i] != '=')
 	{
-		if (!(str[i] == '_' || ft_isalnum(str[i]) || str[i] == '='))
+		if (!(str[i] == '_' || ft_isalnum(str[i])))
 			return (0);
-		if (str[i] == '=')
-			equal_present = 1;
 		i++;
 	}
-	if (!equal_present)
+	if (str[i] != '=')
 		return (2);
 	return (1);
 }
@@ -86,21 +83,22 @@ static int	mini_export_verif(char *str)
 static int	do_the_export(t_cleanup *cl, t_token **token)
 {
 	int		i;
-	t_env	*tmp_env;
+	t_env	*first_env;
 
-	tmp_env = cl->env;
+	first_env = cl->env;
 	i = 1;
 	while (token && token[i] && token[i]->content)
 	{
 		if (mini_export_verif(token[i]->content) == 1)
 		{
+			cl->env = first_env;
 			while (cl->env)
 			{
-				if (cmp_token_to_env(cl->env, token[i]->content))
+				if (export_cmp_token_to_env(cl->env, token[i]->content))
 					break ;
-				if (cl->env->next == tmp_env)
+				if (cl->env->next == first_env)
 				{
-					insert_new_env_entry(cl, token[i]->content, tmp_env);
+					insert_new_env_entry(cl, token[i]->content, first_env);
 					break ;
 				}
 				cl->env = cl->env->next;
@@ -124,16 +122,6 @@ static int	export_no_arg(t_env *env)
 		env = env->next;
 	}
 	return (0);
-}
-
-static int get_token_len(t_token **token)
-{
-	int i;
-
-	i = 0;
-	while (token[i] && token[i]->content)
-		i++;
-	return (i);
 }
 
 int	mini_export(t_cleanup *cl, t_token **token)
