@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/09 16:31:07 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/09 16:57:12 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,12 @@ bool	redr_rules(t_astn *node, int *error, t_cleanup *cl)
 		if (!stat(node->right->left->token[0]->content, &folder))
 			if (S_ISDIR(folder.st_mode))
 				return (*error += 1, \
-					is_a_dir(node->right->left->token[0]->content), false);
+					is_a_dir(node->right->left->token[0]->content, cl), false);
 	if (node->right->type == COMD)
 		if (!stat(node->right->token[0]->content, &folder))
 			if (S_ISDIR(folder.st_mode))
 				return (*error += 1, \
-				is_a_dir(node->right->token[0]->content), false);
+				is_a_dir(node->right->token[0]->content, cl), false);
 	return (true);
 }
 

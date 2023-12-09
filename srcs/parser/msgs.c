@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msgs.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davidjwp <davidjwp@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/08 23:20:37 by davidjwp         ###   ########.fr       */
+/*   Updated: 2023/12/09 16:56:26 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,10 @@ void	no_such_file(const char *file, t_cleanup *cl)
 	cl->status = 1;
 }
 
-void	is_a_dir(char *dir)
+void	is_a_dir(char *dir, t_cleanup *cl)
 {
 	write(2, "minishell: ", 12);
 	write(2, dir, ft_strlen(dir));
 	write(2,": Is a directory\n", 18);
+	cl->status = 126;
 }

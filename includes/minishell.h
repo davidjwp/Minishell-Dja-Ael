@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 11:44:55 by rmohamma          #+#    #+#             */
-/*   Updated: 2023/12/09 16:25:12 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/09 16:56:57 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,7 +185,7 @@ void		printenvp(char **envp);
 //signals
 void		ctrl_c(int sig);
 void		signals(void);
-void		is_a_dir(char *dir);
+void		is_a_dir(char *dir, t_cleanup *cl);
 
 
 

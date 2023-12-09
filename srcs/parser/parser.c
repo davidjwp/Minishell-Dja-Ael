@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/09 16:52:08 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/09 16:57:22 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ bool	parser_rules(t_astn *node, int *error, t_cleanup *cl)
 		return (*error += 1, syntax_error(HERD, cl), false);
 	if (node->type == COMD && !stat(node->token[0]->content, &dir))
 		if (S_ISDIR(dir.st_mode))
-			return (*error += 1, is_a_dir(node->token[0]->content), false);
+			return (*error += 1, is_a_dir(node->token[0]->content, cl), false);
 	return (true);
 }
 
