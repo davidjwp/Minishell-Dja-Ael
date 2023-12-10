@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
+/*   By: davidjwp <davidjwp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 10:37:38 by rmohamma          #+#    #+#             */
-/*   Updated: 2023/12/10 20:33:40 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/10 22:43:49 by davidjwp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,12 @@ bool	sh_init(t_env *sh_env, t_cleanup *cl)
 	return (true);
 }
 
+void	reset_fds(t_cleanup *cl)
+{
+	res_fd(STDIN_FILENO, STDI, cl);
+	res_fd(STDOUT_FILENO, STDO, cl);
+}
+
 /*
 * the main function which checks for the availability of the stdio fds
 * then the shell env consisting of the env being passed to the main function
@@ -91,10 +97,10 @@ int	main(int ac, char **av, char **env)
 			return (clean_up(cl, CL_CL | CL_PRO), free_env(sh_env), 1);
 		if (sh_init(sh_env, cl))
 			shell_loop(cl->tree, sh_env, cl);
-		//printf("exit:%d\n", cl->status > 255 ? WEXITSTATUS(cl->status) : cl->status);
 	}
 	return ((void)ac, (void)av, 1);
 }
+		//printf("exit:%d\n", cl->status > 255 ? WEXITSTATUS(cl->status) : cl->status);
 
 /*
 * the main shell loop which redirects or pipes the output in order of the tree
@@ -109,6 +115,6 @@ int	shell_loop(t_astn *tree, t_env *sh_env, t_cleanup *cl)
 	else
 		exec_comd(tree, sh_env, cl);
 	if (tree == cl->tree)
-		clean_up(cl, CL_FDS | CL_TRE | CL_INP | CL_PRO);
+		return (clean_up(cl, CL_FDS | CL_TRE | CL_INP | CL_PRO), reset_fds(cl), 1);
 	return (1);
 }

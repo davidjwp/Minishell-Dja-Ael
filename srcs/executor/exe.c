@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exe.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
+/*   By: davidjwp <davidjwp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/10 20:41:00 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/10 22:44:04 by davidjwp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ int	exec_comd(t_astn *tree, t_env *sh_env, t_cleanup *cl)
 		builtin(tree, cl, tree->token[0]->type);
 	else if (tree->token[0] != NULL)
 		execute(tree, sh_env, cl);
-	res_fd(STDOUT_FILENO, STDO, cl);
-	res_fd(STDIN_FILENO, STDI, cl);
+	// res_fd(STDOUT_FILENO, STDO, cl);
+	// res_fd(STDIN_FILENO, STDI, cl);
 	return (1);
 }
 

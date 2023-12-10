@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_A.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
+/*   By: davidjwp <davidjwp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/10 20:17:23 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/10 22:35:34 by davidjwp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,12 @@ bool	herd_rules(t_token *tok, int *err, t_cleanup *cl)
 bool	comd_rules(t_token **tok, int *err, t_cleanup *cl)
 {
 	struct stat	dir;
-	int	i;
+	int			i;
 
 	i = 0;
+	if (!stat(tok[0]->content, &dir))
+		if (S_ISDIR(dir.st_mode))
+			return (*err += 1, is_a_dir(tok[i]->content, cl), false);
 	while (tok[i] != NULL)
 	{
 		if (tok[i]->type == REDL)
@@ -82,12 +85,6 @@ bool	comd_rules(t_token **tok, int *err, t_cleanup *cl)
 			redr_rules(tok[i + 1], err, cl);
 		else if (tok[i]->type == HERD)
 			herd_rules(tok[i + 1], err, cl);
-		else if (!tok[i]->type)
-		{
-			if (!stat(tok[i]->content, &dir))
-				if (S_ISDIR(dir.st_mode))
-					return (*err += 1, is_a_dir(tok[i]->content, cl), false);
-		}
 		if (*err)
 			return (false);
 		i++;
