@@ -6,13 +6,11 @@
 /*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 14:24:48 by ael-malt          #+#    #+#             */
-/*   Updated: 2023/12/09 17:05:19 by ael-malt         ###   ########.fr       */
+/*   Updated: 2023/12/10 18:36:44 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h" 
-
-extern int	g_exit_status;
 
 static void	parent_builtin(t_astn *tree, t_cleanup *cl, int type)
 {
@@ -55,15 +53,13 @@ void	child_builtin(t_astn *tree, t_cleanup *cl, int type)
 	}
 }
 
-void		builtin(t_astn *tree, t_cleanup *cl, int type)
+void	builtin(t_astn *tree, t_cleanup *cl, int type)
 {
-	pid_t pid;
-	// cl->status;
-	// fprintf(stderr, "ici\n");
+	pid_t	pid;
+
 	if (tree->parent && tree->parent->type == PIPE)
 	{
 		pid = fork();
-
 		if (pid == 0)
 			child_builtin(tree, cl, type);
 		else
@@ -71,15 +67,6 @@ void		builtin(t_astn *tree, t_cleanup *cl, int type)
 	}
 	else
 		parent_builtin(tree, cl, tree->token[0]->type);
-	// else if (!ft_strcmp(tree->token[0]->content, "unset"))
-	// 	cl->status = mini_unset(cl, tree->token);
-	// else if (!ft_strcmp(tree->token[0]->content, "cd"))
-	// 	cl->status = mini_cd(cl, tree->token);
-	// else
-	// {
-	// 	signal(SIGINT, SIG_IGN);
-	// 	signal(SIGQUIT, SIG_IGN);
-	// }
 }
 
 // int	is_builtin(t_astn *tree)

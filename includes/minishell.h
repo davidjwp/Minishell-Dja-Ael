@@ -6,7 +6,7 @@
 /*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 11:44:55 by rmohamma          #+#    #+#             */
-/*   Updated: 2023/12/09 17:04:50 by ael-malt         ###   ########.fr       */
+/*   Updated: 2023/12/10 18:56:14 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,11 +196,13 @@ void		builtin(t_astn *tree, t_cleanup *cl, int type);
 int		is_builtin(t_astn *tree);
 
 		//--------------------BUILTINS_ERRORS.C---------------------//
-void	*mini_bt_errors(t_cleanup *cl, int err_type, char *param, int err);
+int	mini_cd_error_1(int err_type, char *param, int err);
 int		mini_export_error(char *arg);
-void	mini_cd_error(char *join_cd, int *exit_status);
+void	mini_cd_exec(char *join_cd, int *exit_status);
 
 		//-----------------------CD_UTIL.C--------------------------//
+t_token	**malloc_token(void);
+void	free_token(t_token **token);
 t_env	*srch_env(t_env *env, char *str);
 
 		//--------------------------CD.C----------------------------//
@@ -210,6 +212,7 @@ int		mini_cd(t_cleanup *cl, t_token **token);
 int		mini_echo(t_astn *tree);
 
 		//--------------------------ENV.C---------------------------//
+void	insert_new_env_entry(t_cleanup *cl, char *content, t_env *tmp_env);
 int		get_token_len(t_token **token);
 int		get_env_len(t_env *env);
 int		mini_env(t_env	*env);
@@ -218,7 +221,6 @@ int		mini_env(t_env	*env);
 int		mini_exit(t_cleanup *cl, t_token **token);
 
 		//------------------------EXPORT.C--------------------------//
-int		export_vintab(char *cmd, char **tab);
 int		mini_export_error(char *cmd);
 int		mini_export(t_cleanup *cl, t_token **token);
 
