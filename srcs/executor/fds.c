@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   fds.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davidjwp <davidjwp@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 17:31:16 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/10 00:06:23 by davidjwp         ###   ########.fr       */
+/*   Updated: 2023/12/10 17:57:49 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	restore_fd(int fd, int res, t_cleanup *cl)
+void	res_fd(int fd, int res, t_cleanup *cl)
 {
 	if (!isatty(fd))
 		dup2(get_fd(res, cl->fds), fd);
 }
 
 //fd redirection of pipe or red type
-int	fd_redirection(void *type, int redpipe)
+int	fd_red(void *type, int redpipe)
 {
 	t_pipe	*_pip;
 	int		*fd;

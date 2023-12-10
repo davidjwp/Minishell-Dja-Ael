@@ -6,29 +6,12 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/04 14:11:58 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/10 20:34:12 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-//find the shell environment variable by name
-//t_env	*find_env(const char *name, t_env *sh_env)
-//{
-//	t_env	*tmp;
-
-//	tmp = sh_env;
-//	if (sh_env == NULL)
-//		return (NULL);
-//	if (cmp(name, sh_env->name) == true)
-//		return (sh_env);
-//	sh_env = sh_env->next;
-//	while (cmp(name, sh_env->name) != true && sh_env != tmp)
-//		sh_env = sh_env->next;
-//	if (sh_env == tmp)
-//		return (NULL);
-//	return (sh_env);
-//}
 
 char	*path_cmd(const char *cmd)
 {
@@ -48,4 +31,38 @@ void	signals(void)
 {
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, &ctrl_c);
+}
+
+void	free_tokens(t_astn *node, int pos)
+{
+	free(node->token[pos]->content);
+	free((t_token *)node->token[pos]);
+	free(node->token[pos + 1]->content);
+	free((t_token *)node->token[pos + 1]);
+}
+
+bool	red_herd(t_token **tok)
+{
+	int	i;
+
+	i = 0;
+	while (tok[i] != NULL)
+	{
+		if (tok[i]->type == HERD || tok[i]->type == REDR || tok[i]->type == \
+		REDL || tok[i]->type == APRD)
+			return (true);
+		i++;
+	}
+	return (false);
+}
+
+void	get_pos(t_token **tokens, int *pos)
+{
+	while (tokens[*pos] != NULL)
+	{
+		if (tokens[*pos]->type == HERD || ((tokens[*pos]->type && \
+		!(tokens[*pos]->type % 4))))
+			return ;
+		*pos += 1;
+	}
 }

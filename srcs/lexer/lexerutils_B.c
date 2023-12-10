@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 17:54:51 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/07 13:05:42 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/10 20:27:34 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,37 +14,8 @@
 
 /*
 *   lexerutils_B contains the following functions :
-*   check_quote(), built_in(), get_token_type(), it_token(), get_content()
+*   built_in(), get_token_type(), it_token(), get_content(), free_tok()
 */
-/*
-*   will check for unclosed quotes and iterate index *i which corresponds to 
-*   length in it_token's higher scope, this also gets the length of the token
-*	- this is possibly deprecated because my expand will expand correctly even
-*		when unclosed, so there is no need to send an error msg 
-*/
-bool	check_quote(const char *input, size_t *i)
-{
-	bool	open;
-	int		t;
-
-	open = false;
-	while (input[*i])
-	{
-		if (type(input, *i) == SEPR && !open)
-			break ;
-		if (type(input, *i) && !(type(input, *i) % 5) && !open)
-			t = type(input, *i);
-		if (type(input, *i) == t && !open)
-			open = true;
-		else if (type(input, *i) == t && open)
-			open = false;
-		*i += 1;
-	}
-	if (!input[*i] && open)
-		return (err_msg("unclosed quote"), false);
-	return (true);
-}
-
 //compares the token with all builtin and returns it's builtin type if found
 int	built_in(const char *input)
 {
@@ -91,9 +62,12 @@ int	get_token_type(char *token)
 */
 bool	it_token(const char *input, size_t *l_ind)
 {
-	if (type(input, *l_ind) == HERD)
+	if (type(input, *l_ind) == HERD || type(input, *l_ind) == APRD)
 		return (*l_ind += 2, true);
-	while (type(input, *l_ind) != SEPR && type(input, *l_ind) != HERD)
+	if (type(input, *l_ind) && !(type(input, *l_ind) % 4))
+		return (*l_ind += 1, true);
+	while (type(input, *l_ind) != SEPR && type(input, *l_ind) != HERD && \
+	!(type(input, *l_ind) && !(type(input, *l_ind) % 4)))
 	{
 		if (type(input, *l_ind) != 0 && !(type(input, *l_ind) % 5))
 		{
@@ -130,4 +104,23 @@ char	*get_content(const char *input, size_t *l_ind, t_token *token, int *err)
 		i++;
 	}
 	return (content);
+}
+
+/*
+*	free the tokens up to last, only used while assigning allocated token
+*	structures to the token struct array so that it only frees what has been
+*	allocated 
+*/
+void	free_tok(t_token **tokens, int last)
+{
+	int	i;
+
+	i = 0;
+	while (i < last)
+	{
+		free(tokens[i]->content);
+		free(tokens[i]);
+		i++;
+	}
+	free(tokens);
 }

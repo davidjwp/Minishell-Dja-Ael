@@ -6,36 +6,21 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/09 16:57:22 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/10 20:16:54 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+//also make sure that the file in a redirection is NOT A DIR
 bool	parser_rules(t_astn *node, int *error, t_cleanup *cl)
 {
-	struct stat	dir;
-	int			pos;
-
-	pos = 0;
 	if (*error)
 		return (false);
 	if (node->type == PIPE && !*error)
 		return (pipe_rules(node, error, cl));
-	else if (node->type == APRD && !*error)
-		return (apr_rules(node, error, cl));
-	else if (node->type == REDR && !*error)
-		return (redr_rules(node, error, cl));
-	else if (node->type == REDL && !*error)
-		return (redl_rules(node, error, cl));
-	get_herd(node->token, &pos);
-	if (node->token[pos] && node->token[pos + 1] == NULL)
-		return (*error += 1, syntax_error(0, cl), false);
-	if (node->token[pos] && !ft_strcmp(node->token[pos + 1]->content, "<<"))
-		return (*error += 1, syntax_error(HERD, cl), false);
-	if (node->type == COMD && !stat(node->token[0]->content, &dir))
-		if (S_ISDIR(dir.st_mode))
-			return (*error += 1, is_a_dir(node->token[0]->content, cl), false);
+	if (node->type == COMD && !*error)
+		return (comd_rules(node->token, error, cl));
 	return (true);
 }
 

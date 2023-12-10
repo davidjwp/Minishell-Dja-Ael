@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 10:37:38 by rmohamma          #+#    #+#             */
-/*   Updated: 2023/12/09 18:04:48 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/10 20:33:40 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,32 @@
 volatile int	g_signal = 0;
 
 //valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --trace-children=yes ./minitest
+/*
+*	cleans up file descriptors, the abstract syntax tree, the shell envs
+*	the input, the prompt and the cl
+*	you can choose which one you want to free by using the flags and bitwise
+*	ops like | or ^
+*/
+void	clean_up(t_cleanup *cl, int flag)
+{
+	if ((flag & CL_FDS) && cl->fds != NULL)
+		close_fds(cl->fds);
+	if ((flag & CL_TRE) && cl->tree != NULL)
+		free_tree(cl->tree);
+	if ((flag & CL_ENV) && cl->env != NULL)
+		free_env(cl->env);
+	if ((flag & CL_INP))
+	{
+		free(cl->input);
+		cl->input = NULL;
+	}
+	if ((flag & CL_HIS))
+		rl_clear_history();
+	if ((flag & CL_PRO) && cl->prompt != NULL)
+		free(cl->prompt);
+	if ((flag & CL_CL))
+		free(cl);
+}
 
 /*
 * sh_init will initialize the global data structure for the shell
@@ -77,17 +103,11 @@ int	main(int ac, char **av, char **env)
 int	shell_loop(t_astn *tree, t_env *sh_env, t_cleanup *cl)
 {
 	if (tree == NULL)
-		return (/*input_enter(), clean_up(cl, CL_FDS | CL_INP), */0);
+		return (0);
 	if (tree->type == PIPE)
 		sh_pipe(tree, sh_env, cl);
-	else if (!(tree->type % 4))
-		sh_red(tree, sh_env, cl);
-	else if (get_herd(tree->token, &(int){0}))
-		exe_herd(tree, sh_env, cl);
-	else if (tree->token[0]->type && !(tree->token[0]->type % 11))
-		builtin(tree, cl, tree->token[0]->type);
 	else
-		execute(tree, sh_env, cl);
+		exec_comd(tree, sh_env, cl);
 	if (tree == cl->tree)
 		clean_up(cl, CL_FDS | CL_TRE | CL_INP | CL_PRO);
 	return (1);

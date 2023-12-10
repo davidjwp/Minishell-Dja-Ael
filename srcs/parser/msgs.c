@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   msgs.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davidjwp <davidjwp@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/09 23:20:04 by davidjwp         ###   ########.fr       */
+/*   Updated: 2023/12/10 20:17:58 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-//no standard fds on these outputs 
 
 void	not_found(char *cmd, int *status)
 {
@@ -63,4 +61,12 @@ void	is_a_dir(char *dir, t_cleanup *cl)
 	write(2, dir, ft_strlen(dir));
 	write(2,": Is a directory\n", 18);
 	cl->status = 126;
+}
+
+void	perm_denied(char *file, t_cleanup *cl)
+{
+	write (2, "minishell: ", 12);
+	write (2, file, ft_strlen(file));
+	write (2, ": Permission denied\n", 21);
+	cl->status = 1;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exeutils_A.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/08 17:55:09 by ael-malt         ###   ########.fr       */
+/*   Updated: 2023/12/10 20:31:34 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,21 +58,6 @@ char	*cr_pathname(const char *cmd, t_env *sh_env, int *status, int i)
 		return (free_split(paths), not_found((char *)cmd, status), NULL);
 	return (free_split(paths), pathname);
 }
-
-//test function
-void	printenvp(char **envp)
-{
-	int	i;
-
-	i = 0;
-	while (envp[i] != NULL)
-	{
-		printf("%s\n", envp[i]);
-		i++;
-	}
-	printf("NULL\n");
-}
-
 
 //convert the shell environment variables to an array of strings
 char	**cr_envp(t_env *sh_env)
@@ -126,4 +111,34 @@ char	**cr_args(t_token **tokens, char *pathname)
 	while (++i < len)
 		args[i] = tokens[i]->content;
 	return (args);
+}
+
+
+int	rem_tokens(t_astn *node, int pos)
+{
+	t_token	**new;
+	int		len;
+	int		i;
+	int		y;
+
+	i = 0;
+	y = 0;
+	len = 0;
+	while (node->token[len] != NULL)
+		len++;
+	len -= 2;
+	new = (t_token **)malloc(sizeof(t_token) * (len + 1));
+	if (new == NULL)
+		return (err_msg("rem_token malloc fail"), 0);
+	new[len] = NULL;
+	free_tokens(node, pos);
+	while (node->token[i] != NULL)
+	{
+		if (i == pos)
+			y += 2;
+		new[i] = node->token[y];
+		i++;
+		y++;
+	}
+	return (free(node->token), node->token = new, 1);
 }

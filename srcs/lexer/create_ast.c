@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/08 13:27:25 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/10 20:23:08 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,30 @@
 
 /*
 *	create_ast.c contains the following functions :
-*	get_token(), ast_cmd(), ast_pipe(), ast_red(), create_ast()
+*	nbr_token(), get_token(), ast_cmd(), ast_pipe(), create_ast()
 */
+//counts the number of tokens until a pipe or redirection is found
+int	nbr_token(const char *input, size_t l_ind, int tokcnt)
+{
+	int		t;
+
+	if (!*input)
+		return (0);
+	t = type(input, l_ind);
+	while (t != PIPE && input[l_ind])
+	{
+		it_sep(input, &l_ind);
+		t = type(input, l_ind);
+		if (!input[l_ind])
+			break ;
+		else if (t != PIPE)
+			tokcnt += 1;
+		if (!it_token(input, &l_ind))
+			return (tokcnt = 0, 0);
+	}
+	return (tokcnt);
+}
+
 //returns the token struct with allocated content and type + length
 t_token	*get_token(const char *input, size_t *l_ind, t_token *token, int *err)
 {
@@ -78,27 +100,6 @@ bool	ast_pipe(const char *in, size_t *g_ind, t_astn *pipe, t_astn *p)
 	return (true);
 }
 
-/*
-*	creates a redirection node while cutting the left and right side of
-*	the input from the redirection
-*/
-bool	ast_red(const char *in, size_t *g_ind, t_astn *red, t_astn *p)
-{
-	int		error;
-
-	error = 0;
-	red->left = create_ast(cut_l(in, C_RED), g_ind, &error, red);
-	if (error)
-		return (false);
-	red->token = NULL;
-	red->type = get_node_type(in, g_ind);
-	red->parent = p;
-	red->right = create_ast(cut_r(in, C_RED), g_ind, &error, red);
-	if (error)
-		return (false);
-	return (true);
-}
-
 //creates the abstract syntax tree via descending recursion
 t_astn	*create_ast(const char *input, size_t *g_ind, int *error, t_astn *par)
 {
@@ -110,11 +111,6 @@ t_astn	*create_ast(const char *input, size_t *g_ind, int *error, t_astn *par)
 	if (_pipe(input))
 	{
 		if (!ast_pipe(input, g_ind, node, par))
-			return (*error = 1, free(node), NULL);
-	}
-	else if (_red(input))
-	{
-		if (!ast_red(input, g_ind, node, par))
 			return (*error = 1, free(node), NULL);
 	}
 	else
