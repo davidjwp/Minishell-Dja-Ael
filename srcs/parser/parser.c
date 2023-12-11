@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
+/*   By: davidjwp <davidjwp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/10 20:16:54 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/11 22:32:48 by davidjwp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,23 +24,24 @@ bool	parser_rules(t_astn *node, int *error, t_cleanup *cl)
 	return (true);
 }
 
-int	expand_node(t_astn *node, int *error, t_cleanup *cl)
+int	expand_node(t_astn *node, int *err, t_cleanup *cl)
 {
 	int	i;
 
 	i = 0;
 	if (node->left != NULL)
-		return (expand_node(node->left, error, cl));
+		return (expand_node(node->left, err, cl));
 	if (node->right != NULL)
-		return (expand_node(node->right, error, cl));
+		return (expand_node(node->right, err, cl));
 	if (node->type == COMD)
 	{
 		while (node->token[i] != NULL)
 		{
 			node->token[i]->content = expand_cont(node->token[i]->content, \
-			error, cl);
-			if (*error)
+			err, cl);
+			if (*err)
 				return (0);
+			node->token[i]->content = rem_quotes(node->token[i], err, 0, 0);
 			i++;
 		}
 	}
@@ -68,8 +69,6 @@ t_astn	*parser(const char *input, t_cleanup *cl)
 			return (cl->status = 0, NULL);
 	}
 	tree = create_ast(input, &g_ind, &error, NULL);
-	//if (tree != NULL)
-	//	return (print_tree(tree), tree); 
 	if (error || tree == NULL)
 		return (NULL);
 	if (!expand_node(tree, &error, cl))

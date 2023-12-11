@@ -6,7 +6,7 @@
 /*   By: davidjwp <davidjwp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 21:12:56 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/10 00:03:51 by davidjwp         ###   ########.fr       */
+/*   Updated: 2023/12/11 22:26:14 by davidjwp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,17 +163,11 @@ typedef struct PipeStruct{
 	int		pipe[2];
 }	t_pipe;
 
-typedef struct RedirectionStruct{
-	int	in;
-	int	out;
-}	t_red;
-
 typedef struct FileDescriptors{
 	int						std;
 	int						fd;
 	struct FileDescriptors	*next;
 }	t_fds;
-
 
 typedef struct Cmd_Struct_Nodes{
 	t_astn	*parent;
@@ -194,5 +188,10 @@ typedef struct CleanUp{
 	int		status;
 	char	*prompt;
 }	t_cleanup;
+
+typedef struct IYstruct{
+	int	y;
+	int	i;
+}	t_ut;
 
 #endif
