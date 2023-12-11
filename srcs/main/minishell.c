@@ -6,7 +6,7 @@
 /*   By: davidjwp <davidjwp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 10:37:38 by rmohamma          #+#    #+#             */
-/*   Updated: 2023/12/10 22:43:49 by davidjwp         ###   ########.fr       */
+/*   Updated: 2023/12/11 04:57:14 by davidjwp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,6 @@ int	shell_loop(t_astn *tree, t_env *sh_env, t_cleanup *cl)
 	else
 		exec_comd(tree, sh_env, cl);
 	if (tree == cl->tree)
-		return (clean_up(cl, CL_FDS | CL_TRE | CL_INP | CL_PRO), reset_fds(cl), 1);
+		return (reset_fds(cl), clean_up(cl, CL_FDS | CL_TRE | CL_INP | CL_PRO), 1);
 	return (1);
 }

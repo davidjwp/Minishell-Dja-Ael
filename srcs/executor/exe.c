@@ -6,7 +6,7 @@
 /*   By: davidjwp <davidjwp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/10 22:44:04 by davidjwp         ###   ########.fr       */
+/*   Updated: 2023/12/11 05:15:40 by davidjwp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ int	sh_red(t_token **tok, int pos, t_cleanup *cl)
 	if (fd == -1)
 		return (0);
 	if (tok[pos]->type == REDL)
-		return (res_fd(STDOUT_FILENO, STDO, cl), fd_red(&fd, RED_IN), 1);
-	return (res_fd(STDIN_FILENO, STDI, cl), fd_red(&fd, RED_RED), 1);
+		return (res_fd(STDIN_FILENO, STDI, cl), fd_red(&fd, RED_IN), 1);
+	return (res_fd(STDOUT_FILENO, STDO, cl), fd_red(&fd, RED_RED), 1);
 }
 //>> asjdas
 
@@ -85,10 +85,7 @@ int	sh_pipe(t_astn *tree, t_env *sh_env, t_cleanup *cl)
 	if (!p.l_pid)
 	{
 		fd_red(&p, RED_PIP);
-		if (!(tree->left->token[0]->type % 11) && tree->left->token[0]->type)
-			child_builtin(tree->left, cl, tree->left->token[0]->type);
-		else
-			execute(tree->left, sh_env, cl);
+		exec_comd(tree->left, sh_env, cl);
 		return (clean_up(cl, CL_ALL), exit(EXIT_SUCCESS), 0);
 	}
 	wait(&cl->status);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
+/*   By: davidjwp <davidjwp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 11:44:55 by rmohamma          #+#    #+#             */
-/*   Updated: 2023/12/10 20:44:01 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/11 05:08:20 by davidjwp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,6 @@ void		err_msg(char *msg);
 void		no_such_file(const char *file, t_cleanup *cl);
 void		is_a_dir(char *dir, t_cleanup *cl);
 void		perm_denied(char *file, t_cleanup *cl);
-
-
 
 //EXEC+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 

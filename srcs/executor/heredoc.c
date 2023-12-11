@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
+/*   By: davidjwp <davidjwp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:03:33 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/10 20:32:40 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/11 06:20:08 by davidjwp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,17 +95,17 @@ int	exe_herd(t_astn *node, int pos, t_cleanup *cl)
 
 	out = -1;
 	if (!isatty(STDOUT_FILENO))
-		out = STDOUT_FILENO;
+		out = dup(STDOUT_FILENO);
 	err = 0;
 	if (pipe(p.pipe) == -1)
 		return (err_msg("exe_herd pipe fail"), 0);
 	res_fd(STDOUT_FILENO, STDO, cl);
 	res_fd(STDIN_FILENO, STDI, cl);
 	here_doc(node->token[pos + 1]->content, p.pipe[1], &err, cl);
-	if ((node->token[0]->type == HERD && node->token[2] == NULL) || err)
+	if (err)
 		return (close_pipe(p.pipe), res_fd(STDOUT_FILENO, STDO, cl), 1);
 	if (out != -1)
-		dup2(out, STDOUT_FILENO);
+		return (dup2(out, STDOUT_FILENO), fd_red(&p, RED_HERD), close(out), 1);
 	fd_red(&p, RED_HERD);
 	return (1);
 }
