@@ -6,39 +6,12 @@
 /*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 00:28:31 by ael-malt          #+#    #+#             */
-/*   Updated: 2023/12/09 16:21:23 by ael-malt         ###   ########.fr       */
+/*   Updated: 2023/12/10 18:38:38 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	export_vintab(char *cmd, char **tab)
-{
-	int	i;
-	int	pos;
-
-	i = 0;
-	pos = ft_strchr_i(cmd, '=');
-	if (pos == -1)
-		return (-1);
-	while (tab[i])
-	{
-		if (!ft_strncmp(tab[i], cmd, pos))
-		{
-			return (i);
-		}
-		i++;
-	}
-	return (-1);
-}
-static void	insert_new_env_entry(t_cleanup *cl, char *content, t_env *tmp_env)
-{
-	t_env	*new_env_entry;
-
-	new_env_entry = env_node(content);
-	cl->env->next = new_env_entry;
-	new_env_entry->next = tmp_env;
-}
 static int	export_cmp_token_to_env(t_env *env, char *content)
 {
 	int	pos;
@@ -64,7 +37,6 @@ static int	mini_export_verif(char *str)
 	i = 1;
 	if (!(str[0] == '_' || ft_isalpha(str[0])))
 		return (0);
-	// printf("token[2]->content: %d\n", str[i] == '_');
 	while (str && str[i] && str[i] != '=')
 	{
 		if (!(str[i] == '_' || ft_isalnum(str[i])))
@@ -80,13 +52,11 @@ static int	mini_export_verif(char *str)
 // // 000095399/basedefs/xbd_chap06.html#tagtcjh_3
 // // https://stackoverflow.com/questions/2821043/
 // // allowed-characters-in-linux-environment-variable-names
-static int	do_the_export(t_cleanup *cl, t_token **token)
+static int	do_the_export(t_cleanup *cl, t_token **token, int i)
 {
-	int		i;
 	t_env	*first_env;
 
 	first_env = cl->env;
-	i = 1;
 	while (token && token[i] && token[i]->content)
 	{
 		if (mini_export_verif(token[i]->content) == 1)
@@ -118,7 +88,7 @@ static int	export_no_arg(t_env *env)
 	len = get_env_len(env);
 	while (len--)
 	{
-		printf("export %s=%s\n",env->name,env->value);
+		printf("export %s=%s\n", env->name, env->value);
 		env = env->next;
 	}
 	return (0);
@@ -126,12 +96,14 @@ static int	export_no_arg(t_env *env)
 
 int	mini_export(t_cleanup *cl, t_token **token)
 {
+	int	i;
 	int	return_value;
 
+	i = 1;
 	return_value = 0;
 	if (get_token_len(token) == 1)
 		return (export_no_arg(cl->env));
 	else if (get_token_len(token) > 1)
-		return_value = do_the_export(cl, token);
+		return_value = do_the_export(cl, token, i);
 	return (return_value);
 }
