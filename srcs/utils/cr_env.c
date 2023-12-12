@@ -6,7 +6,7 @@
 /*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 11:43:32 by rmohamma          #+#    #+#             */
-/*   Updated: 2023/12/12 16:40:41 by ael-malt         ###   ########.fr       */
+/*   Updated: 2023/12/12 16:43:49 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,8 @@ t_env	*find_env(char *name, t_env *sh_env)
 	while (ft_strcmp(name, tmp->name))
 	{
 		tmp = tmp->next;
-		if (tmp == NULL)
-			break ;
+		if (tmp == sh_env)
+			return (NULL);
 	}
 	return (tmp);
 }
