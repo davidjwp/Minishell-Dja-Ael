@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/09 17:50:30 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/12 15:47:25 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,6 @@ void	input_enter(void)
 	rl_replace_line("", 0);
 	rl_redisplay();
 }
-
-//int	get_fd(int stdio, t_fds *fds)
-//{
-//	t_fds	*tmp;
-
-//	tmp = fds;
-//	while (tmp->next != NULL)
-//	{
-//		if (tmp->std == stdio)
-//			break ;
-//		tmp = tmp->next;
-//	}
-//	return (tmp->fd);
-//}
 
 int	get_fd(int stdio, t_fds *fds)
 {

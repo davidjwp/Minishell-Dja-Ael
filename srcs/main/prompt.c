@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davidjwp <davidjwp@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 15:33:26 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/09 00:01:53 by davidjwp         ###   ########.fr       */
+/*   Updated: 2023/12/12 16:34:18 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
 
 static void	cat_colour(char *dest, char *src, char *col)
 {
@@ -28,11 +27,11 @@ static char	*_procd(char *procd, t_env *env)
 
 	i = 0;
 	ft_bzero(procd, BUFSIZ);
-	if (getcwd(buf, BUFSIZ) == NULL && find_env("PWD", env) == NULL)
-		return (*procd = '.', procd);
-	else if (getcwd(buf, BUFSIZ) == NULL)
+	ft_bzero(buf, BUFSIZ);
+	if (getcwd(buf, BUFSIZ) == NULL)
 	{
-		ft_bzero(buf, BUFSIZ);
+		if (find_env("PWD", env) == NULL)
+			return (*procd = '.', procd);
 		ft_strcat(buf, find_env("PWD", env)->value);
 	}
 	while (buf[i])
@@ -43,18 +42,29 @@ static char	*_procd(char *procd, t_env *env)
 	return (procd);
 }
 
+static char	*_prouser(char *prouser, t_env *env)
+{
+	ft_bzero(prouser, BUFSIZ);
+	if (find_env("USER", env) == NULL)
+		ft_strcat(prouser, "guest");
+	else
+		ft_strcat(prouser, find_env("USER", env)->value);
+	return (prouser);
+}
+
 char	*cr_prompt(t_cleanup *cl, t_env *sh_env)
 {
 	char		procd[BUFSIZ];
+	char		prouser[BUFSIZ];
 	char		*prompt;
 
 	_procd(procd, sh_env);
-	prompt = ft_calloc((ft_strlen(find_env("USER",sh_env)->value) + \
-	ft_strlen(procd) + (((ft_strlen(BLUE) + ft_strlen(RESET))) * 4)) + 10, \
-	sizeof(char));
+	_prouser(prouser, sh_env);
+	prompt = ft_calloc((ft_strlen(prouser) + ft_strlen(procd) + \
+	(((ft_strlen(BLUE) + ft_strlen(RESET))) * 4)) + 10, sizeof(char));
 	if (prompt == NULL)
 		return (err_msg("crt_prompt malloc fail"), cl->prompt = NULL, NULL);
-	cat_colour(prompt, find_env("USER", sh_env)->value, GREEN);
+	cat_colour(prompt, prouser, GREEN);
 	cat_colour(prompt, "@Mini", RED);
 	cat_colour(prompt, ":~", WHITE);
 	cat_colour(prompt, procd, BLUE);

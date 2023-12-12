@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 11:44:55 by rmohamma          #+#    #+#             */
-/*   Updated: 2023/12/12 15:09:51 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/12 15:50:53 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,10 @@
 # include "headers.h"
 # include "../libft/includes/libft.h"
 
-/*DAVID***********************************************************************/
-
 //MAIN+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 //minishell.c
+void		clean_up(t_cleanup *cl, int flag);
 bool		sh_init(t_env *sh_env, t_cleanup *cl);
 int			shell_loop(t_astn *tree, t_env *sh_env, t_cleanup *cl);
 
@@ -131,14 +130,12 @@ bool		red_herd(t_token **tok);
 void		get_pos(t_token **tokens, int *pos);
 void		free_tokens(t_astn *node, int pos);
 
-
 //heredoc.c
 t_token		*get_herd(t_token **tokens, int *pos);
 int			here_doc(char *delimiter, int out, int *err, t_cleanup *cl);
 int			exe_herd(t_astn *node, int pos, t_cleanup *cl);
 bool		cmp_del(char *del, char *new);
 char		*str_realloc(char *ptr, int nmember, int size);
-
 
 //fds.c
 int			fd_red(void *type, int redpipe);
@@ -147,12 +144,6 @@ void		rem_fd(t_fds *fd_lst, int fd);
 int			add_fd(t_fds *fd_lst, int fd);
 t_fds		*init_fds(void);
 
-//MAIN+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-//minishell.c
-void		clean_up(t_cleanup *cl, int flag);
-int			shell_loop(t_astn *tree, t_env *sh_env, t_cleanup *cl);
-int			sh_envlen(t_env *sh_env);
 
 //UTILS++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -181,55 +172,49 @@ t_env		*find_env(char *name, t_env *sh_env);
 void		free_env(t_env *env);
 void		printenvp(char **envp);
 
-
-//MESSAGES+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
 //signals
 void		ctrl_c(int sig);
 void		signals(void);
 
 //-------------------------------BUILTINS------------------------------//
 
-void	child_builtin(t_astn *tree, t_cleanup *cl, int type);
+void		child_builtin(t_astn *tree, t_cleanup *cl, int type);
 void		builtin(t_astn *tree, t_cleanup *cl, int type);
-int		is_builtin(t_astn *tree);
+int			is_builtin(t_astn *tree);
 
 		//--------------------BUILTINS_ERRORS.C---------------------//
-void	*mini_bt_errors(t_cleanup *cl, int err_type, char *param, int err);
-int		mini_export_error(char *arg);
-void	mini_cd_error(char *join_cd, int *exit_status);
+void		*mini_bt_errors(t_cleanup *cl, int err_type, char *param, int err);
+int			mini_export_error(char *arg);
+void		mini_cd_error(char *join_cd, int *exit_status);
 
-		//-----------------------CD_UTIL.C--------------------------//
-t_env	*srch_env(t_env *env, char *str);
+			//-----------------------CD_UTIL.C--------------------------//
+t_env		*srch_env(t_env *env, char *str);
 
-		//--------------------------CD.C----------------------------//
-int		mini_cd(t_cleanup *cl, t_token **token);
+			//--------------------------CD.C----------------------------//
+int			mini_cd(t_cleanup *cl, t_token **token);
 
-		//-------------------------ECHO.C---------------------------//
-int		mini_echo(t_astn *tree);
+			//-------------------------ECHO.C---------------------------//
+int			mini_echo(t_astn *tree);
 
-		//--------------------------ENV.C---------------------------//
-int		get_token_len(t_token **token);
-int		get_env_len(t_env *env);
-int		mini_env(t_env	*env);
+			//--------------------------ENV.C---------------------------//
+int			get_token_len(t_token **token);
+int			get_env_len(t_env *env);
+int			mini_env(t_env	*env);
 
-		//-------------------------EXIT.C--------------------------//
-int		mini_exit(t_cleanup *cl, t_token **token);
+			//-------------------------EXIT.C--------------------------//
+int			mini_exit(t_cleanup *cl, t_token **token);
 
-		//------------------------EXPORT.C--------------------------//
-int		export_vintab(char *cmd, char **tab);
-int		mini_export_error(char *cmd);
-int		mini_export(t_cleanup *cl, t_token **token);
+			//------------------------EXPORT.C--------------------------//
+int			export_vintab(char *cmd, char **tab);
+int			mini_export_error(char *cmd);
+int			mini_export(t_cleanup *cl, t_token **token);
 
-		//--------------------------PWD.C---------------------------//
-int		mini_pwd(void);
+			//--------------------------PWD.C---------------------------//
+int			mini_pwd(void);
 
-		//-------------------------UNSET.C--------------------------//
-int		unset_vintab(char *av, char **tab);
-int		mini_unset(t_cleanup *cl, t_token **token);
-char	**new_tab(t_cleanup *cl, int index);
-
-
-
+			//-------------------------UNSET.C--------------------------//
+int			unset_vintab(char *av, char **tab);
+int			mini_unset(t_cleanup *cl, t_token **token);
+char		**new_tab(t_cleanup *cl, int index);
 
 #endif
