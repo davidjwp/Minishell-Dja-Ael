@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cr_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 11:43:32 by rmohamma          #+#    #+#             */
-/*   Updated: 2023/12/07 17:40:26 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/12 16:21:02 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	putnsplit(char *split, char *env, int n)
 {
+
 	int	i;
 
 	i = 0;
@@ -72,7 +73,7 @@ t_env	*cr_env(char **env)
 	int		i;
 
 	if (!*env)
-		return (0);
+		return (cr_empty_env());
 	i = 0;
 	sh_env = env_node(env[i]);
 	if (sh_env == NULL)

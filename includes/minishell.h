@@ -6,7 +6,7 @@
 /*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 11:44:55 by rmohamma          #+#    #+#             */
-/*   Updated: 2023/12/12 15:28:07 by ael-malt         ###   ########.fr       */
+/*   Updated: 2023/12/12 16:20:32 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,6 +172,7 @@ size_t		ft_strlcat(char *dst, const char *src, size_t size);
 //utils_C.c
 int			gnl(char **line);
 
+t_env		*cr_empty_env(void);
 t_env		*cr_env(char **env);
 t_env		*env_node(char *env);
 t_astn		*parser(const char *input, t_cleanup *cl);

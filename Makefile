@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+         #
+#    By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/02 15:39:21 by djacobs           #+#    #+#              #
-#    Updated: 2023/12/10 20:25:24 by djacobs          ###   ########.fr        #
+#    Updated: 2023/12/12 16:21:31 by ael-malt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ SRCS			= srcs/main/minishell.c \
 			srcs/executor/fds.c \
 			srcs/executor/heredoc.c \
 			srcs/utils/cr_env.c \
+			srcs/utils/ct_empty_env.c \
 			srcs/parser/expander.c \
 			srcs/parser/msgs.c \
 			srcs/parser/parser_A.c \
