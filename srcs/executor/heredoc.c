@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davidjwp <davidjwp@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:03:33 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/11 06:20:08 by davidjwp         ###   ########.fr       */
+/*   Updated: 2023/12/12 20:28:51 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ bool	cmp_del(char *del, char *new)
 	i = 0;
 	if (!new[i])
 		return (false);
-	while (new[i])
+	while (del[i])
 	{
 		if ((!del[i] && new[i]) || (new[i] != del[i]))
 			return (false);

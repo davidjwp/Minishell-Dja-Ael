@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/12 20:08:11 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/12 20:26:05 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,3 @@ t_astn	*parser(const char *input, t_cleanup *cl)
 		return (free_tree(tree), NULL);
 	return (tree);
 }
-
-/*parsing rules here*/
-//no > > so tree->right->left->token[0] == NULL or tree->right->left == 
-// NULL if tree->right->type == REDR
-//no < < 
-//you can have multiple files in those redirections but only the 
-// first one will be redirected
-//check file permissions for redirections, so 
