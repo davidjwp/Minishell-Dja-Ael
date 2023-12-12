@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/12 15:48:10 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/12 17:53:04 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,12 @@ int	sh_pipe(t_astn *tree, t_env *sh_env, t_cleanup *cl)
 		return (err_msg("sh_pipe fork error"), 0);
 	if (!p.l_pid)
 	{
+		signal(SIGINT, SIG_IGN);//idk change that 
 		fd_red(&p, RED_PIP);
 		exec_comd(tree->left, sh_env, cl);
 		return (clean_up(cl, CL_ALL), exit(EXIT_SUCCESS), 0);
 	}
-	wait(&cl->status);
+	//wait(&cl->status);
 	dup2(p.pipe[0], STDIN_FILENO);
 	close_pipe(p.pipe);
 	shell_loop(tree->right, sh_env, cl);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 11:44:55 by rmohamma          #+#    #+#             */
-/*   Updated: 2023/12/12 16:39:50 by ael-malt         ###   ########.fr       */
+/*   Updated: 2023/12/12 20:06:39 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,8 @@ bool		redr_rules(t_token *tok, int *error, t_cleanup *cl);
 bool		comd_rules(t_token **tok, int *err, t_cleanup *cl);
 
 //parser_B.c
-char		*rem_quotes(char *content, int *t, int *err);
-
+//char		*rem_quotes(char *content, int *t, int *err);
+char		*rem_quotes(char *content, int *tp, int *err, t_p p);
 //parser_C.c
 int			gnl(char **line);
 size_t		ft_strcat(char *dest, const char *src);

@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 17:31:16 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/10 20:26:32 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/12 19:18:37 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,29 @@ bool	check_spec(const char *input, size_t *i)
 *	- this is possibly deprecated because my expand will expand correctly even
 *		when unclosed, so there is no need to send an error msg 
 */
+//bool	check_quote(const char *input, size_t *i)
+//{
+//	bool	open;
+//	int		t;
+
+//	open = false;
+//	while (input[*i])
+//	{
+//		if (type(input, *i) == SEPR && !open)
+//			break ;
+//		if (type(input, *i) && !(type(input, *i) % 5) && !open)
+//			t = type(input, *i);
+//		if (type(input, *i) == t && !open)
+//			open = true;
+//		else if (type(input, *i) == t && open)
+//			open = false;
+//		*i += 1;
+//	}
+//	if (!input[*i] && open)
+//		return (err_msg("unclosed quote"), false);
+//	return (true);
+//}
+
 bool	check_quote(const char *input, size_t *i)
 {
 	bool	open;

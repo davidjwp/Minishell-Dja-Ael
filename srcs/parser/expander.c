@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davidjwp <davidjwp@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 17:10:39 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/11 18:17:54 by davidjwp         ###   ########.fr       */
+/*   Updated: 2023/12/12 17:15:47 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,8 +206,5 @@ char	*expand_cont(char *content, int *error, t_cleanup *cl)
 			return (content);
 		pos = 0;
 	}
-	// content = rem_quotes(content, error, 0, 0);
-	// if (*error)
-	// 	return (free(content), NULL);
 	return (content);
 }

@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/12 15:16:10 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/12 20:08:11 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	expand_node(t_astn *n, int *err, t_cleanup *cl)
 			if (*err)
 				return (0);
 			n->token[i]->content = rem_quotes(n->token[i]->content, \
-			&n->token[i]->type, err);
+			&n->token[i]->type, err, (t_p){0, 0, 0, 0});
 			i++;
 		}
 	}

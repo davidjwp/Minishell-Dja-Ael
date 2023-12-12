@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 10:37:38 by rmohamma          #+#    #+#             */
-/*   Updated: 2023/12/12 16:41:56 by ael-malt         ###   ########.fr       */
+/*   Updated: 2023/12/12 16:50:37 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,8 @@ int	main(int ac, char **av, char **env)
 	t_cleanup	*cl;
 
 	sh_env = cr_env(env);
-	//if (sh_env == NULL)
-	//	return (0);
+	if (sh_env == NULL)
+		return (0);
 	cl = malloc(sizeof(t_cleanup));
 	if (cl == NULL)
 		return (err_msg("cl malloc fail"), 0);
