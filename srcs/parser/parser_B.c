@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_B.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davidjwp <davidjwp@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/11 23:39:28 by davidjwp         ###   ########.fr       */
+/*   Updated: 2023/12/12 15:13:04 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,34 +22,31 @@ void	n_quolen(char *cont, int *i, int *y)
 	}
 }
 
-void	set_qr(char *cont, int *qr)//
-{
-	int	i;
-	
-
-}
-
-char	*rem_quotes(t_token *t, int *err, int i, int y)
+char	*rem_quotes(char *cont, int *t, int *err)
 {
 	char	*new;
-	int		qr;
+	int		i;
+	int		y;	
 
-	set_qr(t->content, &qr);
-	n_quolen(t->content, &i, &y);
+	y = 0;
+	i = 0;
+	n_quolen(cont, &i, &y);
 	if (!(y - i))
-		return (free(t->content), t->content = ft_strdup(""));
+		return (free(cont), cont = ft_strdup(""));
 	new = ft_calloc(((y - i) + 1), sizeof(char));
 	if (new == NULL)
 		return (*err = 1, NULL);
 	i = 0;
 	y = 0;
-	while (t->content[i])
+	while (cont[i])
 	{
-		while (type(t->content, i) && !(type(t->content, i) % 5))
+		while (type(cont, i) && !(type(cont, i) % 5))
 			i++;
-		if (t->content[i])
-			new[y] = t->content[i++];
+		if (cont[i])
+			new[y] = cont[i++];
 		y++;
 	}
-	return (free(t->content), new);
+	if ((get_token_type(new) && !(get_token_type(new) % 11)))
+		return (free(cont), *t = get_token_type(new), new);
+	return (free(cont), new);
 }

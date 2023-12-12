@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davidjwp <davidjwp@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 11:44:55 by rmohamma          #+#    #+#             */
-/*   Updated: 2023/12/11 05:08:20 by davidjwp         ###   ########.fr       */
+/*   Updated: 2023/12/12 15:09:51 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ bool		redr_rules(t_token *tok, int *error, t_cleanup *cl);
 bool		comd_rules(t_token **tok, int *err, t_cleanup *cl);
 
 //parser_B.c
-char		*rem_quotes(char *content, int *err, int i, int y);
+char		*rem_quotes(char *content, int *t, int *err);
 
 //parser_C.c
 int			gnl(char **line);

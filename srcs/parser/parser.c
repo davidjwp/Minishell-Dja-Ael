@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davidjwp <davidjwp@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/11 22:32:48 by davidjwp         ###   ########.fr       */
+/*   Updated: 2023/12/12 15:16:10 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,24 +24,25 @@ bool	parser_rules(t_astn *node, int *error, t_cleanup *cl)
 	return (true);
 }
 
-int	expand_node(t_astn *node, int *err, t_cleanup *cl)
+int	expand_node(t_astn *n, int *err, t_cleanup *cl)
 {
 	int	i;
 
 	i = 0;
-	if (node->left != NULL)
-		return (expand_node(node->left, err, cl));
-	if (node->right != NULL)
-		return (expand_node(node->right, err, cl));
-	if (node->type == COMD)
+	if (n->left != NULL)
+		return (expand_node(n->left, err, cl));
+	if (n->right != NULL)
+		return (expand_node(n->right, err, cl));
+	if (n->type == COMD)
 	{
-		while (node->token[i] != NULL)
+		while (n->token[i] != NULL)
 		{
-			node->token[i]->content = expand_cont(node->token[i]->content, \
+			n->token[i]->content = expand_cont(n->token[i]->content, \
 			err, cl);
 			if (*err)
 				return (0);
-			node->token[i]->content = rem_quotes(node->token[i], err, 0, 0);
+			n->token[i]->content = rem_quotes(n->token[i]->content, \
+			&n->token[i]->type, err);
 			i++;
 		}
 	}
