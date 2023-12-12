@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 11:43:32 by rmohamma          #+#    #+#             */
-/*   Updated: 2023/12/07 17:40:26 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/12 16:33:45 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ t_env	*cr_env(char **env)
 	int		i;
 
 	if (!*env)
-		return (0);
+		return (NULL); 
 	i = 0;
 	sh_env = env_node(env[i]);
 	if (sh_env == NULL)
@@ -95,6 +95,8 @@ t_env	*find_env(char *name, t_env *sh_env)
 	t_env	*tmp;
 
 	tmp = sh_env;
+	if (sh_env == NULL)
+		return (NULL);
 	while (ft_strcmp(name, tmp->name))
 	{
 		tmp = tmp->next;

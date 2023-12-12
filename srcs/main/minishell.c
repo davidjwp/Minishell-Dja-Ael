@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davidjwp <davidjwp@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 10:37:38 by rmohamma          #+#    #+#             */
-/*   Updated: 2023/12/11 04:57:14 by davidjwp         ###   ########.fr       */
+/*   Updated: 2023/12/12 16:30:02 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,12 @@
 
 volatile int	g_signal = 0;
 
-//valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --trace-children=yes ./minitest
+static void	reset_fds(t_cleanup *cl)
+{
+	res_fd(STDIN_FILENO, STDI, cl);
+	res_fd(STDOUT_FILENO, STDO, cl);
+}
+
 /*
 *	cleans up file descriptors, the abstract syntax tree, the shell envs
 *	the input, the prompt and the cl
@@ -66,15 +71,8 @@ bool	sh_init(t_env *sh_env, t_cleanup *cl)
 	return (true);
 }
 
-void	reset_fds(t_cleanup *cl)
-{
-	res_fd(STDIN_FILENO, STDI, cl);
-	res_fd(STDOUT_FILENO, STDO, cl);
-}
-
 /*
-* the main function which checks for the availability of the stdio fds
-* then the shell env consisting of the env being passed to the main function
+* the main function creates the shell env consisting of the env being passed to the main function
 * then the main loop where the global data structure is created and the
 * shell_loop
 */
@@ -84,8 +82,8 @@ int	main(int ac, char **av, char **env)
 	t_cleanup	*cl;
 
 	sh_env = cr_env(env);
-	if (sh_env == NULL)
-		return (0);
+	//if (sh_env == NULL)
+	//	return (0);
 	cl = malloc(sizeof(t_cleanup));
 	if (cl == NULL)
 		return (err_msg("cl malloc fail"), 0);

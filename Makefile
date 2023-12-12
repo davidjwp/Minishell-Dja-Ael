@@ -6,7 +6,7 @@
 #    By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/02 15:39:21 by djacobs           #+#    #+#              #
-#    Updated: 2023/12/12 15:42:16 by ael-malt         ###   ########.fr        #
+#    Updated: 2023/12/12 16:38:57 by ael-malt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,7 +63,7 @@ OBJS			= $(SRCS:srcs/%.c=$(OBJS_DIR)%.o)
 all:$(NAME)
 
 $(NAME): $(LIB) $(OBJS)
-	@$(CC) $(CFLAGS)	 $(OBJS) $(LINKER) $(LIB) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) $(LINKER) $(LIB) -o $(NAME)
 	@echo "\1\033[1m\033[32m\2\n Compilation Done\n\1\033[0m\2"
 
 $(OBJS_DIR)%.o: srcs/%.c

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exe.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davidjwp <davidjwp@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/11 05:15:40 by davidjwp         ###   ########.fr       */
+/*   Updated: 2023/12/12 15:48:10 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,4 +121,10 @@ int	execute(t_astn *tree, t_env *sh_env, t_cleanup *cl)
 		exit(EXIT_FAILURE), 0);
 	clean_up(cl, CL_FDS);
 	return (execve(exe._path, exe.argv, exe._envp), exit(EXIT_FAILURE), 0);
+}
+
+void	reset_fds(t_cleanup *cl)
+{
+	res_fd(STDIN_FILENO, STDI, cl);
+	res_fd(STDOUT_FILENO, STDO, cl);
 }
