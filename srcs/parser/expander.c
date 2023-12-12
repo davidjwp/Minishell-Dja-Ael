@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 17:10:39 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/12 17:15:47 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/12 21:18:21 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,14 @@
 bool	varischar(char *str)
 {
 	if (str[1] <= 33 || str[1] == 34 || str[1] == 39)
+		return (true);
+	return (false);
+}
+
+static bool	is_alnum(char c)
+{
+	if ((c >= 48 && c <= 57) || (c >= 65 && c <= 90) || (c >= 97 && c <= 122)\
+	|| c == '_')
 		return (true);
 	return (false);
 }
@@ -45,8 +53,7 @@ t_env	*exp_findenv(char *name, int *err, t_env *sh_env)
 	int		len;
 
 	len = 0;
-	while (type(name, len) != SEPR && !(type(name, len) && \
-	!(type(name, len) % 5)) && name[len] != '$' && name[len])
+	while (is_alnum(name[len]) && name[len])
 		len++;
 	trim = ft_calloc((len + 1), sizeof(char));
 	if (trim == NULL)
@@ -149,9 +156,8 @@ int	exp_newlen(char *content, size_t len, t_env *var)
 
 	i = len + 1;
 	if (varischar(&content[len]))
-		return (len += ft_strlen (&content[len]));
-	while (!(type(content, i) && !(type(content, i) % 5)) && \
-	type(content, i) != SEPR && content[i] != '$' && content[i])
+		return (len += ft_strlen(&content[len]));
+	while (is_alnum(content[i]) && content[i])
 		i++;
 	if (var != NULL)
 		len += ft_strlen(var->value);
@@ -168,8 +174,8 @@ char	*var_token(char *cont, char *new, t_env *var, t_exp va)
 		new[va.y++] = cont[va.i++];
 	else if (var == NULL)
 	{
-		while (type(cont, va.i) != SEPR && cont[va.i] &&\
-		!(type(cont, va.i) && !(type(cont, va.i) % 5)))
+		va.i++;
+		while (cont[va.i] && is_alnum(cont[va.i]))
 			va.i++;
 	}
 	else
@@ -182,8 +188,6 @@ char	*var_token(char *cont, char *new, t_env *var, t_exp va)
 		new[va.y++] = cont[va.i++];
 	return (free(cont), new);
 }
-
-
 
 //this the main expand function, i reuse this for heredocs
 char	*expand_cont(char *content, int *error, t_cleanup *cl)
