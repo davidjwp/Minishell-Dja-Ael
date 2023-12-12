@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exe.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
+/*   By: davidjwp <davidjwp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/09 15:52:14 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/11 05:15:40 by davidjwp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,70 +14,57 @@
 
 /*
 *	exe contains the following functions :
-*	open_file(), sh_red(), sh_pipe(), clean_up(), execute()
+*	exec_comd(), sh_red(), sh_pipe(), execute()
 */
-//checks for access permissions and viability of files then opens
-int	open_file(t_astn *tree, t_red *_red, int flag)
+/*
+*	this function will look through the tokens for a redirection or a heredoc 
+*	as long as one is found it'll loop through it, then the first symbol found
+*	is applied, a redirection, redirects, a heredoc ... heredocs ?
+*	then the two tokens refering to a heredoc or a redirection are removed from
+*	the node and whatever is left is executed.
+*/
+int	exec_comd(t_astn *tree, t_env *sh_env, t_cleanup *cl)
 {
-	if (flag == O_APPEND)
+	int	pos;
+
+	while (red_herd(tree->token))
 	{
-		if (access(tree->right->token[0]->content, W_OK) == -1)
-			_red->out = open(tree->right->token[0]->content, O_RDWR | \
-			__O_CLOEXEC | O_CREAT | O_APPEND, 0644);
-		else
-			_red->out = open(tree->right->token[0]->content, O_RDWR | \
-			__O_CLOEXEC | O_APPEND, 0644);
+		pos = 0;
+		get_pos(tree->token, &pos);
+		if (tree->token[pos]->type == HERD)
+			exe_herd(tree, pos, cl);
+		else if (tree->token[pos]->type && !(tree->token[pos]->type % 4))
+			sh_red(tree->token, pos, cl);
+		if (!rem_tokens(tree, pos))
+			return (0);
 	}
-	else if (!flag)
-	{
-		if (access(tree->right->token[0]->content, W_OK) == -1)
-			_red->out = open(tree->right->token[0]->content, O_RDWR | \
-			__O_CLOEXEC | O_CREAT, 0644);
-		else
-			_red->out = open(tree->right->token[0]->content, O_RDWR | \
-			__O_CLOEXEC, 0644);
-	}
-	if (_red->out == -1)
-		return (0);
+	if (tree->token[0] && (tree->token[0]->type && \
+	!(tree->token[0]->type % 11)))
+		builtin(tree, cl, tree->token[0]->type);
+	else if (tree->token[0] != NULL)
+		execute(tree, sh_env, cl);
+	// res_fd(STDOUT_FILENO, STDO, cl);
+	// res_fd(STDIN_FILENO, STDI, cl);
 	return (1);
 }
 
-/*
-*	this is the shell redirection, it's a little scary looking because i
-*	either had too many lines or too little to make the code readable.
-*
-*	as the name suggests it redirects output or input depending on the type of
-*	redirection so first it'll get the fd for the file by using open_file(), then
-*	i use res_fd() to put the fd corresponding to the fd which will be duplicated
-*	to the file fd at the top of the list of fd(lots of fds lol) then i duplicate
-*	the file fd with stdin or stdout, close the file fd and enter shell loop to
-*	execute the command, then i make sure to restore the old fd
-*/
-int	sh_red(t_astn *tree, t_env *sh_env, t_cleanup *cl)
+int	sh_red(t_token **tok, int pos, t_cleanup *cl)
 {
-	t_red	_red;
+	int	fd;
 
-	if (tree->type == REDL)
-	{
-		_red.in = open(tree->right->token[0]->content, O_RDONLY | __O_CLOEXEC);
-		if (_red.in == -1)
-			return (0);
-		restore_fd(STDIN_FILENO, STDI, cl);
-		dup2(_red.in, STDIN_FILENO);
-		close(_red.in);
-		shell_loop(tree->left, sh_env, cl);
-		return (restore_fd(STDIN_FILENO, STDI, cl), 1);
-	}
-	else if (tree->type == REDR)
-		if (!open_file(tree, &_red, 0))
-			return (err_msg("open file fail"), 0);
-	if (tree->type == APRD)
-		if (!open_file(tree, &_red, O_APPEND))
-			return (err_msg("open file fail"), 0);
-	fd_redirection(&_red, RED_RED);
-	shell_loop(tree->left, sh_env, cl);
-	return (restore_fd(STDOUT_FILENO, STDO, cl), 1);
+	if (tok[pos]->type == REDL)
+		fd = open(tok[pos + 1]->content, 524288, 0644);
+	else if (tok[pos]->type == REDR)
+		fd = open(tok[pos + 1]->content, 524354, 0644);
+	else
+		fd = open(tok[pos + 1]->content, 525378, 0644);
+	if (fd == -1)
+		return (0);
+	if (tok[pos]->type == REDL)
+		return (res_fd(STDIN_FILENO, STDI, cl), fd_red(&fd, RED_IN), 1);
+	return (res_fd(STDOUT_FILENO, STDO, cl), fd_red(&fd, RED_RED), 1);
 }
+//>> asjdas
 
 /*
 *	this is the shell pipes, they open a pipe and fork, in the child process
@@ -97,46 +84,15 @@ int	sh_pipe(t_astn *tree, t_env *sh_env, t_cleanup *cl)
 		return (err_msg("sh_pipe fork error"), 0);
 	if (!p.l_pid)
 	{
-		fd_redirection(&p, RED_PIP);
-		if (!(tree->left->token[0]->type % 11) && tree->left->token[0]->type)
-			child_builtin(tree->left, cl, tree->left->token[0]->type);
-		else
-			execute(tree->left, sh_env, cl);
+		fd_red(&p, RED_PIP);
+		exec_comd(tree->left, sh_env, cl);
 		return (clean_up(cl, CL_ALL), exit(EXIT_SUCCESS), 0);
 	}
 	wait(&cl->status);
 	dup2(p.pipe[0], STDIN_FILENO);
 	close_pipe(p.pipe);
 	shell_loop(tree->right, sh_env, cl);
-	return (restore_fd(STDIN_FILENO, STDO, cl), 0);
-}
-
-/*
-*	cleans up file descriptors, the abstract syntax tree, the shell envs
-*	the input, the prompt and the cl
-*	you can choose which one you want to free by using the flags and bitwise
-*	ops like | or ^
-*/
-//cleans up file descriptors the abstract synthax tree and the shell envs
-void	clean_up(t_cleanup *cl, int flag)
-{
-	if ((flag & CL_FDS) && cl->fds != NULL)
-		close_fds(cl->fds);
-	if ((flag & CL_TRE) && cl->tree != NULL)
-		free_tree(cl->tree);
-	if ((flag & CL_ENV) && cl->env != NULL)
-		free_env(cl->env);
-	if ((flag & CL_INP))
-	{
-		free(cl->input);
-		cl->input = NULL;
-	}
-	if ((flag & CL_HIS))
-		rl_clear_history();
-	if ((flag & CL_PRO) && cl->prompt != NULL)
-		free(cl->prompt);
-	if ((flag & CL_CL))
-		free(cl);
+	return (res_fd(STDIN_FILENO, STDO, cl), 0);
 }
 
 //executes the command node, might not need that last freeing

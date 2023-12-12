@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexerutils_A.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 17:31:16 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/08 17:49:30 by ael-malt         ###   ########.fr       */
+/*   Updated: 2023/12/10 20:26:32 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /*
 *	lexerutils_A contains the following functions :
-*	type(), _pipe(), _red(), cmp(), check_spec()
+*	type(), _pipe(), cmp(), check_spec(), check_quote()
 */
 //returns type for first pointed chars in *s
 inline int	type(const char *s, size_t i)
@@ -71,35 +71,6 @@ bool	_pipe(const char *input)
 	return (false);
 }
 
-//finds first redirection in input
-bool	_red(const char *input)
-{
-	bool	open;
-	int		index;
-	int		t;
-
-	t = 0;
-	index = 0;
-	open = false;
-	while (input[index] != 0)
-	{
-		if (type(input, index) && !(type(input, index) % 5) && !open)
-		{
-			open = true;
-			t = type(input, index);
-		}
-		else if (type(input, index) == t && open)
-			open = false;
-		if (type(input, index) && !(type(input, index) % 4) && !open)
-			return (true);
-		if (type(input, index) == HERD)
-			index += 2;
-		else
-			index += 1;
-	}
-	return (false);
-}
-
 //cmp two strings returns bool if same string or not 
 bool	cmp(const char *content, const char *input)
 {
@@ -137,5 +108,34 @@ bool	check_spec(const char *input, size_t *i)
 		*i += 2;
 	else
 		*i += 1;
+	return (true);
+}
+
+/*
+*   will check for unclosed quotes and iterate index *i which corresponds to 
+*   length in it_token's higher scope, this also gets the length of the token
+*	- this is possibly deprecated because my expand will expand correctly even
+*		when unclosed, so there is no need to send an error msg 
+*/
+bool	check_quote(const char *input, size_t *i)
+{
+	bool	open;
+	int		t;
+
+	open = false;
+	while (input[*i])
+	{
+		if (type(input, *i) == SEPR && !open)
+			break ;
+		if (type(input, *i) && !(type(input, *i) % 5) && !open)
+			t = type(input, *i);
+		if (type(input, *i) == t && !open)
+			open = true;
+		else if (type(input, *i) == t && open)
+			open = false;
+		*i += 1;
+	}
+	if (!input[*i] && open)
+		return (err_msg("unclosed quote"), false);
 	return (true);
 }

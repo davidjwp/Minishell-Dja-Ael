@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
+/*   By: davidjwp <davidjwp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 17:10:39 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/06 17:53:01 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/11 18:17:54 by davidjwp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,11 @@ bool	find_var(char *cont, size_t *pos)
 	sq = false;
 	while (cont[*pos])
 	{
-		if (type(cont, *pos) == DQUO && !dq && qisclose(&cont[*pos], dq))
+		if (type(cont, *pos) == DQUO && !dq && !sq && qisclose(&cont[*pos], dq))
 			dq = true;
 		else if (type(cont, *pos) == DQUO && dq)
 			dq = false;
-		if (type(cont, *pos) == SQUO && !sq && qisclose(&cont[*pos], sq))
+		if (type(cont, *pos) == SQUO && !sq && !dq && qisclose(&cont[*pos], sq))
 			sq = true;
 		else if (type(cont, *pos) == SQUO && sq)
 			sq = false;
@@ -183,6 +183,8 @@ char	*var_token(char *cont, char *new, t_env *var, t_exp va)
 	return (free(cont), new);
 }
 
+
+
 //this the main expand function, i reuse this for heredocs
 char	*expand_cont(char *content, int *error, t_cleanup *cl)
 {
@@ -204,8 +206,8 @@ char	*expand_cont(char *content, int *error, t_cleanup *cl)
 			return (content);
 		pos = 0;
 	}
-	content = rem_quotes(content, error, 0, 0);
-	if (*error)
-		return (free(content), NULL);//check on that condition idk
+	// content = rem_quotes(content, error, 0, 0);
+	// if (*error)
+	// 	return (free(content), NULL);
 	return (content);
 }

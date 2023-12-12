@@ -6,36 +6,47 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/07 15:35:14 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/12 15:13:04 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	*rem_quotes(char *content, int *err, int i, int y)
+void	n_quolen(char *cont, int *i, int *y)
+{
+	while (cont[*y])
+	{
+		if (type(cont, *y) && !(type(cont, *y) % 5))
+			*i += 1;
+		*y += 1;
+	}
+}
+
+char	*rem_quotes(char *cont, int *t, int *err)
 {
 	char	*new;
+	int		i;
+	int		y;	
 
-	while (content[y])
-	{
-		if (type(content, y) && !(type(content, y) % 5))
-			i++;
-		y++;
-	}
+	y = 0;
+	i = 0;
+	n_quolen(cont, &i, &y);
 	if (!(y - i))
-		return (free(content), content = ft_strdup(""));
+		return (free(cont), cont = ft_strdup(""));
 	new = ft_calloc(((y - i) + 1), sizeof(char));
 	if (new == NULL)
 		return (*err = 1, NULL);
 	i = 0;
 	y = 0;
-	while (content[i])
+	while (cont[i])
 	{
-		while (type(content, i) && !(type(content, i) % 5))
+		while (type(cont, i) && !(type(cont, i) % 5))
 			i++;
-		if (content[i])
-			new[y] = content[i++];
+		if (cont[i])
+			new[y] = cont[i++];
 		y++;
 	}
-	return (free(content), new);
+	if ((get_token_type(new) && !(get_token_type(new) % 11)))
+		return (free(cont), *t = get_token_type(new), new);
+	return (free(cont), new);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
+/*   By: davidjwp <davidjwp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:03:33 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/09 15:32:59 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/11 06:20:08 by davidjwp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ bool	cmp_del(char *del, char *new)
 	return (true);
 }
 
-//this is the part that reads input 
 int	here_doc(char *delimiter, int out, int *err, t_cleanup *cl)
 {
 	char	*line;
@@ -65,8 +64,6 @@ int	here_doc(char *delimiter, int out, int *err, t_cleanup *cl)
 
 	signals();
 	line = NULL;
-	restore_fd(STDOUT_FILENO, STDO, cl);
-	restore_fd(STDIN_FILENO, STDI, cl);
 	while ("heredoc")
 	{
 		new = readline("> ");
@@ -85,61 +82,30 @@ int	here_doc(char *delimiter, int out, int *err, t_cleanup *cl)
 	return (free(line), free(new), 0);
 }
 
-void	free_herd(t_astn *node, int pos)
+/*
+*	if there is another stdo red then i shouldn't restore stdo, or keep the file
+*	fd, restore stdo then redup2 stdo with the file fd, this only applies to 
+*	stdout
+*/
+int	exe_herd(t_astn *node, int pos, t_cleanup *cl)
 {
-	free(node->token[pos]->content);
-	free((t_token *)node->token[pos]);
-	free(node->token[pos + 1]->content);
-	free((t_token *)node->token[pos + 1]);
-}
-
-int	rem_herd(t_astn *node, int pos)
-{
-	t_token	**new;
-	int		len;
-	int		i;
-	int		y;
-
-	i = 0;
-	y = 0;
-	len = 0;
-	while (node->token[len] != NULL)
-		len++;
-	len -= 2;
-	new = (t_token **)malloc(sizeof(t_token) * (len + 1));
-	if (new == NULL)
-		return (err_msg("rem_herd malloc fail"), 0);
-	new[len] = NULL;
-	free_herd(node, pos);
-	while (node->token[i] != NULL)
-	{
-		if (i == pos)
-			y += 2;
-		new[i] = node->token[y];
-		i++;
-		y++;
-	}
-	return (free(node->token), node->token = new, 1);
-}
-
-int	exe_herd(t_astn *node, t_env *sh_env, t_cleanup *cl)
-{
-	int		pos;
 	int		err;
+	int		out;
 	t_pipe	p;
 
+	out = -1;
+	if (!isatty(STDOUT_FILENO))
+		out = dup(STDOUT_FILENO);
 	err = 0;
-	pos = 0;
 	if (pipe(p.pipe) == -1)
 		return (err_msg("exe_herd pipe fail"), 0);
-	here_doc(get_herd(node->token, &pos)->content, p.pipe[1], &err, cl);
-	if ((node->token[0]->type == HERD && node->token[2] == NULL) || err)
-		return (close_pipe(p.pipe), restore_fd(STDOUT_FILENO, STDO, cl), 1);
-	if (!rem_herd(node, pos))
-		return (close_pipe(p.pipe), restore_fd(STDOUT_FILENO, STDO, cl), 1);
-	fd_redirection(&p, RED_HERD);
-	execute(node, sh_env, cl);
-	restore_fd(STDOUT_FILENO, STDO, cl);
-	restore_fd(STDIN_FILENO, STDI, cl);
+	res_fd(STDOUT_FILENO, STDO, cl);
+	res_fd(STDIN_FILENO, STDI, cl);
+	here_doc(node->token[pos + 1]->content, p.pipe[1], &err, cl);
+	if (err)
+		return (close_pipe(p.pipe), res_fd(STDOUT_FILENO, STDO, cl), 1);
+	if (out != -1)
+		return (dup2(out, STDOUT_FILENO), fd_red(&p, RED_HERD), close(out), 1);
+	fd_red(&p, RED_HERD);
 	return (1);
 }

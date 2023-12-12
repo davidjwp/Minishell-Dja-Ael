@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+         #
+#    By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/02 15:39:21 by djacobs           #+#    #+#              #
-#    Updated: 2023/12/09 17:04:36 by ael-malt         ###   ########.fr        #
+#    Updated: 2023/12/10 20:25:24 by djacobs          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,6 @@ SRCS			= srcs/main/minishell.c \
 			srcs/lexer/lexerutils_B.c \
 			srcs/lexer/lexerutils_C.c \
 			srcs/lexer/lexerutils_D.c \
-			srcs/lexer/lexerutils_E.c \
 			srcs/lexer/utils.c \
 			srcs/executor/exe.c \
 			srcs/executor/exeutils_A.c \

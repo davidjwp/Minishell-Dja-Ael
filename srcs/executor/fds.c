@@ -3,44 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   fds.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davidjwp <davidjwp@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 17:31:16 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/08 00:25:25 by davidjwp         ###   ########.fr       */
+/*   Updated: 2023/12/10 17:57:49 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	restore_fd(int fd, int res, t_cleanup *cl)
+void	res_fd(int fd, int res, t_cleanup *cl)
 {
 	if (!isatty(fd))
 		dup2(get_fd(res, cl->fds), fd);
 }
 
 //fd redirection of pipe or red type
-int	fd_redirection(void *type, int redpipe)
+int	fd_red(void *type, int redpipe)
 {
 	t_pipe	*_pip;
-	t_red	*_red;
+	int		*fd;
+
 
 	if (redpipe & RED_RED)
-	{
-		_red = (t_red *)type;
-		return (dup2(_red->out, STDOUT_FILENO), close(_red->out), 1);
-	}
+		return (fd = (int *)type, dup2(*fd, STDOUT_FILENO), close(*fd), 1);
 	else if (redpipe & RED_PIP)
 	{
 		_pip = (t_pipe *)type;
-		dup2(_pip->pipe[1], STDOUT_FILENO);
-		close_pipe(_pip->pipe);
+		return (dup2(_pip->pipe[1], STDOUT_FILENO), close_pipe(_pip->pipe), 1);
 	}
 	else if (redpipe & RED_HERD)
 	{
 		_pip = (t_pipe *)type;
-		dup2(_pip->pipe[0], STDIN_FILENO);
-		close_pipe(_pip->pipe);
+		return (dup2(_pip->pipe[0], STDIN_FILENO), close_pipe(_pip->pipe), 1);
 	}
+	else if (redpipe & RED_IN)
+		return (fd = (int *)type, dup2(*fd, STDIN_FILENO), close(*fd), 1);
 	return (1);
 }
 
