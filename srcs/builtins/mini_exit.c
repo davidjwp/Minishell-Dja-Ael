@@ -6,7 +6,7 @@
 /*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 15:40:51 by ael-malt          #+#    #+#             */
-/*   Updated: 2023/12/10 18:37:33 by ael-malt         ###   ########.fr       */
+/*   Updated: 2023/12/12 15:41:49 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,6 @@ int	mini_exit(t_cleanup *cl, t_token **token)
 			cl->status = 2;
 		}
 	}
-	return (clean_up(cl, CL_ALL ^ CL_CL), exit(EXIT_SUCCESS), 1);
+	return (clean_up(cl, CL_ALL), exit(EXIT_SUCCESS), 1);
 }
 //have to free CL_CL else cl is "leak" so might have to CL_ALL everytime
