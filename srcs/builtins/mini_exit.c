@@ -6,7 +6,7 @@
 /*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 15:40:51 by ael-malt          #+#    #+#             */
-/*   Updated: 2023/12/12 15:41:49 by ael-malt         ###   ########.fr       */
+/*   Updated: 2023/12/12 17:18:32 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	mini_exit(t_cleanup *cl, t_token **token)
 	int	n;
 
 	n = 0;
-	if (get_token_len(token) > 1)
+	if (get_token_len(token) > 2)
 		return (ft_putendl_fd("Minishell: exit: too many arguments", 2), 2);
 	else if (token[1] && token[1]->content)
 	{
