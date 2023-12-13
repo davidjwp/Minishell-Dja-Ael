@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 11:56:34 by rmohamma          #+#    #+#             */
-/*   Updated: 2023/12/13 21:40:03 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/13 21:43:39 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,6 @@ void	sig_quit(int sig)
 
 void	signals(void)
 {
-	signal(SIGQUIT, sig_quit);
+	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, &ctrl_c);
 }

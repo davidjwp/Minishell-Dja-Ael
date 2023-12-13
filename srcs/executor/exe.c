@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/13 21:16:23 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/13 21:43:44 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ int	execute(t_astn *tree, t_env *sh_env, t_cleanup *cl)
 		return (err_msg("execute fork fail"), 0);
 	if (pid)
 		return (wait(&cl->status), 1);
-	signal(SIGQUIT, sig_quit);
+	//signal(SIGQUIT, sig_quit);
 	exe._path = cr_pathname(tree->token[0]->content, find_env("PATH", sh_env), \
 	&status, 0);
 	if (!exe._path)
