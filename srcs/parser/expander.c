@@ -6,18 +6,11 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 17:10:39 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/12 21:18:21 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/13 19:31:44 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-bool	varischar(char *str)
-{
-	if (str[1] <= 33 || str[1] == 34 || str[1] == 39)
-		return (true);
-	return (false);
-}
 
 static bool	is_alnum(char c)
 {
@@ -26,6 +19,14 @@ static bool	is_alnum(char c)
 		return (true);
 	return (false);
 }
+
+bool	varischar(char *str)
+{
+	if (!is_alnum(str[1]))
+		return (true);
+	return (false);
+}
+
 
 //check on that idk
 bool	qisclose(char *str, bool open)
@@ -55,6 +56,8 @@ t_env	*exp_findenv(char *name, int *err, t_env *sh_env)
 	len = 0;
 	while (is_alnum(name[len]) && name[len])
 		len++;
+	if (*name >= 48 && *name <= 57)
+		len = 1;
 	trim = ft_calloc((len + 1), sizeof(char));
 	if (trim == NULL)
 		return (err_msg("find_env malloc fail"), *err = 1, NULL);
@@ -157,7 +160,10 @@ int	exp_newlen(char *content, size_t len, t_env *var)
 	i = len + 1;
 	if (varischar(&content[len]))
 		return (len += ft_strlen(&content[len]));
-	while (is_alnum(content[i]) && content[i])
+	while (is_alnum(content[i]) && content[i] && !(content[i] >= 48 && \
+	content[i] <= 57))
+		i++;
+	if (content[i] >= 48 && content[i] <= 57)
 		i++;
 	if (var != NULL)
 		len += ft_strlen(var->value);
@@ -175,7 +181,10 @@ char	*var_token(char *cont, char *new, t_env *var, t_exp va)
 	else if (var == NULL)
 	{
 		va.i++;
-		while (cont[va.i] && is_alnum(cont[va.i]))
+		while (cont[va.i] && is_alnum(cont[va.i]) && \
+		!(cont[va.pos + 1] >= 48 && cont[va.pos + 1] <= 57))
+			va.i++;
+		if (cont[va.pos + 1] >= 48 && cont[va.pos + 1] <= 57)
 			va.i++;
 	}
 	else

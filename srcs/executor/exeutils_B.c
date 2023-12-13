@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/13 16:08:51 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/13 19:58:45 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /*
 *	exe_utils_A contains the following functions :
-*	type(), _pipe(), _red(), cmp(), check_spec()
+*	type(), _pipe(), _red(), check_spec()
 */
 //get the amount of environment variable using the shell env
 int	sh_envlen(t_env *sh_env)

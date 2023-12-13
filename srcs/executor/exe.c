@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/13 18:28:01 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/13 20:11:17 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,5 +138,3 @@ void	reset_fds(t_cleanup *cl)
 	res_fd(STDIN_FILENO, STDI, cl);
 	res_fd(STDOUT_FILENO, STDO, cl);
 }
-
-//echo $? | echo $? | echo $?

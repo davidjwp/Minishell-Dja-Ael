@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 17:31:16 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/12 19:18:37 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/13 19:59:57 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,15 +72,14 @@ bool	_pipe(const char *input)
 }
 
 //cmp two strings returns bool if same string or not 
-bool	cmp(const char *content, const char *input)
+bool	cmp(const char *builtin, const char *input)
 {
 	size_t	i;
 
 	i = 0;
-	while (content[i] == input[i] && (content[i] && input[i]) && \
-	type(input, i) != SEPR)
+	while (builtin[i] == input[i] && builtin[i])
 		i++;
-	if ((!content[i] && !input[i]) || (type(input, i) == SEPR && !content[i]))
+	if (builtin[i] == input[i])
 		return (true);
 	return (false);
 }
@@ -117,29 +116,6 @@ bool	check_spec(const char *input, size_t *i)
 *	- this is possibly deprecated because my expand will expand correctly even
 *		when unclosed, so there is no need to send an error msg 
 */
-//bool	check_quote(const char *input, size_t *i)
-//{
-//	bool	open;
-//	int		t;
-
-//	open = false;
-//	while (input[*i])
-//	{
-//		if (type(input, *i) == SEPR && !open)
-//			break ;
-//		if (type(input, *i) && !(type(input, *i) % 5) && !open)
-//			t = type(input, *i);
-//		if (type(input, *i) == t && !open)
-//			open = true;
-//		else if (type(input, *i) == t && open)
-//			open = false;
-//		*i += 1;
-//	}
-//	if (!input[*i] && open)
-//		return (err_msg("unclosed quote"), false);
-//	return (true);
-//}
-
 bool	check_quote(const char *input, size_t *i)
 {
 	bool	open;
