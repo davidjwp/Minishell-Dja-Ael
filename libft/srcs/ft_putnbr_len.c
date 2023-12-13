@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_len.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:37:12 by ael-malt          #+#    #+#             */
-/*   Updated: 2023/12/07 18:44:25 by ael-malt         ###   ########.fr       */
+/*   Updated: 2023/12/13 18:32:43 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf.h
-"
+#include "../includes/ft_printf.h"
 
 void	ft_putnbr_len(int n, int *len)
 {

@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/12 15:16:10 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/13 17:50:49 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ int	expand_node(t_astn *n, int *err, t_cleanup *cl)
 
 	i = 0;
 	if (n->left != NULL)
-		return (expand_node(n->left, err, cl));
+		expand_node(n->left, err, cl);
 	if (n->right != NULL)
-		return (expand_node(n->right, err, cl));
+		expand_node(n->right, err, cl);
 	if (n->type == COMD)
 	{
 		while (n->token[i] != NULL)
@@ -42,7 +42,7 @@ int	expand_node(t_astn *n, int *err, t_cleanup *cl)
 			if (*err)
 				return (0);
 			n->token[i]->content = rem_quotes(n->token[i]->content, \
-			&n->token[i]->type, err);
+			&n->token[i]->type, err, (t_p){0, 0, 0, 0});
 			i++;
 		}
 	}
@@ -78,11 +78,3 @@ t_astn	*parser(const char *input, t_cleanup *cl)
 		return (free_tree(tree), NULL);
 	return (tree);
 }
-
-/*parsing rules here*/
-//no > > so tree->right->left->token[0] == NULL or tree->right->left == 
-// NULL if tree->right->type == REDR
-//no < < 
-//you can have multiple files in those redirections but only the 
-// first one will be redirected
-//check file permissions for redirections, so 

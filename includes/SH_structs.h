@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   SH_structs.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davidjwp <davidjwp@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 21:12:56 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/11 22:26:14 by davidjwp         ###   ########.fr       */
+/*   Updated: 2023/12/13 16:09:02 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,8 +158,7 @@ typedef struct ShellEnvNode{
 }	t_env;
 
 typedef struct PipeStruct{
-	pid_t	r_pid;
-	pid_t	l_pid;
+	pid_t	pid;
 	int		pipe[2];
 }	t_pipe;
 
@@ -189,9 +188,11 @@ typedef struct CleanUp{
 	char	*prompt;
 }	t_cleanup;
 
-typedef struct IYstruct{
-	int	y;
+typedef struct PackStruct{
 	int	i;
-}	t_ut;
+	int	y;
+	int	len;
+	int	o;
+}	t_p;
 
 #endif

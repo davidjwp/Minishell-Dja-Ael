@@ -3,22 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 10:37:38 by rmohamma          #+#    #+#             */
-/*   Updated: 2023/12/12 16:41:56 by ael-malt         ###   ########.fr       */
+/*   Updated: 2023/12/13 18:15:23 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 volatile int	g_signal = 0;
-
-static void	reset_fds(t_cleanup *cl)
-{
-	res_fd(STDIN_FILENO, STDI, cl);
-	res_fd(STDOUT_FILENO, STDO, cl);
-}
 
 /*
 *	cleans up file descriptors, the abstract syntax tree, the shell envs
@@ -81,9 +75,10 @@ int	main(int ac, char **av, char **env)
 	t_env		*sh_env;
 	t_cleanup	*cl;
 
+	g_signal = 130;
 	sh_env = cr_env(env);
-	//if (sh_env == NULL)
-	//	return (0);
+	if (sh_env == NULL)
+		return (0);
 	cl = malloc(sizeof(t_cleanup));
 	if (cl == NULL)
 		return (err_msg("cl malloc fail"), 0);
@@ -98,7 +93,6 @@ int	main(int ac, char **av, char **env)
 	}
 	return ((void)ac, (void)av, 1);
 }
-		//printf("exit:%d\n", cl->status > 255 ? WEXITSTATUS(cl->status) : cl->status);
 
 /*
 * the main shell loop which redirects or pipes the output in order of the tree

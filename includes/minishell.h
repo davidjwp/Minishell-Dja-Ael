@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 11:44:55 by rmohamma          #+#    #+#             */
-/*   Updated: 2023/12/12 16:39:50 by ael-malt         ###   ########.fr       */
+/*   Updated: 2023/12/13 16:08:47 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ bool		redr_rules(t_token *tok, int *error, t_cleanup *cl);
 bool		comd_rules(t_token **tok, int *err, t_cleanup *cl);
 
 //parser_B.c
-char		*rem_quotes(char *content, int *t, int *err);
+char		*rem_quotes(char *content, int *tp, int *err, t_p p);
 
 //parser_C.c
 int			gnl(char **line);
@@ -109,6 +109,7 @@ int			exec_comd(t_astn *tree, t_env *sh_env, t_cleanup *cl);
 int			sh_red(t_token **tok, int pos, t_cleanup *cl);
 int			sh_pipe(t_astn *tree, t_env *sh_env, t_cleanup *cl);
 int			execute(t_astn *tree, t_env *sh_env, t_cleanup *cl);
+void		reset_fds(t_cleanup *cl);
 
 //exe_utils_A
 char		*cr_pathname(const char *cmd, t_env *sh_env, int *status, int i);
@@ -121,7 +122,6 @@ int			rem_tokens(t_astn *node, int pos);
 int			sh_envlen(t_env *sh_env);
 void		close_pipe(int *pipe);
 void		close_fds(t_fds *fds);
-void		wait_pipe(t_pipe p);
 void		free_env(t_env *env);
 
 //exe_utils_C
@@ -175,7 +175,9 @@ void		printenvp(char **envp);
 
 //signals
 void		ctrl_c(int sig);
+//void		ex_exit(int sig);
 void		signals(void);
+
 
 //-------------------------------BUILTINS------------------------------//
 
