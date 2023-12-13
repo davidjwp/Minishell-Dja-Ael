@@ -6,19 +6,13 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 10:37:38 by rmohamma          #+#    #+#             */
-/*   Updated: 2023/12/12 16:50:37 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/13 14:42:40 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 volatile int	g_signal = 0;
-
-static void	reset_fds(t_cleanup *cl)
-{
-	res_fd(STDIN_FILENO, STDI, cl);
-	res_fd(STDOUT_FILENO, STDO, cl);
-}
 
 /*
 *	cleans up file descriptors, the abstract syntax tree, the shell envs
@@ -95,10 +89,10 @@ int	main(int ac, char **av, char **env)
 			return (clean_up(cl, CL_CL | CL_PRO), free_env(sh_env), 1);
 		if (sh_init(sh_env, cl))
 			shell_loop(cl->tree, sh_env, cl);
+		signals();
 	}
 	return ((void)ac, (void)av, 1);
 }
-		//printf("exit:%d\n", cl->status > 255 ? WEXITSTATUS(cl->status) : cl->status);
 
 /*
 * the main shell loop which redirects or pipes the output in order of the tree

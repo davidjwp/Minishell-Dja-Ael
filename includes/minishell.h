@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 11:44:55 by rmohamma          #+#    #+#             */
-/*   Updated: 2023/12/12 20:26:21 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/13 14:13:55 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ int			exec_comd(t_astn *tree, t_env *sh_env, t_cleanup *cl);
 int			sh_red(t_token **tok, int pos, t_cleanup *cl);
 int			sh_pipe(t_astn *tree, t_env *sh_env, t_cleanup *cl);
 int			execute(t_astn *tree, t_env *sh_env, t_cleanup *cl);
+void		reset_fds(t_cleanup *cl);
 
 //exe_utils_A
 char		*cr_pathname(const char *cmd, t_env *sh_env, int *status, int i);

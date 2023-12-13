@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/12 17:53:04 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/13 15:01:51 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,16 +84,23 @@ int	sh_pipe(t_astn *tree, t_env *sh_env, t_cleanup *cl)
 		return (err_msg("sh_pipe fork error"), 0);
 	if (!p.l_pid)
 	{
-		signal(SIGINT, SIG_IGN);//idk change that 
 		fd_red(&p, RED_PIP);
 		exec_comd(tree->left, sh_env, cl);
-		return (clean_up(cl, CL_ALL), exit(EXIT_SUCCESS), 0);
+		return (clean_up(cl, CL_ALL), write (2, "child exit\n", ft_strlen("child exit\n")), exit(EXIT_SUCCESS), 0);
 	}
-	//wait(&cl->status);
 	dup2(p.pipe[0], STDIN_FILENO);
 	close_pipe(p.pipe);
 	shell_loop(tree->right, sh_env, cl);
-	return (res_fd(STDIN_FILENO, STDO, cl), 0);
+	wait(&cl->status);
+	reset_fds(cl);
+	return (0);
+	//return (res_fd(STDIN_FILENO, STDO, cl), 0);
+}
+
+void	ex_exit(int sig)
+{
+	if (sig == SIGINT)
+		exit(EXIT_FAILURE);
 }
 
 //executes the command node, might not need that last freeing
@@ -109,6 +116,7 @@ int	execute(t_astn *tree, t_env *sh_env, t_cleanup *cl)
 		return (err_msg("execute fork fail"), 0);
 	if (pid)
 		return (wait(&cl->status), 1);
+	signal(SIGINT, ex_exit);
 	exe._path = cr_pathname(tree->token[0]->content, find_env("PATH", sh_env), \
 	&status, 0);
 	if (!exe._path)
