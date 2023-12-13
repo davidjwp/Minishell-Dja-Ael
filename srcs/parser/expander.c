@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 17:10:39 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/13 19:31:44 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/13 20:43:26 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,10 @@ static bool	is_alnum(char c)
 
 bool	varischar(char *str)
 {
-	if (!is_alnum(str[1]))
+	if (!is_alnum(str[1]) && str[1] != '?')
 		return (true);
 	return (false);
 }
-
 
 //check on that idk
 bool	qisclose(char *str, bool open)
