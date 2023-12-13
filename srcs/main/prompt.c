@@ -6,7 +6,7 @@
 /*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 15:33:26 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/12 16:44:00 by ael-malt         ###   ########.fr       */
+/*   Updated: 2023/12/13 18:13:06 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static char	*_procd(char *procd, t_env *env)
 	}
 	while (buf[i])
 		i++;
-	while (buf[i] != '/')
+	while (buf[i - 1] != '/')
 		i--;
 	ft_strcat(procd, &buf[i]);
 	return (procd);
@@ -61,12 +61,12 @@ char	*cr_prompt(t_cleanup *cl, t_env *sh_env)
 	_procd(procd, sh_env);
 	_prouser(prouser, sh_env);
 	prompt = ft_calloc((ft_strlen(prouser) + ft_strlen(procd) + \
-	(((ft_strlen(BLUE) + ft_strlen(RESET))) * 4)) + 10, sizeof(char));
+	(((ft_strlen(BLUE) + ft_strlen(RESET))) * 4)) + 9, sizeof(char));
 	if (prompt == NULL)
 		return (err_msg("crt_prompt malloc fail"), cl->prompt = NULL, NULL);
 	cat_colour(prompt, prouser, GREEN);
 	cat_colour(prompt, "@Mini", RED);
-	cat_colour(prompt, ":~", WHITE);
+	cat_colour(prompt, ":", WHITE);
 	cat_colour(prompt, procd, BLUE);
 	prompt[ft_strlen(prompt)] = '$';
 	prompt[ft_strlen(prompt)] = ' ';
