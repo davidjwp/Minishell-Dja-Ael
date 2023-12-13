@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/12 20:26:05 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/13 17:50:49 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ int	expand_node(t_astn *n, int *err, t_cleanup *cl)
 
 	i = 0;
 	if (n->left != NULL)
-		return (expand_node(n->left, err, cl));
+		expand_node(n->left, err, cl);
 	if (n->right != NULL)
-		return (expand_node(n->right, err, cl));
+		expand_node(n->right, err, cl);
 	if (n->type == COMD)
 	{
 		while (n->token[i] != NULL)
