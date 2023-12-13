@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 11:56:34 by rmohamma          #+#    #+#             */
-/*   Updated: 2023/12/13 17:23:35 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/13 18:20:13 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 void	ctrl_c(int sig)
 {
+	char	*i = ft_itoa(g_signal);
+
+	write (2, i, ft_strlen(i));
 	if (sig == SIGINT)
 	{
 		putchar('\n');
@@ -24,6 +27,7 @@ void	ctrl_c(int sig)
 		rl_redisplay();
 	if (sig == SIGINT)
 		g_signal = 130;
+	free(i);
 }
 
 void	signals(void)

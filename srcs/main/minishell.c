@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 10:37:38 by rmohamma          #+#    #+#             */
-/*   Updated: 2023/12/13 17:52:10 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/13 18:15:23 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int	main(int ac, char **av, char **env)
 	t_env		*sh_env;
 	t_cleanup	*cl;
 
+	g_signal = 130;
 	sh_env = cr_env(env);
 	if (sh_env == NULL)
 		return (0);
@@ -84,7 +85,6 @@ int	main(int ac, char **av, char **env)
 	signals();
 	while (42)
 	{
-		g_signal = 130;
 		cl->input = readline(cr_prompt(cl, sh_env));
 		if (cl->input == NULL || cl->prompt == NULL)
 			return (clean_up(cl, CL_CL | CL_PRO), free_env(sh_env), 1);
