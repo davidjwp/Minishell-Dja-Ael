@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/13 15:01:51 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/13 17:25:27 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,6 @@ int	exec_comd(t_astn *tree, t_env *sh_env, t_cleanup *cl)
 		builtin(tree, cl, tree->token[0]->type);
 	else if (tree->token[0] != NULL)
 		execute(tree, sh_env, cl);
-	// res_fd(STDOUT_FILENO, STDO, cl);
-	// res_fd(STDIN_FILENO, STDI, cl);
 	return (1);
 }
 
@@ -64,7 +62,15 @@ int	sh_red(t_token **tok, int pos, t_cleanup *cl)
 		return (res_fd(STDIN_FILENO, STDI, cl), fd_red(&fd, RED_IN), 1);
 	return (res_fd(STDOUT_FILENO, STDO, cl), fd_red(&fd, RED_RED), 1);
 }
-//>> asjdas
+
+void	ex_exit(int sig)
+{
+	if (sig == SIGINT)
+	{
+		write (2, "in sig handler\n", 16);
+		exit(EXIT_FAILURE);
+	}
+}
 
 /*
 *	this is the shell pipes, they open a pipe and fork, in the child process
@@ -79,29 +85,23 @@ int	sh_pipe(t_astn *tree, t_env *sh_env, t_cleanup *cl)
 
 	if (pipe(p.pipe) == -1)
 		return (err_msg("sh_pipe pipe error"), 0);
-	p.l_pid = fork();
-	if (p.l_pid == -1)
+	p.pid = fork();
+	if (p.pid == -1)
 		return (err_msg("sh_pipe fork error"), 0);
-	if (!p.l_pid)
+	if (!p.pid)
 	{
 		fd_red(&p, RED_PIP);
 		exec_comd(tree->left, sh_env, cl);
-		return (clean_up(cl, CL_ALL), write (2, "child exit\n", ft_strlen("child exit\n")), exit(EXIT_SUCCESS), 0);
+		return (clean_up(cl, CL_ALL), exit(EXIT_SUCCESS), 0);
 	}
+	g_signal = 0;
 	dup2(p.pipe[0], STDIN_FILENO);
 	close_pipe(p.pipe);
 	shell_loop(tree->right, sh_env, cl);
-	wait(&cl->status);
-	reset_fds(cl);
-	return (0);
-	//return (res_fd(STDIN_FILENO, STDO, cl), 0);
+	return (wait(&cl->status), 0);
 }
 
-void	ex_exit(int sig)
-{
-	if (sig == SIGINT)
-		exit(EXIT_FAILURE);
-}
+
 
 //executes the command node, might not need that last freeing
 int	execute(t_astn *tree, t_env *sh_env, t_cleanup *cl)
@@ -116,7 +116,7 @@ int	execute(t_astn *tree, t_env *sh_env, t_cleanup *cl)
 		return (err_msg("execute fork fail"), 0);
 	if (pid)
 		return (wait(&cl->status), 1);
-	signal(SIGINT, ex_exit);
+	//signal(SIGINT, ex_exit);
 	exe._path = cr_pathname(tree->token[0]->content, find_env("PATH", sh_env), \
 	&status, 0);
 	if (!exe._path)

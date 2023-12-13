@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/10 20:34:12 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/13 15:18:42 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,6 @@ char	*path_cmd(const char *cmd)
 	while (len--)
 		path[len] = cmd[len];
 	return (path);
-}
-
-void	signals(void)
-{
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGINT, &ctrl_c);
 }
 
 void	free_tokens(t_astn *node, int pos)

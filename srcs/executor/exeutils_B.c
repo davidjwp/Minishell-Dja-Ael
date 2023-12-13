@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/07 15:36:44 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/13 16:08:51 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,6 @@ void	close_fds(t_fds *fds)
 	}
 	close(fds->fd);
 	free(fds);
-}
-
-void	wait_pipe(t_pipe p)
-{
-	close_pipe(p.pipe);
-	waitpid(p.r_pid, NULL, 0);
-	waitpid(p.l_pid, NULL, 0);
 }
 
 void	free_env(t_env *env)

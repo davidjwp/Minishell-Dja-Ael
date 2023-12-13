@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 11:44:55 by rmohamma          #+#    #+#             */
-/*   Updated: 2023/12/13 14:13:55 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/13 16:08:47 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,6 @@ int			rem_tokens(t_astn *node, int pos);
 int			sh_envlen(t_env *sh_env);
 void		close_pipe(int *pipe);
 void		close_fds(t_fds *fds);
-void		wait_pipe(t_pipe p);
 void		free_env(t_env *env);
 
 //exe_utils_C
@@ -176,7 +175,9 @@ void		printenvp(char **envp);
 
 //signals
 void		ctrl_c(int sig);
+//void		ex_exit(int sig);
 void		signals(void);
+
 
 //-------------------------------BUILTINS------------------------------//
 
