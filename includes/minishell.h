@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 11:44:55 by rmohamma          #+#    #+#             */
-/*   Updated: 2023/12/14 14:15:59 by ael-malt         ###   ########.fr       */
+/*   Updated: 2023/12/14 15:35:30 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,15 @@ int			exp_novar(const char *content, size_t *i);
 int			exp_newlen(char *content, size_t len, t_env *var);
 char		*expand_cont(char *content, int *err, t_cleanup *cl);
 t_env		*exp_findenv(char *name, int *err, t_env *sh_env);
+
+//expander_B.c
+bool		is_alnum(char c);
+bool		varischar(char *str);
+bool		qisclose(char *str, bool open);
+t_env		*exp_findenv(char *name, int *err, t_env *sh_env);
+bool		find_var(char *cont, size_t *pos);
+
+
 
 //msgs.c
 void		syntax_error(int type, t_cleanup *cl);
