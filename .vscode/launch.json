@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": false,
-      "cwd": "/mnt/nfs/homes/djacobs/intra_djacobs/5_GitClone/Minishell-Dja-Ael/srcs/executor",
-      "program": "/mnt/nfs/homes/djacobs/intra_djacobs/5_GitClone/Minishell-Dja-Ael/srcs/executor/build/Debug/outDebug",
+      "cwd": "/mnt/nfs/homes/djacobs/intra_djacobs/5_GitClone/Minishell-Dja-Ael/srcs/signals",
+      "program": "/mnt/nfs/homes/djacobs/intra_djacobs/5_GitClone/Minishell-Dja-Ael/srcs/signals/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

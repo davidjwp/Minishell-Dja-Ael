@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   headers.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davidjwp <davidjwp@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 21:28:48 by davidjwp          #+#    #+#             */
-/*   Updated: 2023/12/13 23:11:44 by davidjwp         ###   ########.fr       */
+/*   Updated: 2023/12/14 15:18:58 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,5 @@
 # include <linux/limits.h>
 # include <pwd.h>
 # include <dirent.h>
-# include <termios.h>
 
 #endif
