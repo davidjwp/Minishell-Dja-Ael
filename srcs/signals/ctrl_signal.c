@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ctrl_signal.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 11:56:34 by rmohamma          #+#    #+#             */
-/*   Updated: 2023/12/13 18:20:13 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/14 13:38:16 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ctrl_c(int sig)
 {
 	char	*i = ft_itoa(g_signal);
 
-	write (2, i, ft_strlen(i));
+	// write (2, i, ft_strlen(i));
 	if (sig == SIGINT)
 	{
 		putchar('\n');

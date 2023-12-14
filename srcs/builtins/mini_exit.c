@@ -6,7 +6,7 @@
 /*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 15:40:51 by ael-malt          #+#    #+#             */
-/*   Updated: 2023/12/13 18:46:43 by ael-malt         ###   ########.fr       */
+/*   Updated: 2023/12/14 13:39:17 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@ static int	check_is_nb(char *str)
 int	mini_exit(t_cleanup *cl, t_token **token)
 {
 	int	n;
+	int	status;
 
+	status = 0;
 	n = 0;
 	if (get_token_len(token) > 2)
 		return (ft_putendl_fd("Minishell: exit: too many arguments", 2), 2);
@@ -41,17 +43,17 @@ int	mini_exit(t_cleanup *cl, t_token **token)
 		{
 			n = ft_atoi(token[1]->content);
 			if (n >= 0 && n <= 255)
-				cl->status = n;
+				status = n;
 			else
-				cl->status = n % 256;
+				status = n % 256;
 		}
 		else
 		{
 			ft_putstr_fd("minishell: exit: numeric argument required: ", 2);
 			ft_putendl_fd(token[1]->content, 2);
-			cl->status = 2;
+			status = 2;
 		}
 	}
-	return (clean_up(cl, CL_ALL), exit(EXIT_SUCCESS), 1);
+	return (clean_up(cl, CL_ALL), exit(status), 1);
 }
 //have to free CL_CL else cl is "leak" so might have to CL_ALL everytime
