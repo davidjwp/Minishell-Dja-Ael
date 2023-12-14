@@ -1,5 +1,6 @@
 objs/
-libft/ojs/
+libft/objs/
 *.o
 *.a
 minishell
+libft/libft.a
