@@ -6,7 +6,7 @@
 /*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 11:44:55 by rmohamma          #+#    #+#             */
-/*   Updated: 2023/12/14 14:08:05 by ael-malt         ###   ########.fr       */
+/*   Updated: 2023/12/14 14:15:59 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,7 +175,7 @@ void		printenvp(char **envp);
 
 //signals
 void		ctrl_c(int sig);
-//void		ex_exit(int sig);
+void		sig_quit(int sig);
 void		signals(void);
 
 

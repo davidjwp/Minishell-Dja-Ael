@@ -6,7 +6,7 @@
 /*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/14 14:08:06 by ael-malt         ###   ########.fr       */
+/*   Updated: 2023/12/14 14:16:40 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,6 @@ int	sh_pipe(t_astn *tree, t_env *sh_env, t_cleanup *cl)
 	shell_loop(tree->right, sh_env, cl);
 	return (wait(&cl->status), 0);
 }
-
-
 
 //executes the command node, might not need that last freeing
 int	execute(t_astn *tree, t_env *sh_env, t_cleanup *cl, int status)
