@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ctrl_signal.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
+/*   By: davidjwp <davidjwp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 11:56:34 by rmohamma          #+#    #+#             */
-/*   Updated: 2023/12/13 21:43:39 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/14 01:10:48 by davidjwp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,35 @@ void	sig_quit(int sig)
 	}
 }
 
+// static void	sig_hook(int sig)
+// {
+// 	struct termios	term;
+
+// 	if (sig == SIGQUIT)
+// 		if (tcgetattr(STDIN_FILENO, &term) == 0)
+// 			if (term.c_lflag & ECHOE)
+// 				g_signal = 1;
+// }
+
+void	mysig(int sig)
+{
+	struct termios	term;
+
+	if (sig == SIGQUIT)
+	{
+		tcgetattr(STDIN_FILENO, &term);
+		term.c_cc[VEOF] = _POSIX_VDISABLE;
+		tcsetattr(STDIN_FILENO, TCSANOW, &term);//check out signals
+		ft_putchar('\n');
+		rl_on_new_line();
+		rl_replace_line("", 0);
+	}
+	if (g_signal)
+		rl_redisplay();
+}
+
 void	signals(void)
 {
-	signal(SIGQUIT, SIG_IGN);
+	signal(SIGQUIT, mysig);
 	signal(SIGINT, &ctrl_c);
 }
