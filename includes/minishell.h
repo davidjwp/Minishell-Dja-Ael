@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 11:44:55 by rmohamma          #+#    #+#             */
-/*   Updated: 2023/12/13 16:08:47 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/14 14:08:05 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void		perm_denied(char *file, t_cleanup *cl);
 int			exec_comd(t_astn *tree, t_env *sh_env, t_cleanup *cl);
 int			sh_red(t_token **tok, int pos, t_cleanup *cl);
 int			sh_pipe(t_astn *tree, t_env *sh_env, t_cleanup *cl);
-int			execute(t_astn *tree, t_env *sh_env, t_cleanup *cl);
+int			execute(t_astn *tree, t_env *sh_env, t_cleanup *cl, int status);
 void		reset_fds(t_cleanup *cl);
 
 //exe_utils_A

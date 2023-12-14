@@ -6,7 +6,7 @@
 /*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 14:24:48 by ael-malt          #+#    #+#             */
-/*   Updated: 2023/12/10 18:36:44 by ael-malt         ###   ########.fr       */
+/*   Updated: 2023/12/14 14:00:47 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,10 @@ void	builtin(t_astn *tree, t_cleanup *cl, int type)
 	{
 		pid = fork();
 		if (pid == 0)
+		{
+			signal(SIGQUIT, SIG_DFL);
 			child_builtin(tree, cl, type);
+		}
 		else
 			wait(&cl->status);
 	}

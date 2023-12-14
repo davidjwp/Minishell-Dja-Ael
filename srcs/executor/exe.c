@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exe.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/13 18:28:01 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/14 14:08:06 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@
 int	exec_comd(t_astn *tree, t_env *sh_env, t_cleanup *cl)
 {
 	int	pos;
+	int	status;
 
+	status = 0;
 	while (red_herd(tree->token))
 	{
 		pos = 0;
@@ -42,7 +44,7 @@ int	exec_comd(t_astn *tree, t_env *sh_env, t_cleanup *cl)
 	!(tree->token[0]->type % 11)))
 		builtin(tree, cl, tree->token[0]->type);
 	else if (tree->token[0] != NULL)
-		execute(tree, sh_env, cl);
+		execute(tree, sh_env, cl, status);
 	return (1);
 }
 
@@ -104,13 +106,11 @@ int	sh_pipe(t_astn *tree, t_env *sh_env, t_cleanup *cl)
 
 
 //executes the command node, might not need that last freeing
-int	execute(t_astn *tree, t_env *sh_env, t_cleanup *cl)
+int	execute(t_astn *tree, t_env *sh_env, t_cleanup *cl, int status)
 {
 	pid_t	pid;
 	t_exe	exe;
-	int		status;
 
-	status = 0;
 	if (tree->parent == NULL || (tree->parent && tree->parent->type != PIPE))
 		g_signal = 0;
 	pid = fork();
@@ -118,6 +118,7 @@ int	execute(t_astn *tree, t_env *sh_env, t_cleanup *cl)
 		return (err_msg("execute fork fail"), 0);
 	if (pid)
 		return (wait(&cl->status), 1);
+	signal(SIGQUIT, SIG_DFL);
 	exe._path = cr_pathname(tree->token[0]->content, find_env("PATH", sh_env), \
 	&status, 0);
 	if (!exe._path)
@@ -129,8 +130,8 @@ int	execute(t_astn *tree, t_env *sh_env, t_cleanup *cl)
 	if (!exe.argv)
 		return (free_split(exe._envp), free(exe._path), clean_up(cl, CL_ALL), \
 		exit(EXIT_FAILURE), 0);
-	clean_up(cl, CL_FDS);
-	return (execve(exe._path, exe.argv, exe._envp), exit(EXIT_FAILURE), 0);
+	return (clean_up(cl, CL_FDS), execve(exe._path, exe.argv, exe._envp), \
+		exit(EXIT_FAILURE), 0);
 }
 
 void	reset_fds(t_cleanup *cl)
