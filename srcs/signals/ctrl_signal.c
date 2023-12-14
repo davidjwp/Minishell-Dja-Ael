@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ctrl_signal.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 11:56:34 by rmohamma          #+#    #+#             */
-/*   Updated: 2023/12/14 14:18:00 by ael-malt         ###   ########.fr       */
+/*   Updated: 2023/12/14 14:21:35 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,25 +50,25 @@ void	sig_quit(int sig)
 // 				g_signal = 1;
 // }
 
-void	mysig(int sig)
-{
-	struct termios	term;
+//void	mysig(int sig)
+//{
+//	struct termios	term;
 
-	if (sig == SIGQUIT)
-	{
-		tcgetattr(STDIN_FILENO, &term);
-		term.c_cc[VEOF] = _POSIX_VDISABLE;
-		tcsetattr(STDIN_FILENO, TCSANOW, &term);//check out signals
-		ft_putchar('\n');
-		rl_on_new_line();
-		rl_replace_line("", 0);
-	}
-	if (g_signal)
-		rl_redisplay();
-}
+//	if (sig == SIGQUIT)
+//	{
+//		tcgetattr(STDIN_FILENO, &term);
+//		term.c_cc[VEOF] = _POSIX_VDISABLE;
+//		tcsetattr(STDIN_FILENO, TCSANOW, &term);
+//		ft_putchar('\n');
+//		rl_on_new_line();
+//		rl_replace_line("", 0);
+//	}
+//	if (g_signal)
+//		rl_redisplay();
+//}
 
 void	signals(void)
 {
-	signal(SIGQUIT, mysig);
+	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, &ctrl_c);
 }
