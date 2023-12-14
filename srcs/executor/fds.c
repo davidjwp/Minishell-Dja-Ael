@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fds.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 17:31:16 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/10 17:57:49 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/14 15:34:27 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int	fd_red(void *type, int redpipe)
 	t_pipe	*_pip;
 	int		*fd;
 
-
 	if (redpipe & RED_RED)
 		return (fd = (int *)type, dup2(*fd, STDOUT_FILENO), close(*fd), 1);
 	else if (redpipe & RED_PIP)
@@ -41,8 +40,6 @@ int	fd_red(void *type, int redpipe)
 		return (fd = (int *)type, dup2(*fd, STDIN_FILENO), close(*fd), 1);
 	return (1);
 }
-
-
 
 //remove fd from the list i might not even need this at all
 void	rem_fd(t_fds *fd_lst, int fd)

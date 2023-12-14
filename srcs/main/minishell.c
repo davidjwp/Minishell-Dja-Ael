@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 10:37:38 by rmohamma          #+#    #+#             */
-/*   Updated: 2023/12/14 15:13:34 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/14 15:32:26 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ bool	sh_init(t_env *sh_env, t_cleanup *cl)
 }
 
 /*
-* the main function creates the shell env consisting of the env being passed to the main function
+* the main function creates the shell env consisting of the env being passed
+* to the main function
 * then the main loop where the global data structure is created and the
 * shell_loop
 */
@@ -107,6 +108,7 @@ int	shell_loop(t_astn *tree, t_env *sh_env, t_cleanup *cl)
 	else
 		exec_comd(tree, sh_env, cl);
 	if (tree == cl->tree)
-		return (reset_fds(cl), clean_up(cl, CL_FDS | CL_TRE | CL_INP | CL_PRO), 1);
+		return (reset_fds(cl), clean_up(cl, CL_FDS | CL_TRE | \
+		CL_INP | CL_PRO), 1);
 	return (1);
 }

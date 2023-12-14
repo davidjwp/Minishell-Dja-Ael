@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exeutils_A.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/13 19:59:05 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/14 15:34:40 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,6 @@ char	**cr_args(t_token **tokens, char *pathname)
 		args[i] = tokens[i]->content;
 	return (args);
 }
-
 
 int	rem_tokens(t_astn *node, int pos)
 {

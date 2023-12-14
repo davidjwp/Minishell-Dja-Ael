@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexerutils_D.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 12:26:11 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/10 20:29:35 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/14 15:30:40 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,3 @@ bool	it_sep(const char *input, size_t *l_ind)
 		*l_ind += 1;
 	return (true);
 }
-

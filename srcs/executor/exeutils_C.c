@@ -3,21 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   exeutils_C.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/13 15:18:42 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/14 15:35:14 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-
 char	*path_cmd(const char *cmd)
 {
 	char	*path;
 	int		len;
-
 
 	len = ft_strlen(cmd);
 	path = malloc(sizeof(char) * (len + 1));
@@ -59,4 +57,10 @@ void	get_pos(t_token **tokens, int *pos)
 			return ;
 		*pos += 1;
 	}
+}
+
+void	reset_fds(t_cleanup *cl)
+{
+	res_fd(STDIN_FILENO, STDI, cl);
+	res_fd(STDOUT_FILENO, STDO, cl);
 }
