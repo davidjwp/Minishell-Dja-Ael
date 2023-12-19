@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 10:37:38 by rmohamma          #+#    #+#             */
-/*   Updated: 2023/12/18 16:51:55 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/19 18:59:35 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	main(int ac, char **av, char **env)
 		g_signal = 130;
 		cl->input = readline(cr_prompt(cl));
 		if (cl->input == NULL || cl->prompt == NULL)
-			return (clean_up(cl, CL_CL | CL_PRO | CL_ENV), 1);
+			return (clean_up(cl, CL_CL | CL_PRO | CL_ENV), 0);
 		if (sh_init(cl))
 			shell_loop(cl->tree, cl);
 	}

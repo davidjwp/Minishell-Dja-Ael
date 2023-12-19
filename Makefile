@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+         #
+#    By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2023/12/14 19:13:40 by djacobs          ###   ########.fr        #
+#    Updated: 2023/12/19 18:43:09 by ael-malt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,6 +56,7 @@ SRCS			= srcs/main/minishell.c \
 			srcs/builtins/mini_echo.c \
 			srcs/builtins/mini_env.c \
 			srcs/builtins/mini_exit.c \
+			srcs/builtins/mini_exit_utils.c \
 			srcs/builtins/mini_export.c \
 			srcs/builtins/mini_pwd.c \
 			srcs/builtins/mini_unset.c \

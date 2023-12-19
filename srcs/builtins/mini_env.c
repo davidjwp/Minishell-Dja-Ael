@@ -6,7 +6,7 @@
 /*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 19:25:49 by ael-malt          #+#    #+#             */
-/*   Updated: 2023/12/18 16:23:39 by ael-malt         ###   ########.fr       */
+/*   Updated: 2023/12/19 19:21:17 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,12 +78,12 @@ int	mini_env(t_cleanup	*cl)
 			if (cl->env->next == first_env)
 			{
 				insert_new_env_entry(cl, "_=/usr/bin/env", first_env);
-				cl->env = cl->env->next;
 				break ;
 			}
 			cl->env = cl->env->next;
 		}
-		cl->env = cl->env->next;
+		cl->env = first_env;
+		cl->env = cl->env->next->next;
 	}
 	return (show_env(cl), 0);
 }

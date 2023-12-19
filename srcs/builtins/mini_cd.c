@@ -6,7 +6,7 @@
 /*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 00:03:47 by ael-malt          #+#    #+#             */
-/*   Updated: 2023/12/10 18:56:01 by ael-malt         ###   ########.fr       */
+/*   Updated: 2023/12/19 19:20:52 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int	mini_cd(t_cleanup *cl, t_token **token)
 	cwd = NULL;
 	cwd = getcwd(cwd, 0);
 	if (!token[1] && !srch_env(cl->env, "HOME"))
-		ft_putendl_fd("minishell: cd: HOME not set", 2);
+		return(free(cwd), ft_putendl_fd("minishell: cd: HOME not set", 2), 1);
 	else if (get_token_len(token) == 1 && srch_env(cl->env, "HOME"))
 		chdir(srch_env(cl->env, "HOME")->value);
 	else if (get_token_len(token) > 1)

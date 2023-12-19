@@ -6,54 +6,56 @@
 /*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 15:40:51 by ael-malt          #+#    #+#             */
-/*   Updated: 2023/12/14 13:39:17 by ael-malt         ###   ########.fr       */
+/*   Updated: 2023/12/19 18:58:26 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	check_is_nb(char *str)
+static int	cvrt_atoi(char *str)
 {
-	int	i;
+	int	n;
 
-	i = 0;
-	if (str[0] == '-' && ft_isdigit(str[1]))
-		i++;
-	while (str[i])
+	n = 0;
+	n = ft_atoi(str);
+	if (n >= 0 && n <= 255)
+		return (n);
+	else
+		return (n % 256);
+}
+
+static int	check_exit_case(t_cleanup *cl, t_token **token, int status)
+{
+	if (get_token_len(token) == 1)
+		return (clean_up(cl, CL_ALL), exit(0), 0);
+	else if (get_token_len(token) == 2 && token[1]->content)
 	{
-		if (!ft_isdigit(str[i]))
-			return (0);
-		i++;
+		if (check_is_all_nb(token))
+		{
+			status = cvrt_atoi(token[1]->content);
+			return (clean_up(cl, CL_ALL), exit(status), status);
+		}
+		else
+			return (ft_putstr_fd("minishell: exit: numeric argument required: ",
+					2), clean_up(cl, CL_ALL), exit(2), 2);
 	}
-	return (1);
+	else if (get_token_len(token) > 2)
+	{
+		if (check_is_all_nb(token) || check_is_first_digit(token))
+			return (ft_putendl_fd("Minishell: exit: too many arguments", 2), 1);
+		else if (check_is_all_alpha(token) || check_is_first_alpha(token))
+			return (ft_putstr_fd("minishell: exit: numeric argument required: ",
+					2), ft_putendl_fd(token[1]->content, 2),
+				clean_up(cl, CL_ALL), exit(2), 2);
+	}
+	return (0);
 }
 
 int	mini_exit(t_cleanup *cl, t_token **token)
 {
-	int	n;
 	int	status;
 
 	status = 0;
-	n = 0;
-	if (get_token_len(token) > 2)
-		return (ft_putendl_fd("Minishell: exit: too many arguments", 2), 2);
-	else if (token[1] && token[1]->content)
-	{
-		if (check_is_nb(token[1]->content))
-		{
-			n = ft_atoi(token[1]->content);
-			if (n >= 0 && n <= 255)
-				status = n;
-			else
-				status = n % 256;
-		}
-		else
-		{
-			ft_putstr_fd("minishell: exit: numeric argument required: ", 2);
-			ft_putendl_fd(token[1]->content, 2);
-			status = 2;
-		}
-	}
-	return (clean_up(cl, CL_ALL), exit(status), 1);
+	status = check_exit_case(cl, token, status);
+	return (status);
 }
-//have to free CL_CL else cl is "leak" so might have to CL_ALL everytime
