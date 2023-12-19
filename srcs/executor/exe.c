@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exe.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/14 15:33:43 by ael-malt         ###   ########.fr       */
+/*   Updated: 2023/12/18 14:28:56 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 *	then the two tokens refering to a heredoc or a redirection are removed from
 *	the node and whatever is left is executed.
 */
-int	exec_comd(t_astn *tree, t_env *sh_env, t_cleanup *cl)
+int	exec_comd(t_astn *tree, t_cleanup *cl)
 {
 	int	pos;
 	int	status;
@@ -44,7 +44,7 @@ int	exec_comd(t_astn *tree, t_env *sh_env, t_cleanup *cl)
 	!(tree->token[0]->type % 11)))
 		builtin(tree, cl, tree->token[0]->type);
 	else if (tree->token[0] != NULL)
-		execute(tree, sh_env, cl, status);
+		execute(tree, cl, status);
 	return (1);
 }
 
@@ -81,7 +81,7 @@ void	ex_exit(int sig)
 *	Then the stdin is replaced with the read end of the pipe and shell_loop
 *	is reinitialized thus executing whatever is right of the pipe. 
 */
-int	sh_pipe(t_astn *tree, t_env *sh_env, t_cleanup *cl)
+int	sh_pipe(t_astn *tree, t_cleanup *cl)
 {
 	t_pipe	p;
 
@@ -93,19 +93,19 @@ int	sh_pipe(t_astn *tree, t_env *sh_env, t_cleanup *cl)
 	if (!p.pid)
 	{
 		fd_red(&p, RED_PIP);
-		exec_comd(tree->left, sh_env, cl);
+		exec_comd(tree->left, cl);
 		return (clean_up(cl, CL_ALL), exit(EXIT_SUCCESS), 0);
 	}
 	g_signal = 0;
 	dup2(p.pipe[0], STDIN_FILENO);
 	close_pipe(p.pipe);
-	shell_loop(tree->right, sh_env, cl);
+	shell_loop(tree->right, cl);
 	reset_fds(cl);
 	return (wait(&cl->status), 0);
 }
 
 //executes the command node, might not need that last freeing
-int	execute(t_astn *tree, t_env *sh_env, t_cleanup *cl, int status)
+int	execute(t_astn *tree, t_cleanup *cl, int status)
 {
 	pid_t	pid;
 	t_exe	exe;
@@ -118,11 +118,11 @@ int	execute(t_astn *tree, t_env *sh_env, t_cleanup *cl, int status)
 	if (pid)
 		return (wait(&cl->status), 1);
 	signal(SIGQUIT, SIG_DFL);
-	exe._path = cr_pathname(tree->token[0]->content, find_env("PATH", sh_env), \
+	exe._path = cr_pathname(tree->token[0]->content, find_env("PATH", cl->env), \
 	&status, 0);
 	if (!exe._path)
 		return (clean_up(cl, CL_ALL), exit(status), 0);
-	exe._envp = cr_envp(sh_env);
+	exe._envp = cr_envp(cl->env);
 	if (!exe._envp)
 		return (free(exe._path), clean_up(cl, CL_ALL), exit(EXIT_FAILURE), 0);
 	exe.argv = cr_args(tree->token, exe._path);

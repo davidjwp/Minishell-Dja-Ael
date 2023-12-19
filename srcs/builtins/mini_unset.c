@@ -6,7 +6,7 @@
 /*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 12:54:21 by lazanett          #+#    #+#             */
-/*   Updated: 2023/12/10 18:27:32 by ael-malt         ###   ########.fr       */
+/*   Updated: 2023/12/18 15:41:46 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,29 @@ t_env	*get_prev_env(t_env *env)
 	return (env);
 }
 
-static int	unset_cmp_token_to_env(t_env *env, char *content)
+static int	unset_cmp_token_to_env(t_cleanup *cl, char *content)
 {
 	t_env	*prev_env;
 	int		i;
 
 	i = 0;
-	prev_env = get_prev_env(env);
-	if (!ft_strcmp(env->name, content))
+	if (!cl->env)
+		return (0);
+	if (cl->env->next == cl->env)
 	{
-		while (env->cl && env->cl[i])
-			free(env->cl[i++]);
-		free(env->cl);
-		prev_env->next = env->next;
-		free(env);
+		while (cl->env->cl && cl->env->cl[i])
+			free(cl->env->cl[i++]);
+		return (free(cl->env->cl), free(cl->env), cl->env = NULL, 1);
+	}
+	prev_env = get_prev_env(cl->env);
+	if (!ft_strcmp(cl->env->name, content))
+	{
+		while (cl->env->cl && cl->env->cl[i])
+			free(cl->env->cl[i++]);
+		free(cl->env->cl);
+		prev_env->next = cl->env->next;
+		free(cl->env);
+		cl->env = prev_env->next;
 		return (1);
 	}
 	return (0);
@@ -52,10 +61,10 @@ int	mini_unset(t_cleanup *cl, t_token **token)
 	{
 		while (token && token[i] && token[i]->content)
 		{
-			cl->env = first_env;
+			first_env = cl->env;
 			while (cl->env)
 			{
-				if (unset_cmp_token_to_env(cl->env, token[i]->content))
+				if (unset_cmp_token_to_env(cl, token[i]->content))
 					break ;
 				else if (cl->env->next == first_env)
 					break ;

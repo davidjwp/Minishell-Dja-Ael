@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 15:33:26 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/13 18:13:06 by ael-malt         ###   ########.fr       */
+/*   Updated: 2023/12/18 14:30:34 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,14 @@ static char	*_prouser(char *prouser, t_env *env)
 	return (prouser);
 }
 
-char	*cr_prompt(t_cleanup *cl, t_env *sh_env)
+char	*cr_prompt(t_cleanup *cl)
 {
 	char		procd[BUFSIZ];
 	char		prouser[BUFSIZ];
 	char		*prompt;
 
-	_procd(procd, sh_env);
-	_prouser(prouser, sh_env);
+	_procd(procd, cl->env);
+	_prouser(prouser, cl->env);
 	prompt = ft_calloc((ft_strlen(prouser) + ft_strlen(procd) + \
 	(((ft_strlen(BLUE) + ft_strlen(RESET))) * 4)) + 9, sizeof(char));
 	if (prompt == NULL)

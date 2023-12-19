@@ -1,9 +1,0 @@
-1 - dans expander quand il y a un $ tout seul avec : ou ! ou ? se genre de characteres, sa enlevait les $ - fix
-
-2 - dans expander encore, quand tu m'etait un numero comme premiere element dans la variable sa enlevait tout, tu m'avait dit en plus mais j'ai mal compris - fix
-
-3 - dans expander j'arrete l'expand quand je trouve une quote, sais probablement pas important et bash fait un peut pareille aussi, je pense pas que se soit un probleme
-
-4 - la facon d'on je compare le token avec builtins etait mal faite dans le lexer - fix
-
-5 - echo hello | cat et ctrl-c g_signal etait reset a zero, sa cause le probleme qu'on a vue avant - fix 

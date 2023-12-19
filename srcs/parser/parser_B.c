@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/12 20:24:55 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/14 19:15:07 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	n_quolen(char *cont, int *len, int i, int t)
 		if (type(cont, i) && !(type(cont, i) % 5) && !open)
 		{
 			t = type(cont, i++);
-			open = true;	
+			open = true;
 		}
 		if (type(cont, i) == t && open)
 			open = false;

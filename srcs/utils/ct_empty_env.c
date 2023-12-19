@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ct_empty_env.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 16:05:13 by ael-malt          #+#    #+#             */
-/*   Updated: 2023/12/12 16:33:00 by ael-malt         ###   ########.fr       */
+/*   Updated: 2023/12/14 19:08:38 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_env	*cr_empty_env(void)
 	cwd = NULL;
 	tmp = NULL;
 	cwd = getcwd(cwd, 0);
-	if(cwd)
+	if (cwd)
 	{
 		tmp = ft_strdup("PWD=");
 		tmp = ft_strjoin (tmp, cwd);
@@ -37,5 +37,5 @@ t_env	*cr_empty_env(void)
 	sh_env->next = env_node("_=/usr/bin/env");
 	sh_env = sh_env->next;
 	sh_env->next = tmp_env;
-	return(free(cwd), sh_env);
+	return (free(cwd), sh_env);
 }

@@ -3,14 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_errors.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 18:28:26 by ael-malt          #+#    #+#             */
-/*   Updated: 2023/12/10 18:47:22 by ael-malt         ###   ########.fr       */
+/*   Updated: 2023/12/18 17:07:02 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+void	empty_env_export(t_cleanup *cl, t_token **token, int i)
+{
+	if (!cl->env)
+	{
+		cl->env = env_node(token[i]->content);
+		cl->env->next = cl->env;
+	}
+}
 
 int	mini_cd_error_1(int err_type, char *param, int err)
 {
@@ -33,7 +42,7 @@ int	mini_export_error(char *arg)
 	i = ft_strchr_i(arg, '=');
 	if (i == -1)
 		i = ft_strlen(arg);
-	value = malloc(sizeof(char) * (i + 1));
+	value = malloc(sizeof(char) * (i + 2));
 	if (!value)
 		return (1);
 	j = 0;
@@ -45,6 +54,7 @@ int	mini_export_error(char *arg)
 	value[j] = '\0';
 	ft_putstr_fd("minishell: export: `", 2);
 	ft_putstr_fd(value, 2);
+	free(value);
 	ft_putstr_fd("' not an identifier\n", 2);
 	return (1);
 }

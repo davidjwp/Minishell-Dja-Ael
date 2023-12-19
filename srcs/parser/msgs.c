@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/10 20:17:58 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/14 19:14:19 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,6 @@ void	syntax_error(int type, t_cleanup *cl)
 	cl->status = 2;
 }
 
-void	err_msg(char *msg)
-{
-	write (2, "minishell: ", 12);
-	write (2, msg, ft_strlen(msg));
-	write (2, "\n", 1);
-}
-
 void	no_such_file(const char *file, t_cleanup *cl)
 {
 	write(2, "minishell: ", 12);
@@ -59,7 +52,7 @@ void	is_a_dir(char *dir, t_cleanup *cl)
 {
 	write(2, "minishell: ", 12);
 	write(2, dir, ft_strlen(dir));
-	write(2,": Is a directory\n", 18);
+	write(2, ": Is a directory\n", 18);
 	cl->status = 126;
 }
 

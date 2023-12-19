@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exeutils_A.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/14 15:34:40 by ael-malt         ###   ########.fr       */
+/*   Updated: 2023/12/18 17:02:50 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*cr_pathname(const char *cmd, t_env *sh_env, int *status, int i)
 	if (!access(cmd, X_OK))
 		return (path_cmd(cmd));
 	if (!find_env("PATH", sh_env))
-		paths = ft_split(ABS_PATHS, ':');
+		return (not_found((char *)cmd, status), NULL);
 	else
 		paths = ft_split(find_env("PATH", sh_env)->value, ':');
 	if (paths == NULL)

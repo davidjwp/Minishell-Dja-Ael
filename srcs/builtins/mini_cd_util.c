@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_cd_util.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 16:01:49 by ael-malt          #+#    #+#             */
-/*   Updated: 2023/12/10 18:56:38 by ael-malt         ###   ########.fr       */
+/*   Updated: 2023/12/18 14:36:15 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,9 @@ t_env	*srch_env(t_env *env, char *str)
 {
 	t_env	*tmp_env;
 
+	if (!ft_strcmp(str, env->name))
+		return (env);
+	env = env->next;
 	tmp_env = env;
 	while (env->next != tmp_env)
 	{

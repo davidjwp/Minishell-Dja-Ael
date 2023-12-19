@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 11:44:55 by rmohamma          #+#    #+#             */
-/*   Updated: 2023/12/14 15:39:32 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/18 16:23:48 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@
 
 //minishell.c
 void		clean_up(t_cleanup *cl, int flag);
-bool		sh_init(t_env *sh_env, t_cleanup *cl);
-int			shell_loop(t_astn *tree, t_env *sh_env, t_cleanup *cl);
+bool		sh_init(t_cleanup *cl);
+int			shell_loop(t_astn *tree, t_cleanup *cl);
 
 //prompt.c
-char		*cr_prompt(t_cleanup *cl, t_env *sh_env);
+char		*cr_prompt(t_cleanup *cl);
 
 //LEXER++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -101,12 +101,9 @@ bool		qisclose(char *str, bool open);
 t_env		*exp_findenv(char *name, int *err, t_env *sh_env);
 bool		find_var(char *cont, size_t *pos);
 
-
-
 //msgs.c
 void		syntax_error(int type, t_cleanup *cl);
 void		not_found(char *cmd, int *status);
-void		err_msg(char *msg);
 void		no_such_file(const char *file, t_cleanup *cl);
 void		is_a_dir(char *dir, t_cleanup *cl);
 void		perm_denied(char *file, t_cleanup *cl);
@@ -114,10 +111,10 @@ void		perm_denied(char *file, t_cleanup *cl);
 //EXEC+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 //exe.c
-int			exec_comd(t_astn *tree, t_env *sh_env, t_cleanup *cl);
+int			exec_comd(t_astn *tree, t_cleanup *cl);
 int			sh_red(t_token **tok, int pos, t_cleanup *cl);
-int			sh_pipe(t_astn *tree, t_env *sh_env, t_cleanup *cl);
-int			execute(t_astn *tree, t_env *sh_env, t_cleanup *cl, int status);
+int			sh_pipe(t_astn *tree, t_cleanup *cl);
+int			execute(t_astn *tree, t_cleanup *cl, int status);
 void		reset_fds(t_cleanup *cl);
 
 //exe_utils_A
@@ -156,9 +153,7 @@ t_fds		*init_fds(void);
 //UTILS++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 //utils_A.c
-char		*print_type(int type);
-void		print_tree(t_astn *node);
-void		print_sh_env(t_env *sh_env);
+void		err_msg(char *msg);
 char		*strccat(const char *str1, char c, const char *str2);
 
 //utils_B.c
@@ -193,6 +188,7 @@ void		builtin(t_astn *tree, t_cleanup *cl, int type);
 int			is_builtin(t_astn *tree);
 
 		//--------------------BUILTINS_ERRORS.C---------------------//
+void		empty_env_export(t_cleanup *cl, t_token **token, int i);
 int			mini_cd_error_1(int err_type, char *param, int err);
 int			mini_export_error(char *arg);
 void		mini_cd_exec(char *join_cd, int *exit_status);
@@ -209,15 +205,17 @@ int			mini_cd(t_cleanup *cl, t_token **token);
 int			mini_echo(t_astn *tree);
 
 		//--------------------------ENV.C---------------------------//
-void		insert_new_env_entry(t_cleanup *cl, char *content, t_env *tmp_env);
+int			insert_new_env_entry(t_cleanup *cl, char *content, t_env *tmp_env);
 int			get_token_len(t_token **token);
 int			get_env_len(t_env *env);
-int			mini_env(t_env	*env);
+int			mini_env(t_cleanup	*cl);
 
 			//-------------------------EXIT.C--------------------------//
 int			mini_exit(t_cleanup *cl, t_token **token);
 
 		//------------------------EXPORT.C--------------------------//
+int			export_cmp_token_to_env(t_env *env, char *content);
+int			mini_export_verif(char *str);
 int			mini_export_error(char *cmd);
 int			mini_export(t_cleanup *cl, t_token **token);
 

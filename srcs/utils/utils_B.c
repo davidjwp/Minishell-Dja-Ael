@@ -6,12 +6,11 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/12 15:47:25 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/14 19:09:53 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
 
 void	input_enter(void)
 {
@@ -33,7 +32,6 @@ int	get_fd(int stdio, t_fds *fds)
 	}
 	return (tmp->fd);
 }
-
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {
@@ -90,4 +88,3 @@ size_t	ft_strlcat(char *dst, const char *src, size_t size)
 	dst[dst_lenght + index] = '\0';
 	return (dst_lenght + src_lenght);
 }
-

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 10:37:38 by rmohamma          #+#    #+#             */
-/*   Updated: 2023/12/14 15:32:26 by ael-malt         ###   ########.fr       */
+/*   Updated: 2023/12/18 16:51:55 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,12 @@ void	clean_up(t_cleanup *cl, int flag)
 * the tree is created and parsed here and the status set to 0 on the first pass
 * the data structure contains the input, envs, tree, status and fds 
 */
-bool	sh_init(t_env *sh_env, t_cleanup *cl)
+bool	sh_init(t_cleanup *cl)
 {
 	static int	passes;
 
 	signals();
 	cl->fds = init_fds();
-	cl->env = sh_env;
 	if (!passes)
 		cl->status = 0;
 	cl->tree = parser(cl->input, cl);
@@ -73,24 +72,23 @@ bool	sh_init(t_env *sh_env, t_cleanup *cl)
 */
 int	main(int ac, char **av, char **env)
 {
-	t_env		*sh_env;
 	t_cleanup	*cl;
 
-	sh_env = cr_env(env);
-	if (sh_env == NULL)
-		return (0);
 	cl = malloc(sizeof(t_cleanup));
 	if (cl == NULL)
 		return (err_msg("cl malloc fail"), 0);
+	cl->env = cr_env(env);
+	if (cl->env == NULL)
+		return (free(cl), 0);
 	signals();
 	while (42)
 	{
 		g_signal = 130;
-		cl->input = readline(cr_prompt(cl, sh_env));
+		cl->input = readline(cr_prompt(cl));
 		if (cl->input == NULL || cl->prompt == NULL)
-			return (clean_up(cl, CL_CL | CL_PRO), free_env(sh_env), 1);
-		if (sh_init(sh_env, cl))
-			shell_loop(cl->tree, sh_env, cl);
+			return (clean_up(cl, CL_CL | CL_PRO | CL_ENV), 1);
+		if (sh_init(cl))
+			shell_loop(cl->tree, cl);
 	}
 	return ((void)ac, (void)av, 1);
 }
@@ -99,14 +97,14 @@ int	main(int ac, char **av, char **env)
 * the main shell loop which redirects or pipes the output in order of the tree
 * being recursively called
 */
-int	shell_loop(t_astn *tree, t_env *sh_env, t_cleanup *cl)
+int	shell_loop(t_astn *tree, t_cleanup *cl)
 {
 	if (tree == NULL)
 		return (0);
 	if (tree->type == PIPE)
-		sh_pipe(tree, sh_env, cl);
+		sh_pipe(tree, cl);
 	else
-		exec_comd(tree, sh_env, cl);
+		exec_comd(tree, cl);
 	if (tree == cl->tree)
 		return (reset_fds(cl), clean_up(cl, CL_FDS | CL_TRE | \
 		CL_INP | CL_PRO), 1);

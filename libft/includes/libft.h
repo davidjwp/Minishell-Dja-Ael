@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 13:07:23 by ael-malt          #+#    #+#             */
-/*   Updated: 2023/12/07 19:35:31 by ael-malt         ###   ########.fr       */
+/*   Updated: 2023/12/14 19:08:06 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ char	*ft_strrchr(const char *s, int c);
 int		ft_tolower(int c);
 int		ft_toupper(int c);
 int		ft_strcmp(char *s1, char *s2);
-
 
 // Mandatory Part 2
 char	*ft_itoa(int n);

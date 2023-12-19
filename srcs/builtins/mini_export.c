@@ -6,13 +6,13 @@
 /*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 00:28:31 by ael-malt          #+#    #+#             */
-/*   Updated: 2023/12/10 18:38:38 by ael-malt         ###   ########.fr       */
+/*   Updated: 2023/12/18 16:22:08 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	export_cmp_token_to_env(t_env *env, char *content)
+int	export_cmp_token_to_env(t_env *env, char *content)
 {
 	int	pos;
 
@@ -30,7 +30,7 @@ static int	export_cmp_token_to_env(t_env *env, char *content)
 	return (0);
 }
 
-static int	mini_export_verif(char *str)
+int	mini_export_verif(char *str)
 {
 	int	i;
 
@@ -52,6 +52,7 @@ static int	mini_export_verif(char *str)
 // // 000095399/basedefs/xbd_chap06.html#tagtcjh_3
 // // https://stackoverflow.com/questions/2821043/
 // // allowed-characters-in-linux-environment-variable-names
+
 static int	do_the_export(t_cleanup *cl, t_token **token, int i)
 {
 	t_env	*first_env;
@@ -66,13 +67,12 @@ static int	do_the_export(t_cleanup *cl, t_token **token, int i)
 			{
 				if (export_cmp_token_to_env(cl->env, token[i]->content))
 					break ;
-				if (cl->env->next == first_env)
-				{
-					insert_new_env_entry(cl, token[i]->content, first_env);
+				if (cl->env->next == first_env && \
+					insert_new_env_entry(cl, token[i]->content, first_env))
 					break ;
-				}
 				cl->env = cl->env->next;
 			}
+			empty_env_export(cl, token, i);
 		}
 		else if (mini_export_verif(token[i]->content) == 0)
 			return (mini_export_error(token[i]->content));
@@ -85,7 +85,9 @@ static int	export_no_arg(t_env *env)
 {
 	int	len;
 
-	len = get_env_len(env);
+	if (!env)
+		return (0);
+	len = get_env_len(env) + 1;
 	while (len--)
 	{
 		printf("export %s=%s\n", env->name, env->value);

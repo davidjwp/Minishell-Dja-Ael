@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+         #
+#    By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2023/12/12 16:39:40 by ael-malt         ###   ########.fr        #
+#    Updated: 2023/12/14 19:13:40 by djacobs          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ SRCS			= srcs/main/minishell.c \
 			srcs/utils/cr_env.c \
 			srcs/utils/ct_empty_env.c \
 			srcs/parser/expander.c \
+			srcs/parser/expander_B.c \
 			srcs/parser/msgs.c \
 			srcs/parser/parser_A.c \
 			srcs/parser/parser_B.c \

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 14:24:48 by ael-malt          #+#    #+#             */
-/*   Updated: 2023/12/14 15:14:03 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/18 15:08:44 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	parent_builtin(t_astn *tree, t_cleanup *cl, int type)
 	else if (type == ECHO)
 		cl->status = mini_echo(tree);
 	else if (type == ENV)
-		cl->status = mini_env(cl->env);
+		cl->status = mini_env(cl);
 	else if (type == EXIT)
 		cl->status = mini_exit(cl, tree->token);
 	else if (type == EXPORT)
@@ -37,7 +37,7 @@ void	child_builtin(t_astn *tree, t_cleanup *cl, int type)
 	else if (type == ECHO)
 		cl->status = mini_echo(tree);
 	else if (type == ENV)
-		cl->status = mini_env(cl->env);
+		cl->status = mini_env(cl);
 	else if (type == EXIT)
 		cl->status = mini_exit(cl, tree->token);
 	else if (type == EXPORT)
