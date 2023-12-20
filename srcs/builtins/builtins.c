@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 14:24:48 by ael-malt          #+#    #+#             */
-/*   Updated: 2023/12/18 15:08:44 by ael-malt         ###   ########.fr       */
+/*   Updated: 2023/12/20 18:50:54 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,10 @@ void	builtin(t_astn *tree, t_cleanup *cl, int type)
 			child_builtin(tree, cl, type);
 		}
 		else
+		{
 			wait(&cl->status);
+			cl->status = WEXITSTATUS(cl->status);
+		}
 	}
 	else
 		parent_builtin(tree, cl, tree->token[0]->type);
