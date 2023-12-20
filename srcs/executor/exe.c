@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exe.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/20 19:56:39 by ael-malt         ###   ########.fr       */
+/*   Updated: 2023/12/20 21:06:32 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,6 @@ int	execute(t_astn *tree, t_cleanup *cl, int status)
 		return (free_split(exe._envp), free(exe._path), clean_up(cl, CL_ALL), \
 		exit(EXIT_FAILURE), 0);
 	return (clean_up(cl, CL_FDS), execve(exe._path, exe.argv, exe._envp), \
-	clean_up(cl, CL_ALL ^ CL_FDS), free(exe._path), free_split(exe.argv), \
+	clean_up(cl, CL_ALL ^ CL_FDS), free_split(exe.argv), \
 	free_split(exe._envp), exit(EXIT_FAILURE), 0);
 }
