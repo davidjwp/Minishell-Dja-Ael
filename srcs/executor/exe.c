@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exe.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/20 19:08:25 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/20 19:56:39 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,6 @@
 *	exe contains the following functions :
 *	exec_comd(), sh_red(), sh_pipe(), execute()
 */
-
-void	ex_status(t_astn *tree, t_cleanup *cl)
-{
-	if (g_signal == 130 && !(tree->token[0]->type && \
-	!(tree->token[0]->type % 11)))
-		cl->status = g_signal;
-	else
-		g_signal = cl->status;
-}
 
 void	pip_status(t_cleanup *cl)
 {
@@ -112,7 +103,6 @@ int	sh_pipe(t_astn *tree, t_cleanup *cl)
 		wait(&cl->status);
 	return (pip_status(cl), 0);
 }
-
 
 //executes the command node, might not need that last freeing
 int	execute(t_astn *tree, t_cleanup *cl, int status)

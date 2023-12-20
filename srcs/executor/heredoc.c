@@ -3,23 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:03:33 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/20 19:39:23 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/20 20:01:18 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-t_token	*get_herd(t_token **tokens, int *pos)
-{
-	while (tokens[*pos] != NULL && tokens[*pos]->type != HERD)
-		*pos += 1;
-	if (tokens[*pos] == NULL)
-		return (NULL);
-	return (tokens[*pos + 1]);
-}
 
 char	*str_realloc(char *ptr, int nmember, int size)
 {
@@ -81,49 +72,6 @@ bool	cmp_del(char *del, char *new)
 	return (true);
 }
 
-
-//void	print_g(void)
-//{
-//	char	*s;
-
-//	s = ft_itoa(g_signal);
-//	write (2, s, ft_strlen(s));
-//	free (s);
-//}
-
-//static void    heredoc_signal(char *line,int i)
-//{
-//    ft_putendl_fd("", 1);
-//    if (i == 2)
-//        ft_putendl_fd("minishell: warning:\
-// here-document delimited by end-of-file", 2);
-//    }
-//    if (line != NULL)
-//        free(line);
-//}
-
-//void	herd_int(int sig)
-//{
-//	if (sig == SIGINT)
-//	{
-//		ft_putendl_fd("", 1);
-//		g_signal = 130;
-//	}
-//}
-
-void	herd_quit(int sig)
-{
-	if (sig == SIGQUIT)
-		ft_putendl_fd("minishell: warning:\
-here-document delimited by end-of-file", 2);
-}
-
-//void	sig_herd(void)
-//{
-//	signal(SIGINT, herd_int);
-//	signal(SIGQUIT, herd_quit);
-//}
-
 int	here_doc(char *delimiter, int out, int *err, t_cleanup *cl)
 {
 	char	*line;
@@ -138,7 +86,7 @@ int	here_doc(char *delimiter, int out, int *err, t_cleanup *cl)
 		else
 			ft_putendl_fd("minishell: warning:\
 here-document delimited by end-of-file", 2);
-		if (new == NULL || cmp_del(delimiter, new))	
+		if (new == NULL || cmp_del(delimiter, new))
 			break ;
 		if (*err)
 			return (err_msg("heredoc expand error"), 0);
@@ -152,43 +100,6 @@ here-document delimited by end-of-file", 2);
 	write (out, line, ft_strlen(line));
 	return (free(line), free(new), 0);
 }
-
-
-//int	here_doc(char *delimiter, int out, int *err, t_cleanup *cl)
-//{
-//	char	*line;
-//	char	*new;
-//	pid_t	pid;
-
-//	line = NULL;
-//	pid = fork();
-//	if (pid == -1)
-//		return (err_msg("herd fork error"), 0);
-//	if (!pid)
-//	{
-//		sig_herd();
-//		while ("heredoc")
-//		{
-//			new = readline("> ");
-//			new = expand_cont(new, err, cl);
-//			printf("%d\n", g_signal);
-//			write (2,new,ft_strlen(new));
-//			if (g_signal == 130 || new == NULL || cmp_del(delimiter, new))	
-//				break ;
-//			if (*err)
-//				return (err_msg("heredoc expand error"), 0);
-//			line = str_realloc(line, ft_strlen(line) + ft_strlen(new) + 2, \
-//			sizeof(char));
-//			ft_strcat(line, new);
-//			line[ft_strlen(line)] = '\n';
-//			free(new);
-//		}
-//		write (out, line, ft_strlen(line));
-//	}
-//	else
-//		wait(&cl->status);
-//	return (0);
-//}
 
 /*
 *	if there is another stdo red then i shouldn't restore stdo, or keep the file

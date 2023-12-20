@@ -6,7 +6,7 @@
 #    By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2023/12/19 18:43:09 by ael-malt         ###   ########.fr        #
+#    Updated: 2023/12/20 20:00:25 by ael-malt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ SRCS			= srcs/main/minishell.c \
 			srcs/executor/exeutils_C.c \
 			srcs/executor/fds.c \
 			srcs/executor/heredoc.c \
+			srcs/executor/heredoc_utils.c \
 			srcs/utils/cr_env.c \
 			srcs/utils/ct_empty_env.c \
 			srcs/parser/expander.c \

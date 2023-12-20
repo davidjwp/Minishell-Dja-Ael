@@ -6,7 +6,7 @@
 /*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/14 15:34:57 by ael-malt         ###   ########.fr       */
+/*   Updated: 2023/12/20 19:57:20 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,16 @@
 *	type(), _pipe(), _red(), check_spec()
 */
 //get the amount of environment variable using the shell env
+
+void	ex_status(t_astn *tree, t_cleanup *cl)
+{
+	if (g_signal == 130 && !(tree->token[0]->type && \
+	!(tree->token[0]->type % 11)))
+		cl->status = g_signal;
+	else
+		g_signal = cl->status;
+}
+
 int	sh_envlen(t_env *sh_env)
 {
 	t_env	*tmp;

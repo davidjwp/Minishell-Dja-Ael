@@ -6,7 +6,7 @@
 /*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 11:44:55 by rmohamma          #+#    #+#             */
-/*   Updated: 2023/12/19 18:52:12 by ael-malt         ###   ########.fr       */
+/*   Updated: 2023/12/20 19:57:20 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ char		*envcat(const char *name, const char *value);
 int			rem_tokens(t_astn *node, int pos);
 
 //exe_utils_B
+void		ex_status(t_astn *tree, t_cleanup *cl);
 int			sh_envlen(t_env *sh_env);
 void		close_pipe(int *pipe);
 void		close_fds(t_fds *fds);

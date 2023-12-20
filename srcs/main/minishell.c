@@ -6,7 +6,7 @@
 /*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 10:37:38 by rmohamma          #+#    #+#             */
-/*   Updated: 2023/12/20 19:54:48 by ael-malt         ###   ########.fr       */
+/*   Updated: 2023/12/20 19:55:24 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ bool	sh_init(t_cleanup *cl)
 {
 	static int	passes;
 
-	//signals();
 	cl->fds = init_fds();
 	if (!passes && g_signal != 130)
 		cl->status = 0;
