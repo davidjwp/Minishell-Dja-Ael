@@ -6,7 +6,7 @@
 /*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 00:03:47 by ael-malt          #+#    #+#             */
-/*   Updated: 2023/12/20 19:06:40 by ael-malt         ###   ########.fr       */
+/*   Updated: 2023/12/20 20:56:12 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,46 +61,67 @@ static char	*check_case(char *jcd, t_cleanup *cl)
 	return (jcd);
 }
 
-static char	*join_split_command(t_token **token, t_cleanup *cl)
+char	*join_token_u(t_token **token, t_cleanup *cl, char *join_str, char *tmp)
 {
-	char	*join_str;
 	int		i;
 
-	if (token[1] && token[1]->content)
-		join_str = ft_strdup(token[1]->content);
-	if (token[2] && token[2]->content)
-		join_str = ft_strjoin(join_str, " ");
 	i = 2;
 	while (token && token[i] && token[i]->content)
 	{
-		join_str = ft_strjoin(join_str, token[i]->content);
+		tmp = ft_strjoin(join_str, token[i]->content);
+		free(join_str);
 		if (token[i + 1] && token[i + 1]->content)
-			join_str = ft_strjoin(join_str, " ");
+		{
+			join_str = ft_strjoin(tmp, " ");
+			free(tmp);
+		}
+		else
+			join_str = tmp;
 		i++;
 	}
 	join_str = check_case(join_str, cl);
 	return (join_str);
 }
 
-int	mini_cd(t_cleanup *cl, t_token **token)
+static char	*join_token(t_token **token, t_cleanup *cl)
+{
+	char	*join_str;
+	char	*tmp;
+
+	join_str = NULL;
+	if (token[1] && token[1]->content)
+		tmp = ft_strdup(token[1]->content);
+	if (token[2] && token[2]->content)
+	{
+		join_str = ft_strjoin(tmp, " ");
+		if (tmp)
+			free(tmp);
+		join_str = join_token_u(token, cl, join_str, tmp);
+	}
+	else
+		join_str = tmp;
+	return (join_str);
+}
+
+int	mini_cd(t_cleanup *c, t_token **t)
 {
 	int		exit_status;
-	char	*cwd;
+	char	*cw;
 	char	*join_cd;
 
 	join_cd = NULL;
 	exit_status = 0;
-	cwd = NULL;
-	cwd = getcwd(cwd, 0);
-	if (!token[1] && !srch_env(cl->env, "HOME"))
-		return (free(cwd), ft_putendl_fd("minishell: cd: HOME not set", 2), 1);
-	else if (get_token_len(token) == 1 && srch_env(cl->env, "HOME"))
-		chdir(srch_env(cl->env, "HOME")->value);
-	else if (get_token_len(token) > 1)
+	cw = NULL;
+	cw = getcwd(cw, 0);
+	if (!t[1] && !srch_env(c->env, "HOME"))
+		return (free(cw), ft_putendl_fd("minishell: cd: HOME not set", 2), 1);
+	else if (get_token_len(t) == 1 && srch_env(c->env, "HOME"))
+		chdir(srch_env(c->env, "HOME")->value);
+	else if (get_token_len(t) > 1)
 	{
-		if (cwd)
+		if (cw || (ft_strcmp(t[1]->content, "-") && find_env("OLDPWD", c->env)))
 		{
-			join_cd = join_split_command(token, cl);
+			join_cd = join_token(t, c);
 			if (ft_strcmp(join_cd, "-"))
 				mini_cd_exec(join_cd, &exit_status);
 		}
@@ -108,5 +129,5 @@ int	mini_cd(t_cleanup *cl, t_token **token)
 			ft_putendl_fd("chdir: error retrieving current directory: \
 getcwd: cannot access parent directories: No such file or directory", 2);
 	}
-	return (mini_export_pwd(cwd, cl), free(join_cd), exit_status);
+	return (mini_export_pwd(cw, c), free(join_cd), exit_status);
 }
