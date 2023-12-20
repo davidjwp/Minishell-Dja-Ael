@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/14 19:15:07 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/20 13:57:54 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	*rem_quotes(char *cont, int *tp, int *err, t_p p)
 		{
 			t = type(cont, p.i++);
 			p.o = 1;
-		}	
+		}
 		if (type(cont, p.i) == t && p.o)
 			p.o = 0;
 		if (!t || type(cont, p.i) != t)

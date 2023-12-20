@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 17:10:39 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/14 15:34:45 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/20 12:22:01 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,8 @@ char	*expand_cont(char *content, int *error, t_cleanup *cl)
 	t_env	*var;
 
 	pos = 0;
+	if (content == NULL)
+		return (NULL);
 	while (find_var(content, &pos))
 	{
 		if (type(content, pos) == VARE)

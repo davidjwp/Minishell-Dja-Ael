@@ -6,7 +6,7 @@
 /*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 10:37:38 by rmohamma          #+#    #+#             */
-/*   Updated: 2023/12/19 18:59:35 by ael-malt         ###   ########.fr       */
+/*   Updated: 2023/12/20 19:54:48 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ bool	sh_init(t_cleanup *cl)
 {
 	static int	passes;
 
-	signals();
+	//signals();
 	cl->fds = init_fds();
-	if (!passes)
+	if (!passes && g_signal != 130)
 		cl->status = 0;
 	cl->tree = parser(cl->input, cl);
 	passes += 1;
@@ -83,8 +83,10 @@ int	main(int ac, char **av, char **env)
 	signals();
 	while (42)
 	{
-		g_signal = 130;
+		g_signal = 1;
 		cl->input = readline(cr_prompt(cl));
+		if (g_signal == 130)
+			cl->status = g_signal;
 		if (cl->input == NULL || cl->prompt == NULL)
 			return (clean_up(cl, CL_CL | CL_PRO | CL_ENV), 0);
 		if (sh_init(cl))

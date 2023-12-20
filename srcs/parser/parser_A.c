@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/14 19:14:33 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/20 12:36:41 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ bool	herd_rules(t_token *tok, int *err, t_cleanup *cl)
 {
 	if (tok == NULL)
 		return (*err += 1, syntax_error(0, cl), false);
-	if (tok->type)
+	if (tok->type && tok->type != 9 && tok->type != SQUO && tok->type != DQUO)
 		return (*err += 1, syntax_error(tok->type, cl), false);
 	return (true);
 }

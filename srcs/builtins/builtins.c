@@ -6,7 +6,7 @@
 /*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 14:24:48 by ael-malt          #+#    #+#             */
-/*   Updated: 2023/12/20 18:04:28 by ael-malt         ###   ########.fr       */
+/*   Updated: 2023/12/20 19:53:50 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,10 @@ void	builtin(t_astn *tree, t_cleanup *cl, int type)
 			child_builtin(tree, cl, type);
 		}
 		else
+		{
 			wait(&cl->status);
+			cl->status = WEXITSTATUS(cl->status);
+		}
 	}
 	else
 		parent_builtin(tree, cl, tree->token[0]->type);

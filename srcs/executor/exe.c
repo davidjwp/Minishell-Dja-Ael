@@ -6,7 +6,7 @@
 /*   By: djacobs <djacobs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:27:48 by djacobs           #+#    #+#             */
-/*   Updated: 2023/12/18 14:28:56 by djacobs          ###   ########.fr       */
+/*   Updated: 2023/12/20 19:08:25 by djacobs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,24 @@
 *	exe contains the following functions :
 *	exec_comd(), sh_red(), sh_pipe(), execute()
 */
+
+void	ex_status(t_astn *tree, t_cleanup *cl)
+{
+	if (g_signal == 130 && !(tree->token[0]->type && \
+	!(tree->token[0]->type % 11)))
+		cl->status = g_signal;
+	else
+		g_signal = cl->status;
+}
+
+void	pip_status(t_cleanup *cl)
+{
+	if (g_signal == 130)
+		cl->status = g_signal;
+	else
+		g_signal = 0;
+}
+
 /*
 *	this function will look through the tokens for a redirection or a heredoc 
 *	as long as one is found it'll loop through it, then the first symbol found
@@ -26,9 +44,7 @@
 int	exec_comd(t_astn *tree, t_cleanup *cl)
 {
 	int	pos;
-	int	status;
 
-	status = 0;
 	while (red_herd(tree->token))
 	{
 		pos = 0;
@@ -44,8 +60,8 @@ int	exec_comd(t_astn *tree, t_cleanup *cl)
 	!(tree->token[0]->type % 11)))
 		builtin(tree, cl, tree->token[0]->type);
 	else if (tree->token[0] != NULL)
-		execute(tree, cl, status);
-	return (1);
+		execute(tree, cl, (int){0});
+	return (ex_status(tree, cl), 1);
 }
 
 int	sh_red(t_token **tok, int pos, t_cleanup *cl)
@@ -63,15 +79,6 @@ int	sh_red(t_token **tok, int pos, t_cleanup *cl)
 	if (tok[pos]->type == REDL)
 		return (res_fd(STDIN_FILENO, STDI, cl), fd_red(&fd, RED_IN), 1);
 	return (res_fd(STDOUT_FILENO, STDO, cl), fd_red(&fd, RED_RED), 1);
-}
-
-void	ex_exit(int sig)
-{
-	if (sig == SIGINT)
-	{
-		write (2, "in sig handler\n", 16);
-		exit(EXIT_FAILURE);
-	}
 }
 
 /*
@@ -96,13 +103,16 @@ int	sh_pipe(t_astn *tree, t_cleanup *cl)
 		exec_comd(tree->left, cl);
 		return (clean_up(cl, CL_ALL), exit(EXIT_SUCCESS), 0);
 	}
-	g_signal = 0;
 	dup2(p.pipe[0], STDIN_FILENO);
 	close_pipe(p.pipe);
 	shell_loop(tree->right, cl);
 	reset_fds(cl);
-	return (wait(&cl->status), 0);
+	if (!(tree->right->type == COMD && (tree->right->token[0]->type \
+	&& !(tree->right->token[0]->type % 11))))
+		wait(&cl->status);
+	return (pip_status(cl), 0);
 }
+
 
 //executes the command node, might not need that last freeing
 int	execute(t_astn *tree, t_cleanup *cl, int status)
@@ -110,8 +120,7 @@ int	execute(t_astn *tree, t_cleanup *cl, int status)
 	pid_t	pid;
 	t_exe	exe;
 
-	if (tree->parent == NULL || (tree->parent && tree->parent->type != PIPE))
-		g_signal = 0;
+	g_signal = 0;
 	pid = fork();
 	if (pid == -1)
 		return (err_msg("execute fork fail"), 0);
@@ -130,5 +139,6 @@ int	execute(t_astn *tree, t_cleanup *cl, int status)
 		return (free_split(exe._envp), free(exe._path), clean_up(cl, CL_ALL), \
 		exit(EXIT_FAILURE), 0);
 	return (clean_up(cl, CL_FDS), execve(exe._path, exe.argv, exe._envp), \
-		exit(EXIT_FAILURE), 0);
+	clean_up(cl, CL_ALL ^ CL_FDS), free(exe._path), free_split(exe.argv), \
+	free_split(exe._envp), exit(EXIT_FAILURE), 0);
 }
