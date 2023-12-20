@@ -6,7 +6,7 @@
 /*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 00:03:47 by ael-malt          #+#    #+#             */
-/*   Updated: 2023/12/19 19:20:52 by ael-malt         ###   ########.fr       */
+/*   Updated: 2023/12/20 18:12:28 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,13 @@ static void	mini_export_pwd(char *cwd, t_cleanup *cl)
 	char	*new_cwd;
 
 	new_cwd = NULL;
+	new_cwd = getcwd(new_cwd, 0);
+	if(!new_cwd)
+		return (free(cwd));
 	token = malloc_token();
 	if (!token)
 		return ;
 	token[0]->content = ft_strdup("export");
-	new_cwd = getcwd(new_cwd, 0);
 	if (cwd && new_cwd)
 	{
 		token[1]->content = ft_strjoin("OLDPWD=", cwd);
@@ -34,7 +36,7 @@ static void	mini_export_pwd(char *cwd, t_cleanup *cl)
 		token[2]->content = NULL;
 	}
 	token[3]->content = NULL;
-	if (token[1]->content)
+	if (token[1] && token[1]->content)
 		mini_export(cl, token);
 	free_token(token);
 	free(cwd);

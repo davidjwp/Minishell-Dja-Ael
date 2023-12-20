@@ -6,7 +6,7 @@
 /*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 00:28:31 by ael-malt          #+#    #+#             */
-/*   Updated: 2023/12/19 19:10:42 by ael-malt         ###   ########.fr       */
+/*   Updated: 2023/12/20 18:14:56 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ int	export_cmp_token_to_env(t_env *env, char *content)
 		if (content[pos + 1])
 			env->value = ft_strdup(&content[pos + 1]);
 		env->cl[1] = env->value;
-		return (free(content_split), 1);
+		return (free_split(content_split), 1);
 	}
-	return (free(content_split), 0);
+	return (free_split(content_split), 0);
 }
 
 int	mini_export_verif(char *str)

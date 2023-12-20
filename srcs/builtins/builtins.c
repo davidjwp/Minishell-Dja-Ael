@@ -6,7 +6,7 @@
 /*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 14:24:48 by ael-malt          #+#    #+#             */
-/*   Updated: 2023/12/18 15:08:44 by ael-malt         ###   ########.fr       */
+/*   Updated: 2023/12/20 18:04:28 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,9 @@ static void	parent_builtin(t_astn *tree, t_cleanup *cl, int type)
 
 void	child_builtin(t_astn *tree, t_cleanup *cl, int type)
 {
+	int	status;
+
+	status = 0;
 	if (type == CD)
 		cl->status = mini_cd(cl, tree->token);
 	else if (type == ECHO)
@@ -46,11 +49,9 @@ void	child_builtin(t_astn *tree, t_cleanup *cl, int type)
 		cl->status = mini_pwd();
 	else if (type == UNSET)
 		cl->status = mini_unset(cl, tree->token);
-	if (type != EXIT)
-	{
-		clean_up(cl, CL_ALL);
-		exit(EXIT_SUCCESS);
-	}
+	status = cl->status;
+	clean_up(cl, CL_ALL);
+	exit(status);
 }
 
 void	builtin(t_astn *tree, t_cleanup *cl, int type)
