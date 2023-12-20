@@ -6,7 +6,7 @@
 /*   By: ael-malt <ael-malt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 00:03:47 by ael-malt          #+#    #+#             */
-/*   Updated: 2023/12/20 18:12:28 by ael-malt         ###   ########.fr       */
+/*   Updated: 2023/12/20 19:06:40 by ael-malt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	mini_export_pwd(char *cwd, t_cleanup *cl)
 
 	new_cwd = NULL;
 	new_cwd = getcwd(new_cwd, 0);
-	if(!new_cwd)
+	if (!new_cwd)
 		return (free(cwd));
 	token = malloc_token();
 	if (!token)
@@ -38,9 +38,7 @@ static void	mini_export_pwd(char *cwd, t_cleanup *cl)
 	token[3]->content = NULL;
 	if (token[1] && token[1]->content)
 		mini_export(cl, token);
-	free_token(token);
-	free(cwd);
-	free(new_cwd);
+	return (free_token(token), free(cwd), free(new_cwd));
 }
 
 static char	*check_case(char *jcd, t_cleanup *cl)
@@ -95,7 +93,7 @@ int	mini_cd(t_cleanup *cl, t_token **token)
 	cwd = NULL;
 	cwd = getcwd(cwd, 0);
 	if (!token[1] && !srch_env(cl->env, "HOME"))
-		return(free(cwd), ft_putendl_fd("minishell: cd: HOME not set", 2), 1);
+		return (free(cwd), ft_putendl_fd("minishell: cd: HOME not set", 2), 1);
 	else if (get_token_len(token) == 1 && srch_env(cl->env, "HOME"))
 		chdir(srch_env(cl->env, "HOME")->value);
 	else if (get_token_len(token) > 1)
